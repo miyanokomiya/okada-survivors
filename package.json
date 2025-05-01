@@ -6,10 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext ts,tsx ./src",
+    "lint:fix": "yarn lint --fix && yarn format-json -w && yarn format-style -w",
+    "format": "prettier -c src/**/*.ts src/**/*.ts src/**/*.css ./*.js ./*.json ./*.html",
+    "format-style": "yarn format -w"
   },
   "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "eslint": "^9.25.1",
+    "prettier": "^3.5.3",
     "typescript": "~5.7.2",
+    "typescript-eslint": "^8.31.1",
     "vite": "^6.3.1"
   }
 }
