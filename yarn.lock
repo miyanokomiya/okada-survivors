@@ -376,6 +376,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/colord@npm:^2.9.6":
+  version: 2.9.6
+  resolution: "@pixi/colord@npm:2.9.6"
+  checksum: 513636a67140b8bb3292eb4a7a3a5303a394525410fe972ebfe1e5db3749f27f7c0f176e4c84fcb9ab0fa22ee1d8ce2a15b3e32db7021e65ac0561941d2933a3
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -523,6 +530,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/css-font-loading-module@npm:^0.0.12":
+  version: 0.0.12
+  resolution: "@types/css-font-loading-module@npm:0.0.12"
+  checksum: b969a8f14f1b6c1f677d4cd7072683766dff3c9cbcb18edd6072f3b10b7c83ed50a5ee3cd050ad6a95bfd1df1ab677339e33a6e34bafc20193014cb6566cc8f3
+  languageName: node
+  linkType: hard
+
+"@types/earcut@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "@types/earcut@npm:2.1.4"
+  checksum: ab76940f1cc66ac861932f254b8c0344ebdcfed69e356606416d562e17cd112221b08340d52232f73ff1ad08d4dcf9caa5352c73258df4b8a41c9110ba370262
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:1.0.7, @types/estree@npm:^1.0.6":
   version: 1.0.7
   resolution: "@types/estree@npm:1.0.7"
@@ -646,6 +667,20 @@ __metadata:
     "@typescript-eslint/types": "npm:8.31.1"
     eslint-visitor-keys: "npm:^4.2.0"
   checksum: 09dbd8e1fdff72802a10bae2c12fa6d25f7e2dab1ff9b720afc2eb4e848b723c179109032aeaeb409d0c9e4107ab4fab8c8b1b47a55d58713d3f29a1365db3ea
+  languageName: node
+  linkType: hard
+
+"@webgpu/types@npm:^0.1.40":
+  version: 0.1.60
+  resolution: "@webgpu/types@npm:0.1.60"
+  checksum: 6dcd28680637b41258287b241e6807160c78464cd67b008c1aaafdbe78e0f1eb1bdc4cace8c8628d2d088a449643e7af71804d33261865f00967557989b0e29b
+  languageName: node
+  linkType: hard
+
+"@xmldom/xmldom@npm:^0.8.10":
+  version: 0.8.10
+  resolution: "@xmldom/xmldom@npm:0.8.10"
+  checksum: c7647c442502720182b0d65b17d45d2d95317c1c8c497626fe524bda79b4fb768a9aa4fae2da919f308e7abcff7d67c058b102a9d641097e9a57f0b80187851f
   languageName: node
   linkType: hard
 
@@ -859,6 +894,13 @@ __metadata:
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: 7f0ee496e0dff14a573dc6127f14c95061b448b87b995fc96c017ce0a1e66af1675e73f1d6064407975bc4ea6ab679497a29fff7b5b9c4e99cb10797c1ad0b4c
+  languageName: node
+  linkType: hard
+
+"earcut@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "earcut@npm:2.2.4"
+  checksum: 01ca51830edd2787819f904ae580087d37351f6048b4565e7add4b3da8a86b7bc19262ab2aa7fdc64129ab03af2d9cec8cccee4d230c82275f97ef285c79aafb
   languageName: node
   linkType: hard
 
@@ -1116,6 +1158,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter3@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "eventemitter3@npm:5.0.1"
+  checksum: 4ba5c00c506e6c786b4d6262cfbce90ddc14c10d4667e5c83ae993c9de88aa856033994dd2b35b83e8dc1170e224e66a319fa80adc4c32adcd2379bbc75da814
+  languageName: node
+  linkType: hard
+
 "exponential-backoff@npm:^3.1.1":
   version: 3.1.2
   resolution: "exponential-backoff@npm:3.1.2"
@@ -1258,6 +1307,15 @@ __metadata:
   dependencies:
     node-gyp: "npm:latest"
   conditions: os=darwin
+  languageName: node
+  linkType: hard
+
+"gifuct-js@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "gifuct-js@npm:2.1.2"
+  dependencies:
+    js-binary-schema-parser: "npm:^2.0.3"
+  checksum: 39521aabcb87b50c3e44b98c564bf229f33f9667809b643c719674a7bcc6b42eb9faa521be6575707ea5964ecf1613991b09295a7a389aa502b109d1ca303fcf
   languageName: node
   linkType: hard
 
@@ -1437,6 +1495,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ismobilejs@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "ismobilejs@npm:1.1.1"
+  checksum: 3f15f3bd8fe2290bc2f7398c95ceee7525db7d8cf76b8def201c19c49b3a37be33d9ecedc4e316aadcc67a70859ae491981e07cf998db1ec3e5ad0df905bc16a
+  languageName: node
+  linkType: hard
+
 "jackspeak@npm:^3.1.2":
   version: 3.4.3
   resolution: "jackspeak@npm:3.4.3"
@@ -1447,6 +1512,13 @@ __metadata:
     "@pkgjs/parseargs":
       optional: true
   checksum: 6acc10d139eaefdbe04d2f679e6191b3abf073f111edf10b1de5302c97ec93fffeb2fdd8681ed17f16268aa9dd4f8c588ed9d1d3bffbbfa6e8bf897cbb3149b9
+  languageName: node
+  linkType: hard
+
+"js-binary-schema-parser@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "js-binary-schema-parser@npm:2.0.3"
+  checksum: 0acf895918974d95f5c8c432486d23b6257c555c8a3efff1e4f6a72818877b40c2467bcb2fbd79e519b9c34612526b3595f805eb294e19f48f68f6aa9ee8469e
   languageName: node
   linkType: hard
 
@@ -1737,6 +1809,7 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^9.25.1"
     eslint: "npm:^9.25.1"
+    pixi.js: "npm:^8.9.2"
     prettier: "npm:^3.5.3"
     typescript: "npm:~5.7.2"
     typescript-eslint: "npm:^8.31.1"
@@ -1799,6 +1872,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parse-svg-path@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "parse-svg-path@npm:0.1.2"
+  checksum: 005af72d535f47bbe4673108e51d657b81cb19dcc4f10ab425dd9f824066ef300ddbc83640607ef318f853a9fce7065114705531dcf88fb87fe58c287b562f2b
+  languageName: node
+  linkType: hard
+
 "path-exists@npm:^4.0.0":
   version: 4.0.0
   resolution: "path-exists@npm:4.0.0"
@@ -1841,6 +1921,24 @@ __metadata:
   version: 4.0.2
   resolution: "picomatch@npm:4.0.2"
   checksum: 7c51f3ad2bb42c776f49ebf964c644958158be30d0a510efd5a395e8d49cb5acfed5b82c0c5b365523ce18e6ab85013c9ebe574f60305892ec3fa8eee8304ccc
+  languageName: node
+  linkType: hard
+
+"pixi.js@npm:^8.9.2":
+  version: 8.9.2
+  resolution: "pixi.js@npm:8.9.2"
+  dependencies:
+    "@pixi/colord": "npm:^2.9.6"
+    "@types/css-font-loading-module": "npm:^0.0.12"
+    "@types/earcut": "npm:^2.1.4"
+    "@webgpu/types": "npm:^0.1.40"
+    "@xmldom/xmldom": "npm:^0.8.10"
+    earcut: "npm:^2.2.4"
+    eventemitter3: "npm:^5.0.1"
+    gifuct-js: "npm:^2.1.2"
+    ismobilejs: "npm:^1.1.1"
+    parse-svg-path: "npm:^0.1.2"
+  checksum: e031d2b7e311c121e4620d5c5f40307057d01dfe1dca1470d29973196e78f934a4642df7ed68fb0bcccdb37a24a56a70f049663a348c5b9ea171b9b1185e95b4
   languageName: node
   linkType: hard
 
