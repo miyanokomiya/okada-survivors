@@ -12,7 +12,7 @@ export class CMovement {
   }
 
   accelerate(direction: Vec2) {
-    const v = getUnitVec(direction);
+    const v = direction.x === 0 && direction.y === 0 ? direction : getUnitVec(direction);
     const t = 1 - Math.exp(-this.acceleration);
     this.velocity = lerpVec(this.velocity, scaleVec(v, this.maxSpeed), t);
   }

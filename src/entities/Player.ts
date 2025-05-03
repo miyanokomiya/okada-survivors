@@ -3,7 +3,7 @@ import { Entity } from "./Entity";
 import { CMovement } from "../components/CMovement.ts";
 
 export class Player extends Entity {
-  cmovement: CMovement = new CMovement(100, 0.01);
+  cmovement: CMovement = new CMovement(100, 1);
 
   constructor(app: Application) {
     super(app);
@@ -13,7 +13,6 @@ export class Player extends Entity {
   }
 
   tick(deltaFrame: number) {
-    this.cmovement.accelerate({ x: 1, y: 0 });
     this.cmovement.move(this.container, deltaFrame);
   }
 }
