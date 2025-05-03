@@ -19,6 +19,7 @@ export class Enemy extends Entity {
 
   tick(deltaFrame: number) {
     this.movement.move(this.container, deltaFrame);
+    this.hitbox.tick(deltaFrame);
   }
 
   moveTo(p: Vec2) {

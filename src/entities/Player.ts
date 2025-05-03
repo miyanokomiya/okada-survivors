@@ -38,6 +38,7 @@ export class Player extends Entity {
 
   tick(deltaFrame: number) {
     this.movement.move(this.container, deltaFrame);
+    this.hitbox.tick(deltaFrame);
     this.knockback.tick(deltaFrame);
   }
 }
