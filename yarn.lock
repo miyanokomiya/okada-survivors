@@ -551,6 +551,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gradient-parser@npm:^0.1.2":
+  version: 0.1.5
+  resolution: "@types/gradient-parser@npm:0.1.5"
+  checksum: 8347fb24885aeb133421baec58d0eab4e8ec43d17f337bc4f1d23bde99ca5e87b82b44834eb00d71fd820503c530d4c75e4d9a98652e09b2f04b08fbc1057762
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.15":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -1819,6 +1826,7 @@ __metadata:
     "@eslint/js": "npm:^9.25.1"
     eslint: "npm:^9.25.1"
     nanoid: "npm:^5.1.5"
+    pixi-filters: "npm:^6.1.2"
     pixi.js: "npm:^8.9.2"
     prettier: "npm:^3.5.3"
     typescript: "npm:~5.7.2"
@@ -1931,6 +1939,17 @@ __metadata:
   version: 4.0.2
   resolution: "picomatch@npm:4.0.2"
   checksum: 7c51f3ad2bb42c776f49ebf964c644958158be30d0a510efd5a395e8d49cb5acfed5b82c0c5b365523ce18e6ab85013c9ebe574f60305892ec3fa8eee8304ccc
+  languageName: node
+  linkType: hard
+
+"pixi-filters@npm:^6.1.2":
+  version: 6.1.2
+  resolution: "pixi-filters@npm:6.1.2"
+  dependencies:
+    "@types/gradient-parser": "npm:^0.1.2"
+  peerDependencies:
+    pixi.js: ">=8.0.0-0"
+  checksum: e255faf80b5ed5b5989a41e04d521e3827f5591825ee00b18a75092074a07979aa78d2ffc2fa3fe7b4fa1d03f53bafcd3d341fb53ddea99d456683c6983884de
   languageName: node
   linkType: hard
 

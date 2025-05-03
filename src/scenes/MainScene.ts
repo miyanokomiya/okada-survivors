@@ -40,6 +40,7 @@ export class MainScene extends SceneBase {
 
       if (enemy.hitbox.check(this.player.hitbox)) {
         this.player.health.takeDamage(1);
+        this.player.knockback.hit();
       }
     });
     if (!this.player.health.isAlive()) {

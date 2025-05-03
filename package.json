@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "nanoid": "^5.1.5",
+    "pixi-filters": "^6.1.2",
     "pixi.js": "^8.9.2"
   }
 }

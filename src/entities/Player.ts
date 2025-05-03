@@ -3,12 +3,14 @@ import { Entity } from "./Entity";
 import { CMovement } from "../components/CMovement.ts";
 import { CHitbox, CHurtbox } from "../components/CHitbox.ts";
 import { CHealth } from "../components/CHealth.ts";
+import { CKnockback } from "../components/CKnockback.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
   health: CHealth = new CHealth(100);
   hitbox: CHitbox;
   hurtbox: CHurtbox;
+  knockback: CKnockback;
 
   constructor(app: Application) {
     super(app);
@@ -30,9 +32,12 @@ export class Player extends Entity {
     this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: 9 }];
     // this.hitbox.debugFill(this.container, 0xff0000);
     // this.hurtbox.debugFill(this.container, 0x0000ff);
+
+    this.knockback = new CKnockback(this.container);
   }
 
   tick(deltaFrame: number) {
     this.movement.move(this.container, deltaFrame);
+    this.knockback.tick(deltaFrame);
   }
 }
