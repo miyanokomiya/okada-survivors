@@ -1,13 +1,11 @@
 import { Application, Ticker } from "pixi.js";
 import { SceneBase } from "./SceneBase";
 import { Player } from "../entities/Player";
-import { Enemy } from "../entities/enemies/Enemy";
 import { EnemyTeki } from "../entities/enemies/EnemyTeki";
 import { Vec2 } from "../utils/geo";
 
 export class MainScene extends SceneBase {
   player: Player;
-  enemies: Enemy[] = [];
 
   constructor(app: Application) {
     super(app);
@@ -21,7 +19,6 @@ export class MainScene extends SceneBase {
       enemy.container.x = app.screen.width * Math.random();
       enemy.container.y = app.screen.height * Math.random();
       enemy.spawn();
-      this.enemies.push(enemy);
     }
   }
 
@@ -29,20 +26,10 @@ export class MainScene extends SceneBase {
     super.destroy();
   }
 
-  tick(time: Ticker) {
+  tick(_time: Ticker) {
     const movement = getPlayerMovement(this.keyState);
     this.player.movement.accelerate(movement);
-    this.player.tick(time.deltaTime);
 
-    this.enemies.forEach((enemy) => {
-      enemy.moveTo(this.player.container.position);
-      enemy.tick(time.deltaTime);
-
-      if (enemy.hitbox.check(this.player.hitbox)) {
-        this.player.health.takeDamage(1);
-        this.player.knockback.hit();
-      }
-    });
     if (!this.player.health.isAlive()) {
       console.log("Player is dead");
       this.restart();

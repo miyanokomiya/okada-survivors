@@ -10,12 +10,17 @@ export class Collision {
 
 class CHitboxBase {
   collisions: Collision[] = [];
+  disabled = false;
 
   constructor(public parent: Container) {}
 
-  debugFill(container: Container, color: number) {
-    const graphics = new Graphics().circle(0, 0, 18).fill({ color, alpha: 0.3 });
-    container.addChild(graphics);
+  debugFill(container: Container, color: number = 0xff0000) {
+    this.collisions.forEach((collision) => {
+      const graphics = new Graphics()
+        .circle(collision.position.x, collision.position.y, collision.radius)
+        .fill({ color, alpha: 0.3 });
+      container.addChild(graphics);
+    });
   }
 }
 
@@ -24,6 +29,7 @@ export class CHitbox extends CHitboxBase {
   cooltimeForSameTarget = 30;
 
   check(target: CHurtbox): boolean {
+    if (this.disabled || target.disabled) return false;
     if (this.cooltimeMap.has(target)) return false;
 
     for (const collision of this.collisions) {
