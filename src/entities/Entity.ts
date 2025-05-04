@@ -24,10 +24,18 @@ export class Entity {
   protected destroy() {
     this.app.ticker.remove(this.onTick);
     this.container.parent?.removeChild(this.container);
-    this.container.destroy();
+    if (this.container.destroyed) {
+      this.container.destroy({ children: true });
+    }
   }
 
   private onTick = (time: Ticker) => {
+    if (this.container.destroyed) {
+      // Make sure to call destroy when the container is already destroyed but it's still in the ticker.
+      this.destroy();
+      return;
+    }
+
     this.tick(time.deltaTime);
     if (this.dispose) {
       this.destroy();

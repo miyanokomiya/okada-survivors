@@ -19,7 +19,7 @@ export class SceneBase {
 
   destroy() {
     this.app.ticker.remove(this.onTick);
-    this.app.stage.destroy();
+    this.app.stage.destroy({ children: true });
     this.app.stage = new Container();
     window.removeEventListener("keydown", this.onKeyDown);
     window.removeEventListener("keyup", this.onKeyUp);
@@ -30,7 +30,7 @@ export class SceneBase {
     new (this.constructor as any)(this.app);
   }
 
-  onTick = (time: Ticker) => {
+  private onTick = (time: Ticker) => {
     this.tick(time);
   };
 
