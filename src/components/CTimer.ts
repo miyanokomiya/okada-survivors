@@ -43,4 +43,8 @@ export class CTimer {
       }
     }
   }
+
+  getProgress() {
+    return 1 - this.currentTime / this.duration;
+  }
 }

@@ -1,4 +1,4 @@
-import { Application } from "pixi.js";
+import { Application, Container } from "pixi.js";
 import { Entity, getEntity } from "../Entity";
 import { CMovement } from "../../components/CMovement";
 import { Vec2 } from "../../utils/geo";
@@ -7,6 +7,9 @@ import { CHitbox, CHurtbox } from "../../components/CHitbox";
 import { CKnockback } from "../../components/CKnockback";
 import { CKnockout } from "../../components/CKnockout";
 import { Player } from "../Player";
+import { Healthbar } from "../widgets/Healthbar";
+import { DamageLabel } from "../widgets/DamageLabel";
+import { getWidgetContaienr } from "../../utils/containers";
 
 export class Enemy extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -17,6 +20,7 @@ export class Enemy extends Entity {
   knockout: CKnockout;
   player: Player;
   damage = 1;
+  healthbar: Healthbar;
 
   constructor(app: Application) {
     super(app);
@@ -25,12 +29,27 @@ export class Enemy extends Entity {
     this.hurtbox = new CHurtbox(this.container);
     this.knockback = new CKnockback(this.container, 10);
     this.knockout = new CKnockout(this.container);
+    this.health.onDamage = (damage) => {
+      this.onDamage(damage);
+    };
     this.health.onDeath = () => {
       this.onDeath();
     };
+    this.healthbar = new Healthbar(app);
 
     const playerContainer = this.app.stage.children.find((child) => child.label === "player")!;
     this.player = getEntity<Player>(playerContainer);
+  }
+
+  spawn(parent?: Container): void {
+    super.spawn(parent);
+    this.healthbar.spawn(this.container);
+  }
+
+  onDamage(damage: number) {
+    this.knockback.hit();
+    const label = new DamageLabel(this.app, damage);
+    label.spawnAt(getWidgetContaienr(this.app), this.container);
   }
 
   onDeath() {
@@ -46,6 +65,7 @@ export class Enemy extends Entity {
     this.knockback.tick(deltaFrame);
     this.knockout.tick(deltaFrame);
     this.attack();
+    this.healthbar.update(this.health.currentHealth, this.health.maxHealth);
   }
 
   attack() {

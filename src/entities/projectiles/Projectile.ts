@@ -37,7 +37,6 @@ export class Projectile extends Entity {
       const enemy = getEntity<Enemy>(enemyContainer);
       if (this.hitbox.check(getEntity<Enemy>(enemyContainer).hurtbox)) {
         enemy.health.takeDamage(this.damage);
-        enemy.knockback.hit();
         this.dencity--;
         if (this.dencity <= 0) {
           this.dispose = true;

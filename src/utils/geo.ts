@@ -38,6 +38,10 @@ export function lerpVec(v1: Vec2, v2: Vec2, t: number): Vec2 {
   };
 }
 
+export function lerpValue(v1: number, v2: number, t: number): number {
+  return v1 + (v2 - v1) * t;
+}
+
 export function clampVec(v: Vec2, min: Vec2, max: Vec2): Vec2 {
   return {
     x: Math.max(min.x, Math.min(max.x, v.x)),
@@ -72,4 +76,14 @@ export function pickMinItem<T>(arr: T[], getValue: (item: T) => number): [T, val
     }
   }
   return [minItem, minValue];
+}
+
+export function easeIn(t: number) {
+  return t * t * t;
+}
+export function easeOut(t: number) {
+  return t * (3 - 2 * t);
+}
+export function easeInOut(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }

@@ -1,7 +1,0 @@
-export const CATEGORY = {
-  PLAYER: 0b1,
-  ENEMY: 0b10,
-  ITEM: 0b100,
-  PLAYER_ATTACK: 0b1000,
-  ENEMY_ATTACK: 0b10000,
-};

@@ -2,6 +2,7 @@ export class CHealth {
   maxHealth: number;
   currentHealth: number;
   onDeath: () => void = () => {};
+  onDamage: (damage: number) => void = () => {};
 
   constructor(maxHealth: number) {
     this.maxHealth = maxHealth;
@@ -17,6 +18,7 @@ export class CHealth {
     if (!this.isAlive()) return;
 
     this.currentHealth = Math.max(0, this.currentHealth - damage);
+    this.onDamage(damage);
     if (!this.isAlive()) {
       this.onDeath();
     }
