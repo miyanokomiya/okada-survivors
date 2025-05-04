@@ -11,7 +11,7 @@ type EnemyConstructor = new (...args: any[]) => Enemy;
 
 export class CEnemySpawner {
   private spawnTimer: CTimer;
-  private baseSpawnInterval = 60;
+  private baseSpawnInterval = 60 * 2;
   private player: Player;
   level = 1;
 
@@ -36,7 +36,10 @@ export class CEnemySpawner {
     }
   }
 
-  levelUp() {
+  setLevel(level: number) {
+    if (this.level === level) return;
+
+    this.level = level;
     this.spawnTimer.duration = Math.max(0.01, this.baseSpawnInterval * Math.pow(0.95, this.level));
     this.spawnTimer.start();
   }
