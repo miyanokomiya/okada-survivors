@@ -3,6 +3,7 @@ import { Entity, getEntity } from "../Entity";
 import { CHitbox } from "../../components/CHitbox";
 import { CTimer } from "../../components/CTimer";
 import { Enemy } from "../enemies/Enemy";
+import { getEnemyContaienr } from "../../utils/containers";
 
 export class Projectile extends Entity {
   hitbox: CHitbox;
@@ -31,7 +32,7 @@ export class Projectile extends Entity {
   }
 
   checkHitbox() {
-    const enemies = this.app.stage.children.filter((child) => child.label === "enemy");
+    const enemies = getEnemyContaienr(this.app)?.children ?? [];
     for (const enemyContainer of enemies) {
       const enemy = getEntity<Enemy>(enemyContainer);
       if (this.hitbox.check(getEntity<Enemy>(enemyContainer).hurtbox)) {

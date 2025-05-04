@@ -3,22 +3,27 @@ import { SceneBase } from "./SceneBase";
 import { Player } from "../entities/Player";
 import { EnemyTeki } from "../entities/enemies/EnemyTeki";
 import { Vec2 } from "../utils/geo";
+import { getEnemyContaienr, initContainers } from "../utils/containers";
 
 export class MainScene extends SceneBase {
   player: Player;
 
   constructor(app: Application) {
     super(app);
+
     this.player = new Player(app);
     this.player.container.x = app.screen.width / 2;
     this.player.container.y = app.screen.height / 2;
     this.player.spawn();
 
+    initContainers(app);
+
+    const enemyContainer = getEnemyContaienr(app);
     for (let i = 0; i < 3; i++) {
       const enemy = new EnemyTeki(app);
       enemy.container.x = app.screen.width * Math.random();
       enemy.container.y = app.screen.height * Math.random();
-      enemy.spawn();
+      enemy.spawn(enemyContainer);
     }
   }
 

@@ -12,8 +12,8 @@ export class Entity {
     bindEntity(this.container, this);
   }
 
-  spawn() {
-    this.app.stage.addChild(this.container);
+  spawn(parent?: Container) {
+    (parent ?? this.app.stage).addChild(this.container);
     this.app.ticker.add(this.onTick);
   }
 
@@ -37,10 +37,10 @@ export class Entity {
   tick(_deltaFrame: number) {}
 }
 
+const ENTITY_SYMBOL = Symbol("entity");
 export function bindEntity(container: Container, entity: Entity) {
-  (container as any).__entity = entity;
+  (container as any)[ENTITY_SYMBOL] = entity;
 }
-
 export function getEntity<T extends Entity>(container: Container): T {
-  return (container as any).__entity;
+  return (container as any)[ENTITY_SYMBOL];
 }
