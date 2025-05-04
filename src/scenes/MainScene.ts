@@ -3,10 +3,13 @@ import { SceneBase } from "./SceneBase";
 import { Player } from "../entities/Player";
 import { EnemyTeki } from "../entities/enemies/EnemyTeki";
 import { Vec2 } from "../utils/geo";
-import { getEnemyContaienr, initContainers } from "../utils/containers";
+import { initContainers } from "../utils/containers";
+import { CEnemySpawner } from "../components/CEnemySpawner";
+import { createWeightedTable } from "../utils/WeightedTable";
 
 export class MainScene extends SceneBase {
   player: Player;
+  enemySpawner: CEnemySpawner;
 
   constructor(app: Application) {
     super(app);
@@ -17,28 +20,23 @@ export class MainScene extends SceneBase {
     this.player.spawn();
 
     initContainers(app);
-
-    const enemyContainer = getEnemyContaienr(app);
-    for (let i = 0; i < 3; i++) {
-      const enemy = new EnemyTeki(app);
-      enemy.container.x = app.screen.width * Math.random();
-      enemy.container.y = app.screen.height * Math.random();
-      enemy.spawn(enemyContainer);
-    }
+    this.enemySpawner = new CEnemySpawner(app, createWeightedTable([{ item: EnemyTeki, weight: 1 }]));
   }
 
   destroy() {
     super.destroy();
   }
 
-  tick(_time: Ticker) {
-    const movement = getPlayerMovement(this.keyState);
-    this.player.movement.accelerate(movement);
-
+  tick(time: Ticker) {
     if (!this.player.health.isAlive()) {
       console.log("Player is dead");
       this.restart();
+      return;
     }
+
+    const movement = getPlayerMovement(this.keyState);
+    this.player.movement.accelerate(movement);
+    this.enemySpawner.tick(time.deltaTime);
   }
 }
 

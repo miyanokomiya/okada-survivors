@@ -32,10 +32,8 @@ export class Player extends Entity {
 
     this.hitbox = new CHitbox(this.container);
     this.hurtbox = new CHurtbox(this.container);
-    this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 9 }];
+    this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 18 }];
     this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: 9 }];
-    // this.hitbox.debugFill(this.container, 0xff0000);
-    // this.hurtbox.debugFill(this.container, 0x0000ff);
 
     this.knockback = new CKnockback(this.container);
     this.attacks.push(new CAttackTama(this.app, this.container));
