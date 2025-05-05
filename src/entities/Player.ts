@@ -43,9 +43,9 @@ export class Player extends Entity {
     this.expPick = new CExpPick(this.app, this.container, this.hitbox);
 
     this.attacks.push(new CAttackTama(this.app, this.container));
-    this.health.onDeath = () => {
+    this.health.eventDeath.add(() => {
       this.onDeath();
-    };
+    });
   }
 
   onDeath() {

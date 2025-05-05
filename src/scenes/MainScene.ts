@@ -9,6 +9,7 @@ import { createWeightedTable } from "../utils/WeightedTable";
 import { CTimer } from "../components/CTimer";
 import { GameTimerLabel } from "../entities/widgets/GameTimerLabel";
 import { ExpBar } from "../entities/widgets/ExpBar";
+import { PlayerStatus } from "../entities/widgets/PlayerStatus";
 
 export class MainScene extends SceneBase {
   player: Player;
@@ -16,6 +17,7 @@ export class MainScene extends SceneBase {
   gameTimer: CTimer;
   gameTimerLabel: GameTimerLabel;
   expBar: ExpBar;
+  playerStatus: PlayerStatus;
 
   constructor(app: Application) {
     super(app);
@@ -44,6 +46,8 @@ export class MainScene extends SceneBase {
     const hudContainer = getHudContaienr(app);
     this.expBar = new ExpBar(app, this.player.expLevel);
     this.expBar.spawn(hudContainer);
+    this.playerStatus = new PlayerStatus(app, this.player);
+    this.playerStatus.spawn(hudContainer);
   }
 
   destroy() {

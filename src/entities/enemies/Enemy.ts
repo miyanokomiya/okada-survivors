@@ -31,12 +31,12 @@ export class Enemy extends Entity {
     this.hurtbox = new CHurtbox(this.container);
     this.knockback = new CKnockback(this.container, 10);
     this.knockout = new CKnockout(this.container);
-    this.health.onDamage = (damage) => {
+    this.health.eventDamage.add((damage) => {
       this.onDamage(damage);
-    };
-    this.health.onDeath = () => {
+    });
+    this.health.eventDeath.add(() => {
       this.onDeath();
-    };
+    });
     this.healthbar = new Healthbar(app);
 
     const playerContainer = this.app.stage.children.find((child) => child.label === "player")!;

@@ -1,8 +1,10 @@
+import { EventTrigger } from "../utils/EventTrigger";
+
 export class CHealth {
   maxHealth: number;
   currentHealth: number;
-  onDeath: () => void = () => {};
-  onDamage: (damage: number) => void = () => {};
+  eventDeath: EventTrigger<void> = new EventTrigger();
+  eventDamage: EventTrigger<number> = new EventTrigger();
 
   constructor(maxHealth: number) {
     this.maxHealth = maxHealth;
@@ -18,9 +20,9 @@ export class CHealth {
     if (!this.isAlive()) return;
 
     this.currentHealth = Math.max(0, this.currentHealth - damage);
-    this.onDamage(damage);
+    this.eventDamage.trigger(damage);
     if (!this.isAlive()) {
-      this.onDeath();
+      this.eventDeath.trigger();
     }
   }
 
