@@ -7,6 +7,7 @@ import { CKnockback } from "../components/CKnockback.ts";
 import { CAttack } from "../components/attacks/CAttack.ts";
 import { CAttackTama } from "../components/attacks/CAttackTama.ts";
 import { CExpPick } from "../components/CExpPick.ts";
+import { CExpLevel } from "../components/CExpLevel.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -15,6 +16,7 @@ export class Player extends Entity {
   hurtbox: CHurtbox;
   knockback: CKnockback;
   expPick: CExpPick;
+  expLevel = new CExpLevel();
   attacks: CAttack[] = [];
 
   constructor(app: Application) {

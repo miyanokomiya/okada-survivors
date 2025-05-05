@@ -3,17 +3,19 @@ import { SceneBase } from "./SceneBase";
 import { Player } from "../entities/Player";
 import { EnemyTeki } from "../entities/enemies/EnemyTeki";
 import { lerpValue, Vec2 } from "../utils/geo";
-import { getWidgetContaienr, initContainers } from "../utils/containers";
+import { getHudContaienr, getWidgetContaienr, initContainers } from "../utils/containers";
 import { CEnemySpawner } from "../components/CEnemySpawner";
 import { createWeightedTable } from "../utils/WeightedTable";
 import { CTimer } from "../components/CTimer";
 import { GameTimerLabel } from "../entities/widgets/GameTimerLabel";
+import { ExpBar } from "../entities/widgets/ExpBar";
 
 export class MainScene extends SceneBase {
   player: Player;
   enemySpawner: CEnemySpawner;
   gameTimer: CTimer;
   gameTimerLabel: GameTimerLabel;
+  expBar: ExpBar;
 
   constructor(app: Application) {
     super(app);
@@ -38,6 +40,10 @@ export class MainScene extends SceneBase {
     this.gameTimerLabel.container.x = app.screen.width / 2 - this.gameTimerLabel.container.width / 2;
     this.gameTimerLabel.container.y = 0;
     this.gameTimerLabel.spawn(widgetContainer);
+
+    const hudContainer = getHudContaienr(app);
+    this.expBar = new ExpBar(app, this.player.expLevel);
+    this.expBar.spawn(hudContainer);
   }
 
   destroy() {

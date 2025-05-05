@@ -9,10 +9,13 @@ export function initContainers(app: Application) {
   projectileContainer.label = "projectile_container";
   const widgetContainer = new Container();
   widgetContainer.label = "widget_container";
+  const hudContainer = new Container();
+  hudContainer.label = "hud_container";
   app.stage.addChild(itemContainer);
   app.stage.addChild(enemyContainer);
   app.stage.addChild(projectileContainer);
   app.stage.addChild(widgetContainer);
+  app.stage.addChild(hudContainer);
 }
 
 export function getItemContaienr(app: Application): Container | undefined {
@@ -29,4 +32,8 @@ export function getProjectileContaienr(app: Application): Container | undefined 
 
 export function getWidgetContaienr(app: Application): Container | undefined {
   return app.stage.children.find((child) => child.label === "widget_container");
+}
+
+export function getHudContaienr(app: Application): Container | undefined {
+  return app.stage.children.find((child) => child.label === "hud_container");
 }
