@@ -565,6 +565,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^22.15.3":
+  version: 22.15.3
+  resolution: "@types/node@npm:22.15.3"
+  dependencies:
+    undici-types: "npm:~6.21.0"
+  checksum: 2879f012d1aeba0bfdb5fed80d165f4f2cb3d1f2e1f98a24b18d4a211b4ace7d64bf2622784c78355982ffc1081ba79d0934efc2fb8353913e5871a63609661f
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:8.31.1":
   version: 8.31.1
   resolution: "@typescript-eslint/eslint-plugin@npm:8.31.1"
@@ -1831,6 +1840,7 @@ __metadata:
   resolution: "okada-survivors@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.25.1"
+    "@types/node": "npm:^22.15.3"
     eslint: "npm:^9.25.1"
     gsap: "npm:^3.13.0"
     nanoid: "npm:^5.1.5"
@@ -2370,6 +2380,13 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 3b56d6afa03d9f6172d0b9cdb10e6b1efc9abc1608efd7a3d2f38773d5d8cfb9bbc68dfb72f0a7de5e8db04fc847f4e4baeddcd5ad9c9feda072234f0d788896
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.21.0":
+  version: 6.21.0
+  resolution: "undici-types@npm:6.21.0"
+  checksum: c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
   languageName: node
   linkType: hard
 

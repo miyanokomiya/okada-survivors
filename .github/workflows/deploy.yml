@@ -11,6 +11,8 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      BASE_PATH: /okada-survivors/
 
     steps:
       - name: Checkout code
