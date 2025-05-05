@@ -1,11 +1,13 @@
 import { Application, Container, Ticker } from "pixi.js";
 import { nanoid } from "nanoid";
+import { isPausedLayerMain, LAYER_MAIN } from "../utils/tickLayers";
 
 export class Entity {
   id: string = nanoid();
   container: Container = new Container();
   dispose = false;
   protected app: Application;
+  tickLayer = LAYER_MAIN;
 
   constructor(app: Application) {
     this.app = app;
@@ -30,6 +32,8 @@ export class Entity {
   }
 
   private onTick = (time: Ticker) => {
+    if (this.tickLayer === LAYER_MAIN && isPausedLayerMain(this.app)) return;
+
     if (this.container.destroyed) {
       // Make sure to call destroy when the container is already destroyed but it's still in the ticker.
       this.destroy();

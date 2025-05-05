@@ -1,3 +1,4 @@
+import gsap from "gsap";
 import { Application, Container, Ticker } from "pixi.js";
 
 export class SceneBase {
@@ -18,6 +19,7 @@ export class SceneBase {
   };
 
   destroy() {
+    gsap.globalTimeline.clear();
     this.app.ticker.remove(this.onTick);
     this.app.stage.destroy({ children: true });
     this.app.stage = new Container();

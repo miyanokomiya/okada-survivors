@@ -1,18 +1,33 @@
 export class WeightedTable<T> {
-  private totalWeight: number = 0;
   private items: { item: T; weight: number }[] = [];
 
   constructor() {}
 
+  private getTotalWeight(): number {
+    return this.items.reduce((sum, { weight }) => sum + weight, 0);
+  }
+
   add(item: T, weight: number) {
     this.items.push({ item, weight });
-    this.totalWeight += weight;
+  }
+
+  remove(item: T) {
+    this.items = this.items.filter(({ item: i }) => i !== item);
+  }
+
+  getSize(): number {
+    return this.items.length;
+  }
+
+  getAll(): T[] {
+    return this.items.map(({ item }) => item);
   }
 
   getRandomItem(): T | undefined {
-    if (this.totalWeight === 0) return undefined;
+    const totalWeight = this.getTotalWeight();
+    if (totalWeight === 0) return undefined;
 
-    const randomValue = Math.random() * this.totalWeight;
+    const randomValue = Math.random() * totalWeight;
     let cumulativeWeight = 0;
 
     for (const { item, weight } of this.items) {
@@ -21,8 +36,6 @@ export class WeightedTable<T> {
         return item;
       }
     }
-
-    return undefined; // This should never happen if totalWeight is correct
   }
 }
 

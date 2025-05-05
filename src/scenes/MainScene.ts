@@ -10,6 +10,9 @@ import { CTimer } from "../components/CTimer";
 import { GameTimerLabel } from "../entities/widgets/GameTimerLabel";
 import { ExpBar } from "../entities/widgets/ExpBar";
 import { PlayerStatus } from "../entities/widgets/PlayerStatus";
+import { UpgradeMenu } from "../entities/widgets/UpgradeMenu";
+import { CUpgrade } from "../components/CUpgrade";
+import { initTickLayers, isPausedLayerMain } from "../utils/tickLayers";
 
 export class MainScene extends SceneBase {
   player: Player;
@@ -18,6 +21,8 @@ export class MainScene extends SceneBase {
   gameTimerLabel: GameTimerLabel;
   expBar: ExpBar;
   playerStatus: PlayerStatus;
+  upgradeComponent: CUpgrade;
+  upgradeMenu: UpgradeMenu;
 
   constructor(app: Application) {
     super(app);
@@ -29,6 +34,7 @@ export class MainScene extends SceneBase {
       this.restart();
     };
 
+    initTickLayers(app);
     initContainers(app);
 
     this.player = new Player(app);
@@ -49,6 +55,17 @@ export class MainScene extends SceneBase {
     this.expBar.spawn(hudContainer);
     this.playerStatus = new PlayerStatus(app, this.player);
     this.playerStatus.spawn(hudContainer);
+
+    this.upgradeComponent = new CUpgrade(app);
+    this.upgradeComponent.eventUpgradeSelected.add((upgrade) => {
+      this.player.upgrade(upgrade);
+    });
+    this.upgradeMenu = new UpgradeMenu(app, this.upgradeComponent);
+    this.upgradeMenu.spawn(hudContainer);
+
+    this.player.expLevel.eventLevelup.add(() => {
+      this.upgradeMenu.display();
+    });
   }
 
   destroy() {
@@ -56,6 +73,8 @@ export class MainScene extends SceneBase {
   }
 
   tick(time: Ticker) {
+    if (isPausedLayerMain(this.app)) return;
+
     if (!this.player.health.isAlive()) {
       console.log("Player is dead");
       this.restart();

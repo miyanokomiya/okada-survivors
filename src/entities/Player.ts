@@ -10,6 +10,7 @@ import { CExpPick } from "../components/CExpPick.ts";
 import { CExpLevel } from "../components/CExpLevel.ts";
 import { CAttackUzu } from "../components/attacks/CAttackUzu.ts";
 import { CAttackNen } from "../components/attacks/CAttackNen.ts";
+import { Upgrade } from "../utils/upgrades.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -21,12 +22,13 @@ export class Player extends Entity {
   expPick: CExpPick;
   expLevel = new CExpLevel();
   attacks: CAttack[] = [];
+  private radius = 18;
 
   constructor(app: Application) {
     super(app);
 
     this.container.label = "player";
-    const radius = 18;
+    const radius = this.radius;
     const graphics = new Graphics().circle(0, 0, radius).fill(0xffffff).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(graphics);
     const fontSize = 24;
@@ -49,8 +51,8 @@ export class Player extends Entity {
     this.expPick = new CExpPick(this.app, this.container, this.hitboxForExp);
 
     this.attacks.push(new CAttackTama(this.app, this.container));
-    this.attacks.push(new CAttackUzu(this.app, this.container));
-    this.attacks.push(new CAttackNen(this.app, this.container));
+    // this.attacks.push(new CAttackUzu(this.app, this.container));
+    // this.attacks.push(new CAttackNen(this.app, this.container));
     this.health.eventDeath.add(() => {
       this.onDeath();
     });
@@ -67,5 +69,30 @@ export class Player extends Entity {
     this.knockback.tick(deltaFrame);
     this.expPick.tick(deltaFrame);
     this.attacks.forEach((attack) => attack.tick(deltaFrame));
+  }
+
+  upgrade(upgrade: Upgrade) {
+    switch (upgrade.id) {
+      case "heal":
+        this.health.heal(this.health.maxHealth);
+        break;
+      case "attract":
+        this.hitboxForExp.collisions = [
+          { position: { x: 0, y: 0 }, radius: this.hitboxForExp.collisions[0].radius * 1.5 },
+        ];
+        break;
+      case "uzu":
+        this.attacks.push(new CAttackUzu(this.app, this.container));
+        break;
+      case "uzu+":
+        this.attacks.find((attack) => attack instanceof CAttackUzu)!.level += 1;
+        break;
+      case "nen":
+        this.attacks.push(new CAttackNen(this.app, this.container));
+        break;
+      case "nen+":
+        this.attacks.find((attack) => attack instanceof CAttackNen)!.level += 1;
+        break;
+    }
   }
 }
