@@ -1,6 +1,8 @@
 import { MainScene } from "./scenes/MainScene";
 import "./style.css";
 import { Application } from "pixi.js";
+import { gsap } from "gsap";
+import { PixiPlugin } from "gsap/PixiPlugin";
 
 const keyState: Record<string, boolean> = {};
 window.addEventListener("keydown", (e) => {
@@ -13,6 +15,8 @@ window.addEventListener("keyup", (e) => {
 (async () => {
   const app = new Application();
   await app.init({ background: "#1099bb", width: 800, height: 600 });
+  gsap.registerPlugin(PixiPlugin);
+  PixiPlugin.registerPIXI(app);
   const appElm = document.getElementById("app")!;
   appElm.appendChild(app.canvas);
   initGame(app);

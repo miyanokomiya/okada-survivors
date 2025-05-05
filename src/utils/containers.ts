@@ -1,15 +1,22 @@
 import { Application, Container } from "pixi.js";
 
 export function initContainers(app: Application) {
+  const itemContainer = new Container();
+  itemContainer.label = "item_container";
   const enemyContainer = new Container();
   enemyContainer.label = "enemy_container";
   const projectileContainer = new Container();
   projectileContainer.label = "projectile_container";
   const widgetContainer = new Container();
   widgetContainer.label = "widget_container";
+  app.stage.addChild(itemContainer);
   app.stage.addChild(enemyContainer);
   app.stage.addChild(projectileContainer);
   app.stage.addChild(widgetContainer);
+}
+
+export function getItemContaienr(app: Application): Container | undefined {
+  return app.stage.children.find((child) => child.label === "item_container");
 }
 
 export function getEnemyContaienr(app: Application): Container | undefined {

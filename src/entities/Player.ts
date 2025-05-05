@@ -6,6 +6,7 @@ import { CHealth } from "../components/CHealth.ts";
 import { CKnockback } from "../components/CKnockback.ts";
 import { CAttack } from "../components/attacks/CAttack.ts";
 import { CAttackTama } from "../components/attacks/CAttackTama.ts";
+import { CExpPick } from "../components/CExpPick.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -13,6 +14,7 @@ export class Player extends Entity {
   hitbox: CHitbox;
   hurtbox: CHurtbox;
   knockback: CKnockback;
+  expPick: CExpPick;
   attacks: CAttack[] = [];
 
   constructor(app: Application) {
@@ -36,6 +38,8 @@ export class Player extends Entity {
     this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: 9 }];
 
     this.knockback = new CKnockback(this.container);
+    this.expPick = new CExpPick(this.app, this.container, this.hitbox);
+
     this.attacks.push(new CAttackTama(this.app, this.container));
     this.health.onDeath = () => {
       this.onDeath();
@@ -51,6 +55,7 @@ export class Player extends Entity {
     this.movement.move(this.container, deltaFrame);
     this.hitbox.tick(deltaFrame);
     this.knockback.tick(deltaFrame);
+    this.expPick.tick(deltaFrame);
     this.attacks.forEach((attack) => attack.tick(deltaFrame));
   }
 }

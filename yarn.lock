@@ -1381,6 +1381,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gsap@npm:^3.13.0":
+  version: 3.13.0
+  resolution: "gsap@npm:3.13.0"
+  checksum: a42dd2e02467a4abe96409aaf6cd0e5d697c72e05ec13c18c2271330493983aa63cc717c9dd0740fda2f884d0f56c7b98fc18b13500f0c1da94864985840da7c
+  languageName: node
+  linkType: hard
+
 "has-flag@npm:^4.0.0":
   version: 4.0.0
   resolution: "has-flag@npm:4.0.0"
@@ -1825,6 +1832,7 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^9.25.1"
     eslint: "npm:^9.25.1"
+    gsap: "npm:^3.13.0"
     nanoid: "npm:^5.1.5"
     pixi-filters: "npm:^6.1.2"
     pixi.js: "npm:^8.9.2"

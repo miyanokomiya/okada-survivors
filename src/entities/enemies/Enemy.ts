@@ -10,6 +10,7 @@ import { Player } from "../Player";
 import { Healthbar } from "../widgets/Healthbar";
 import { DamageLabel } from "../widgets/DamageLabel";
 import { getWidgetContaienr } from "../../utils/containers";
+import { CExpDrop } from "../../components/CExpDrop";
 
 export class Enemy extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -21,6 +22,7 @@ export class Enemy extends Entity {
   player: Player;
   damage = 1;
   healthbar: Healthbar;
+  expDrop: CExpDrop = new CExpDrop(this.app, 1);
 
   constructor(app: Application) {
     super(app);
@@ -54,6 +56,7 @@ export class Enemy extends Entity {
 
   onDeath() {
     this.knockout.start();
+    this.expDrop.tryDrop(this.container.position);
     this.hitbox.disabled = true;
     this.hurtbox.disabled = true;
   }
