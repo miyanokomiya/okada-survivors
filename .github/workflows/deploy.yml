@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Setup corepack
+        run: corepack enable yarn
+
       - name: Install dependencies
         run: yarn install
 
