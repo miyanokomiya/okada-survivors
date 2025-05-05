@@ -63,7 +63,9 @@ export class Enemy extends Entity {
 
   tick(deltaFrame: number) {
     this.moveTo(this.player.container.position);
-    this.movement.move(this.container, deltaFrame);
+    if (!this.knockback.isHitstop()) {
+      this.movement.move(this.container, deltaFrame);
+    }
     this.hitbox.tick(deltaFrame);
     this.knockback.tick(deltaFrame);
     this.knockout.tick(deltaFrame);

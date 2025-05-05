@@ -26,6 +26,7 @@ export class ProjectileUzu extends Projectile {
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 10 }];
     this.lifetime.duration = 60 * 3;
     this.lifetime.start();
+    this.damage = 2;
     this.dencity = Infinity;
   }
 

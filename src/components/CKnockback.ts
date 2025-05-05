@@ -9,6 +9,7 @@ export class CKnockback {
   constructor(
     public parent: Container,
     duration = 30,
+    public hitstopDuration = 6,
   ) {
     this.timer = new CTimer(duration);
     this.timer.onFinish = () => {
@@ -29,6 +30,10 @@ export class CKnockback {
       this.parent.filters = [];
     }
     this.timer.stop();
+  }
+
+  isHitstop() {
+    return this.timer.isRunning && this.timer.duration - this.timer.currentTime <= this.hitstopDuration;
   }
 
   tick(deltaFrame: number) {

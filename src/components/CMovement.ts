@@ -5,6 +5,7 @@ export class CMovement {
   maxSpeed: number; // Pixels per second
   acceleration: number;
   velocity: Vec2 = { x: 0, y: 0 }; // Pixels per second
+  disable = false;
 
   constructor(maxSpeed: number, acceleration: number) {
     this.maxSpeed = maxSpeed;
@@ -27,6 +28,8 @@ export class CMovement {
   }
 
   move(container: Container, deltaFrame: number) {
+    if (this.disable) return;
+
     container.x += (this.velocity.x * deltaFrame) / 60;
     container.y += (this.velocity.y * deltaFrame) / 60;
   }

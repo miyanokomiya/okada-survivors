@@ -7,7 +7,7 @@ export class EnemyTeki extends Enemy {
 
     this.movement.maxSpeed = 50;
     this.movement.acceleration = 0.1;
-    this.health.init(2);
+    this.health.init(3);
 
     const graphics = new Graphics().circle(0, 0, 16).fill(0xaaaaaa).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(graphics);

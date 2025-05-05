@@ -21,6 +21,7 @@ export class ProjectileTama extends Projectile {
     this.container.addChild(text);
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 10 }];
+    this.damage = 2;
     this.dencity = 2;
   }
 
