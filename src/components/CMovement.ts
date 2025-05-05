@@ -27,6 +27,10 @@ export class CMovement {
     }
   }
 
+  clear() {
+    this.velocity = { x: 0, y: 0 };
+  }
+
   move(container: Container, deltaFrame: number) {
     if (this.disable) return;
 

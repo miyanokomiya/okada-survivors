@@ -1,6 +1,11 @@
 import { Application, Container } from "pixi.js";
 
 export function initContainers(app: Application) {
+  const cameraContainer = new Container();
+  cameraContainer.label = "camera_container";
+
+  const backgroundContainer = new Container();
+  backgroundContainer.label = "background_container";
   const projectileContainerBack = new Container();
   projectileContainerBack.label = "projectile_container_back";
   const playerContainer = new Container();
@@ -13,40 +18,52 @@ export function initContainers(app: Application) {
   projectileContainer.label = "projectile_container";
   const widgetContainer = new Container();
   widgetContainer.label = "widget_container";
+
+  app.stage.addChild(backgroundContainer);
+
+  cameraContainer.addChild(projectileContainerBack);
+  cameraContainer.addChild(playerContainer);
+  cameraContainer.addChild(itemContainer);
+  cameraContainer.addChild(enemyContainer);
+  cameraContainer.addChild(projectileContainer);
+  cameraContainer.addChild(widgetContainer);
+  app.stage.addChild(cameraContainer);
+
   const hudContainer = new Container();
   hudContainer.label = "hud_container";
-
-  app.stage.addChild(projectileContainerBack);
-  app.stage.addChild(playerContainer);
-  app.stage.addChild(itemContainer);
-  app.stage.addChild(enemyContainer);
-  app.stage.addChild(projectileContainer);
-  app.stage.addChild(widgetContainer);
   app.stage.addChild(hudContainer);
 }
 
+export function getBackgroundContainer(app: Application): Container | undefined {
+  return app.stage.children.find((child) => child.label === "background_container");
+}
+
+export function getCameraContainer(app: Application): Container | undefined {
+  return app.stage.children.find((child) => child.label === "camera_container");
+}
+
 export function getProjectileContainerBack(app: Application): Container | undefined {
-  return app.stage.children.find((child) => child.label === "projectile_container_back");
+  return getCameraContainer(app)?.children.find((child) => child.label === "projectile_container_back");
 }
 
 export function getPlayerContaienr(app: Application): Container | undefined {
-  return app.stage.children.find((child) => child.label === "player_container");
+  return getCameraContainer(app)?.children.find((child) => child.label === "player_container");
 }
 
 export function getItemContaienr(app: Application): Container | undefined {
-  return app.stage.children.find((child) => child.label === "item_container");
+  return getCameraContainer(app)?.children.find((child) => child.label === "item_container");
 }
 
 export function getEnemyContaienr(app: Application): Container | undefined {
-  return app.stage.children.find((child) => child.label === "enemy_container");
+  return getCameraContainer(app)?.children.find((child) => child.label === "enemy_container");
 }
 
 export function getProjectileContaienr(app: Application): Container | undefined {
-  return app.stage.children.find((child) => child.label === "projectile_container");
+  return getCameraContainer(app)?.children.find((child) => child.label === "projectile_container");
 }
 
 export function getWidgetContaienr(app: Application): Container | undefined {
-  return app.stage.children.find((child) => child.label === "widget_container");
+  return getCameraContainer(app)?.children.find((child) => child.label === "widget_container");
 }
 
 export function getHudContaienr(app: Application): Container | undefined {
