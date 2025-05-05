@@ -8,6 +8,7 @@ export class Entity {
   dispose = false;
   protected app: Application;
   tickLayer = LAYER_MAIN;
+  protected anims: GSAPTween[] = [];
 
   constructor(app: Application) {
     this.app = app;
@@ -24,6 +25,9 @@ export class Entity {
    * Set "dispose" to true for graceful destroy.
    */
   protected destroy() {
+    this.anims.forEach((anim) => {
+      anim.kill();
+    });
     this.app.ticker.remove(this.onTick);
     this.container.parent?.removeChild(this.container);
     if (this.container.destroyed) {
@@ -32,7 +36,16 @@ export class Entity {
   }
 
   private onTick = (time: Ticker) => {
-    if (this.tickLayer === LAYER_MAIN && isPausedLayerMain(this.app)) return;
+    if (this.tickLayer === LAYER_MAIN && isPausedLayerMain(this.app)) {
+      this.anims.forEach((anim) => {
+        if (!anim.paused()) {
+          anim.pause();
+          anim.data ??= {};
+          anim.data.entityPaused = true;
+        }
+      });
+      return;
+    }
 
     if (this.container.destroyed) {
       // Make sure to call destroy when the container is already destroyed but it's still in the ticker.
@@ -40,6 +53,11 @@ export class Entity {
       return;
     }
 
+    this.anims.forEach((anim) => {
+      if (anim.paused() && anim.data?.entityPaused) {
+        anim.resume();
+      }
+    });
     this.tick(time.deltaTime);
     if (this.dispose) {
       this.destroy();

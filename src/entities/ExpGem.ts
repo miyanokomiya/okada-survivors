@@ -29,14 +29,16 @@ export class ExpGem extends Entity {
 
     this.target = target;
     const v = scaleVec(getUnitVec(subVec(this.container.position, this.target)), 20);
-    gsap.to(this.container, {
-      x: this.container.x + v.x,
-      y: this.container.y + v.y,
-      duration: 0.1,
-      onComplete: () => {
-        this.attracting = true;
-      },
-    });
+    this.anims.push(
+      gsap.to(this.container, {
+        x: this.container.x + v.x,
+        y: this.container.y + v.y,
+        duration: 0.1,
+        onComplete: () => {
+          this.attracting = true;
+        },
+      }),
+    );
   }
 
   pick() {
