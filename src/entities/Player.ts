@@ -8,12 +8,15 @@ import { CAttack } from "../components/attacks/CAttack.ts";
 import { CAttackTama } from "../components/attacks/CAttackTama.ts";
 import { CExpPick } from "../components/CExpPick.ts";
 import { CExpLevel } from "../components/CExpLevel.ts";
+import { CAttackUzu } from "../components/attacks/CAttackUzu.ts";
+import { CAttackNen } from "../components/attacks/CAttackNen.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
   health: CHealth = new CHealth(100);
   hitbox: CHitbox;
   hurtbox: CHurtbox;
+  hitboxForExp: CHitbox;
   knockback: CKnockback;
   expPick: CExpPick;
   expLevel = new CExpLevel();
@@ -23,7 +26,8 @@ export class Player extends Entity {
     super(app);
 
     this.container.label = "player";
-    const graphics = new Graphics().circle(0, 0, 18).fill(0xffffff).stroke({ color: 0x000000, width: 2 });
+    const radius = 18;
+    const graphics = new Graphics().circle(0, 0, radius).fill(0xffffff).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(graphics);
     const fontSize = 24;
     const text = new Text({
@@ -35,14 +39,18 @@ export class Player extends Entity {
     this.container.addChild(text);
 
     this.hitbox = new CHitbox(this.container);
+    this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius }];
     this.hurtbox = new CHurtbox(this.container);
-    this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 18 }];
-    this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: 9 }];
+    this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius * 0.5 }];
+    this.hitboxForExp = new CHitbox(this.container);
+    this.hitboxForExp.collisions = [{ position: { x: 0, y: 0 }, radius: radius * 1.5 }];
 
     this.knockback = new CKnockback(this.container);
-    this.expPick = new CExpPick(this.app, this.container, this.hitbox);
+    this.expPick = new CExpPick(this.app, this.container, this.hitboxForExp);
 
     this.attacks.push(new CAttackTama(this.app, this.container));
+    this.attacks.push(new CAttackUzu(this.app, this.container));
+    this.attacks.push(new CAttackNen(this.app, this.container));
     this.health.eventDeath.add(() => {
       this.onDeath();
     });

@@ -3,7 +3,7 @@ import { SceneBase } from "./SceneBase";
 import { Player } from "../entities/Player";
 import { EnemyTeki } from "../entities/enemies/EnemyTeki";
 import { lerpValue, Vec2 } from "../utils/geo";
-import { getHudContaienr, getWidgetContaienr, initContainers } from "../utils/containers";
+import { getHudContaienr, getPlayerContaienr, getWidgetContaienr, initContainers } from "../utils/containers";
 import { CEnemySpawner } from "../components/CEnemySpawner";
 import { createWeightedTable } from "../utils/WeightedTable";
 import { CTimer } from "../components/CTimer";
@@ -29,12 +29,13 @@ export class MainScene extends SceneBase {
       this.restart();
     };
 
+    initContainers(app);
+
     this.player = new Player(app);
     this.player.container.x = app.screen.width / 2;
     this.player.container.y = app.screen.height / 2;
-    this.player.spawn();
+    this.player.spawn(getPlayerContaienr(app));
 
-    initContainers(app);
     this.enemySpawner = new CEnemySpawner(app, createWeightedTable([{ item: EnemyTeki, weight: 1 }]));
 
     const widgetContainer = getWidgetContaienr(app);

@@ -2,7 +2,7 @@ import { Application } from "pixi.js";
 import { CTimer } from "./CTimer";
 import { WeightedTable } from "../utils/WeightedTable";
 import { Enemy } from "../entities/enemies/Enemy";
-import { getEnemyContaienr } from "../utils/containers";
+import { getEnemyContaienr, getPlayerContaienr } from "../utils/containers";
 import { Player } from "../entities/Player";
 import { getEntity } from "../entities/Entity";
 import { getDistance } from "../utils/geo";
@@ -26,7 +26,7 @@ export class CEnemySpawner {
     };
     this.spawnTimer.start();
 
-    const playerContainer = this.app.stage.children.find((child) => child.label === "player")!;
+    const playerContainer = getPlayerContaienr(this.app)!.children.find((child) => child.label === "player")!;
     this.player = getEntity<Player>(playerContainer);
   }
 

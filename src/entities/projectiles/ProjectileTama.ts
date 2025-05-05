@@ -4,7 +4,7 @@ import { CMovement } from "../../components/CMovement";
 import { Vec2 } from "../../utils/geo";
 
 export class ProjectileTama extends Projectile {
-  movement: CMovement = new CMovement(200, 1);
+  movement: CMovement = new CMovement(400, 1);
 
   constructor(app: Application) {
     super(app);
@@ -21,6 +21,7 @@ export class ProjectileTama extends Projectile {
     this.container.addChild(text);
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 10 }];
+    this.dencity = 2;
   }
 
   shoot(from: Vec2, direction: Vec2) {

@@ -1,6 +1,10 @@
 import { Application, Container } from "pixi.js";
 
 export function initContainers(app: Application) {
+  const projectileContainerBack = new Container();
+  projectileContainerBack.label = "projectile_container_back";
+  const playerContainer = new Container();
+  playerContainer.label = "player_container";
   const itemContainer = new Container();
   itemContainer.label = "item_container";
   const enemyContainer = new Container();
@@ -11,11 +15,22 @@ export function initContainers(app: Application) {
   widgetContainer.label = "widget_container";
   const hudContainer = new Container();
   hudContainer.label = "hud_container";
+
+  app.stage.addChild(projectileContainerBack);
+  app.stage.addChild(playerContainer);
   app.stage.addChild(itemContainer);
   app.stage.addChild(enemyContainer);
   app.stage.addChild(projectileContainer);
   app.stage.addChild(widgetContainer);
   app.stage.addChild(hudContainer);
+}
+
+export function getProjectileContainerBack(app: Application): Container | undefined {
+  return app.stage.children.find((child) => child.label === "projectile_container_back");
+}
+
+export function getPlayerContaienr(app: Application): Container | undefined {
+  return app.stage.children.find((child) => child.label === "player_container");
 }
 
 export function getItemContaienr(app: Application): Container | undefined {

@@ -3,6 +3,7 @@ import { CTimer } from "../CTimer";
 
 export class CAttack {
   shootTimer = new CTimer(60);
+  level = 1;
 
   constructor(
     public app: Application,

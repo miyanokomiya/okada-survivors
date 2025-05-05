@@ -9,7 +9,7 @@ import { CKnockout } from "../../components/CKnockout";
 import { Player } from "../Player";
 import { Healthbar } from "../widgets/Healthbar";
 import { DamageLabel } from "../widgets/DamageLabel";
-import { getWidgetContaienr } from "../../utils/containers";
+import { getPlayerContaienr, getWidgetContaienr } from "../../utils/containers";
 import { CExpDrop } from "../../components/CExpDrop";
 
 export class Enemy extends Entity {
@@ -39,7 +39,7 @@ export class Enemy extends Entity {
     });
     this.healthbar = new Healthbar(app);
 
-    const playerContainer = this.app.stage.children.find((child) => child.label === "player")!;
+    const playerContainer = getPlayerContaienr(this.app)!.children.find((child) => child.label === "player")!;
     this.player = getEntity<Player>(playerContainer);
   }
 
