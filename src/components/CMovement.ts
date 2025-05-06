@@ -6,6 +6,7 @@ export class CMovement {
   acceleration: number;
   velocity: Vec2 = { x: 0, y: 0 }; // Pixels per second
   disable = false;
+  scale = 1;
 
   constructor(maxSpeed: number, acceleration: number) {
     this.maxSpeed = maxSpeed;
@@ -15,7 +16,7 @@ export class CMovement {
   accelerate(direction: Vec2) {
     const v = direction.x === 0 && direction.y === 0 ? direction : getUnitVec(direction);
     const t = 1 - Math.exp(-this.acceleration);
-    this.velocity = lerpVec(this.velocity, scaleVec(v, this.maxSpeed), t);
+    this.velocity = lerpVec(this.velocity, scaleVec(v, this.maxSpeed * this.scale), t);
   }
 
   decelerate() {

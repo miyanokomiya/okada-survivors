@@ -12,7 +12,7 @@ import { DamageLabel } from "../widgets/DamageLabel";
 import { getPlayerContaienr, getWidgetContaienr } from "../../utils/containers";
 import { CExpDrop } from "../../components/CExpDrop";
 import { playSound } from "../../utils/sounds";
-import { applyExDamage, applyExKnockback } from "../../utils/globalSettings";
+import { getExEnemyLimitBreak, applyExDamage, applyExKnockback } from "../../utils/globalSettings";
 
 export class Enemy extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -25,6 +25,7 @@ export class Enemy extends Entity {
   damage = 2;
   healthbar: Healthbar;
   expDrop: CExpDrop = new CExpDrop(this.app, 0.7);
+  lifetime = 0;
 
   constructor(app: Application) {
     super(app);
@@ -73,6 +74,8 @@ export class Enemy extends Entity {
     this.knockout.tick(deltaFrame);
     this.attack();
     this.healthbar.update(this.health.currentHealth, this.health.maxHealth);
+    this.lifetime += deltaFrame;
+    this.movement.scale = getExEnemyLimitBreak(this.lifetime);
   }
 
   attack() {

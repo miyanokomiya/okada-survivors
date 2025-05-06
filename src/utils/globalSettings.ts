@@ -9,8 +9,8 @@ export const ASCENZTION_ITEMS = [
   { ascension: 8, description: "攻撃速度 x0.95" },
   { ascension: 9, description: "強敵出現率 x1.2" },
   { ascension: 10, description: "敵ノックバック x0.5" },
-  { ascension: 11, description: "被ダメージ +1" },
-  { ascension: 12, description: "貫通上限 10" },
+  { ascension: 11, description: "貫通上限 12" },
+  { ascension: 12, description: "長寿敵加速" },
 ];
 
 const activeAscensions = new Set<number>();
@@ -30,9 +30,6 @@ export function setActiveAscension(ascension: number, value: boolean) {
 export function applyExDamage(val: number): number {
   const ascension = getActiveAscension();
   if (ascension.has(1)) {
-    val += 1;
-  }
-  if (ascension.has(11)) {
     val += 1;
   }
   return val;
@@ -104,8 +101,8 @@ export function applyExWeakPoolRate(val: number): number {
 
 export function applyExMaxDencity(val: number): number {
   const ascension = getActiveAscension();
-  if (ascension.has(12)) {
-    val = Math.min(10, val);
+  if (ascension.has(11)) {
+    val = Math.min(12, val);
   }
   return val;
 }
@@ -116,4 +113,13 @@ export function applyExKnockback(val: number): number {
     val *= 0.5;
   }
   return val;
+}
+
+export function getExEnemyLimitBreak(lifetime: number): number {
+  const ascension = getActiveAscension();
+  let rate = 1;
+  if (ascension.has(12) && 60 * 30 < lifetime) {
+    rate *= 1.5;
+  }
+  return rate;
 }
