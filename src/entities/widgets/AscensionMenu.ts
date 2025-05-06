@@ -28,8 +28,8 @@ export class AscensionMenu extends Entity {
         item.description,
         activeAscensions.has(item.ascension),
       );
-      const x = (button.container.width + 10) * Math.floor(index / 5);
-      const y = ((index % 5) + 1) * (button.container.height + 10);
+      const x = (button.container.width + 10) * (index % 5);
+      const y = (1 + Math.floor(index / 5)) * (button.container.height + 10);
       button.container.position.set(x, y);
       button.container.interactive = true;
       button.container.on("pointerdown", () => {

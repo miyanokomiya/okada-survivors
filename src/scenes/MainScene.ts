@@ -137,7 +137,6 @@ export class MainScene extends SceneBase {
 
     this.clearMenu = new GameOverMenu(app);
     this.clearMenu.spawn(hudContainer);
-    this.clearMenu.displayOver();
 
     this.clearMenu.eventRetry.add(() => {
       this.restart();
