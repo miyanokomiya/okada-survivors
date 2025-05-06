@@ -4,6 +4,7 @@ import { Application, Assets } from "pixi.js";
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import background from "./assets/background.svg";
+import star10 from "./assets/star10.svg";
 import { initSounds } from "./utils/sounds";
 
 const keyState: Record<string, boolean> = {};
@@ -16,7 +17,7 @@ window.addEventListener("keyup", (e) => {
 
 (async () => {
   initSounds();
-  await Assets.load([background]);
+  await Assets.load([background, star10]);
 
   const app = new Application();
   await app.init({ background: "#1099bb", width: 800, height: 600 });

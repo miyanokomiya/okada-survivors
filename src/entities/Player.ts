@@ -1,4 +1,4 @@
-import { Application, Graphics, Text } from "pixi.js";
+import { Application, Container, Graphics, Text } from "pixi.js";
 import { Entity } from "./Entity";
 import { CMovement } from "../components/CMovement.ts";
 import { CHitbox, CHurtbox } from "../components/CHitbox.ts";
@@ -12,6 +12,8 @@ import { CAttackUzu } from "../components/attacks/CAttackUzu.ts";
 import { CAttackNen } from "../components/attacks/CAttackNen.ts";
 import { Upgrade } from "../utils/upgrades.ts";
 import { CAttackNami } from "../components/attacks/CAttackNami.ts";
+import { getDistanceSquared, Vec2 } from "../utils/geo.ts";
+import gsap from "gsap";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -24,14 +26,23 @@ export class Player extends Entity {
   expLevel = new CExpLevel();
   attacks: CAttack[] = [];
   private radius = 18;
+  private walkAnimRight;
+  private walkAnimLeft;
+  private facing = 1;
+  private graphicContainer: Container;
 
   constructor(app: Application) {
     super(app);
 
     this.container.label = "player";
+
+    const graphicContainer = new Container();
+    this.container.addChild(graphicContainer);
+    this.graphicContainer = graphicContainer;
+
     const radius = this.radius;
     const graphics = new Graphics().circle(0, 0, radius).fill(0xffffff).stroke({ color: 0x000000, width: 2 });
-    this.container.addChild(graphics);
+    graphicContainer.addChild(graphics);
     const fontSize = 24;
     const text = new Text({
       text: "岡",
@@ -39,7 +50,7 @@ export class Player extends Entity {
     });
     text.x = -fontSize / 2;
     text.y = -fontSize / 2;
-    this.container.addChild(text);
+    graphicContainer.addChild(text);
 
     this.hitbox = new CHitbox(this.container);
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius }];
@@ -58,6 +69,24 @@ export class Player extends Entity {
     this.health.eventDeath.add(() => {
       this.onDeath();
     });
+
+    this.walkAnimRight = gsap.to(graphicContainer, {
+      angle: 10,
+      duration: 0.2,
+      repeat: 1,
+      yoyo: true,
+      ease: "power1.inOut",
+    });
+    this.walkAnimLeft = gsap.to(graphicContainer, {
+      angle: -10,
+      duration: 0.2,
+      repeat: 1,
+      yoyo: true,
+      ease: "power1.inOut",
+    });
+    this.walkAnimRight.pause();
+    this.walkAnimLeft.pause();
+    this.anims.push(this.walkAnimRight, this.walkAnimLeft);
   }
 
   onDeath() {
@@ -71,6 +100,26 @@ export class Player extends Entity {
     this.knockback.tick(deltaFrame);
     this.expPick.tick(deltaFrame);
     this.attacks.forEach((attack) => attack.tick(deltaFrame));
+  }
+
+  accelerate(direction: Vec2) {
+    if (direction.x !== 0) {
+      this.facing = direction.x > 0 ? 1 : -1;
+    }
+
+    if (getDistanceSquared(direction) > 0.01) {
+      if (this.facing === 1 && !this.walkAnimRight.isActive()) {
+        this.graphicContainer.angle = 0;
+        this.walkAnimRight.invalidate().restart();
+        this.walkAnimLeft.pause();
+      } else if (this.facing === -1 && !this.walkAnimLeft.isActive()) {
+        this.graphicContainer.angle = 0;
+        this.walkAnimRight.pause();
+        this.walkAnimLeft.invalidate().restart();
+      }
+    }
+
+    this.movement.accelerate(direction);
   }
 
   upgrade(upgrade: Upgrade) {

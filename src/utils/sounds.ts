@@ -6,10 +6,10 @@ import maou_se_battle16 from "../assets/maou_se_battle16.mp3";
 import maou_se_system48 from "../assets/maou_se_system48.mp3";
 
 const src = {
-  hit1: { url: maou_se_battle14, volume: 0.2 },
-  hit2: { url: maou_se_battle15, volume: 0.2 },
-  hit3: { url: maou_se_battle16, volume: 0.2 },
-  pick1: { url: maou_se_system48, volume: 0.2 },
+  hit1: { url: maou_se_battle14, volume: 0.1 },
+  hit2: { url: maou_se_battle15, volume: 0.1 },
+  hit3: { url: maou_se_battle16, volume: 0.1 },
+  pick1: { url: maou_se_system48, volume: 0.1 },
 };
 
 export function playSound(name: keyof typeof src) {

@@ -96,7 +96,7 @@ export class MainScene extends SceneBase {
     }
 
     const movement = getPlayerMovement(this.keyState);
-    this.player.movement.accelerate(movement);
+    this.player.accelerate(movement);
     this.camera.tick(time.deltaTime);
     this.backgroundSprite.tilePosition.x = this.camera.cameraContainer.position.x;
     this.backgroundSprite.tilePosition.y = this.camera.cameraContainer.position.y;

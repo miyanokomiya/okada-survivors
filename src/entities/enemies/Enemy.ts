@@ -52,7 +52,7 @@ export class Enemy extends Entity {
   onDamage(damage: number) {
     this.knockback.hit();
     const label = new DamageLabel(this.app, damage);
-    label.spawnAt(getWidgetContaienr(this.app), this.container);
+    label.spawnAt(getWidgetContaienr(this.app), this.container, true);
   }
 
   onDeath() {
