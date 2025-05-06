@@ -27,6 +27,11 @@ export class Projectile extends Entity {
     this.delay.start();
   }
 
+  setDuration(duration: number) {
+    this.lifetime.duration = duration;
+    this.lifetime.start();
+  }
+
   move(_deltaFrame: number) {}
 
   tick(deltaFrame: number) {

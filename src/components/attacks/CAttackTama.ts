@@ -3,11 +3,12 @@ import { ProjectileTama } from "../../entities/projectiles/ProjectileTama";
 import { CAttack } from "./CAttack";
 import { subVec } from "../../utils/geo";
 import { getProjectileContainerBack } from "../../utils/containers";
+import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackTama extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
-    this.shootTimer.duration = 90;
+    this.shootTimer.duration = applyExAttackCooldown(90);
   }
 
   shoot() {
@@ -39,9 +40,11 @@ export class CAttackTama extends CAttack {
     } else {
       dencity = Infinity;
     }
+    dencity = applyExMaxDencity(dencity);
 
     const container = getProjectileContainerBack(this.app);
     const projectile = new ProjectileTama(this.app, scale);
+    projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
     projectile.dencity = dencity;
     projectile.movement.maxSpeed = speed;
     const to = closestEnemy.position;

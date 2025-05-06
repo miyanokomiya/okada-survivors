@@ -26,6 +26,7 @@ import { EnemyDai } from "../entities/enemies/EnemyDai";
 import { GameOverMenu } from "../entities/widgets/GameOverMenu";
 import { VirtualJoystick } from "../components/VirtualJoystick";
 import { AscensionScene } from "./AscensionScene";
+import { applyExMaxLevel, applyExWeakPoolRate } from "../utils/globalSettings";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -40,6 +41,7 @@ export class MainScene extends SceneBase {
   upgradeMenu: UpgradeMenu;
   clearMenu: GameOverMenu;
   joystick: VirtualJoystick;
+  maxLevel = applyExMaxLevel(20);
   private timeup = false;
 
   constructor(app: Application) {
@@ -75,14 +77,14 @@ export class MainScene extends SceneBase {
       [
         3,
         createWeightedTable([
-          { item: EnemyTeki, weight: 2 },
+          { item: EnemyTeki, weight: applyExWeakPoolRate(2) },
           { item: EnemyMushi, weight: 1 },
         ]),
       ],
       [
         6,
         createWeightedTable([
-          { item: EnemyTeki, weight: 4 },
+          { item: EnemyTeki, weight: applyExWeakPoolRate(4) },
           { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 1 },
         ]),
@@ -90,7 +92,7 @@ export class MainScene extends SceneBase {
       [
         9,
         createWeightedTable([
-          { item: EnemyTeki, weight: 2 },
+          { item: EnemyTeki, weight: applyExWeakPoolRate(2) },
           { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 1 },
         ]),
@@ -98,7 +100,7 @@ export class MainScene extends SceneBase {
       [
         12,
         createWeightedTable([
-          { item: EnemyTeki, weight: 3 },
+          { item: EnemyTeki, weight: applyExWeakPoolRate(3) },
           { item: EnemyMushi, weight: 3 },
           { item: EnemyDai, weight: 2 },
         ]),
@@ -106,7 +108,7 @@ export class MainScene extends SceneBase {
       [
         15,
         createWeightedTable([
-          { item: EnemyTeki, weight: 1 },
+          { item: EnemyTeki, weight: applyExWeakPoolRate(1) },
           { item: EnemyMushi, weight: 1 },
           { item: EnemyDai, weight: 2 },
         ]),
@@ -178,7 +180,7 @@ export class MainScene extends SceneBase {
 
     if (this.gameTimer.isRunning) {
       this.gameTimer.tick(time.deltaTime);
-      this.enemySpawner.setLevel(Math.floor(lerpValue(1, 20, this.gameTimer.getProgress())));
+      this.enemySpawner.setLevel(Math.floor(lerpValue(1, this.maxLevel, this.gameTimer.getProgress())));
       this.enemySpawner.tick(time.deltaTime);
     }
 

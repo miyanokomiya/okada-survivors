@@ -40,7 +40,7 @@ export class AscensionMenu extends Entity {
       this.buttons.push(button);
     });
 
-    this.container.scale.set(0.8);
+    this.container.scale.set(0.7);
   }
 
   private updateAllButtons() {
@@ -76,7 +76,7 @@ class AscensionButton {
   }
 
   private createButton(name: string, description: string): Container {
-    const width = 160;
+    const width = 180;
     const height = 52;
     const wrapper = new Container();
 

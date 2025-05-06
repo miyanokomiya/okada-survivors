@@ -3,11 +3,12 @@ import { CAttack } from "./CAttack";
 import { rotateVec, subVec } from "../../utils/geo";
 import { getProjectileContaienr } from "../../utils/containers";
 import { ProjectileTsubu } from "../../entities/projectiles/ProjectileTsubu";
+import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackTsubu extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
-    this.shootTimer.duration = 120;
+    this.shootTimer.duration = applyExAttackCooldown(120);
   }
 
   shoot() {
@@ -33,6 +34,7 @@ export class CAttackTsubu extends CAttack {
     } else if (this.level >= 4) {
       dencity = Infinity;
     }
+    dencity = applyExMaxDencity(dencity);
 
     const container = getProjectileContaienr(this.app);
     const to = closestEnemy.position;
@@ -43,6 +45,7 @@ export class CAttackTsubu extends CAttack {
     for (let i = 0; i < count; i++) {
       const bullet = new ProjectileTsubu(this.app);
       bullet.dencity = dencity;
+      bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
       bullet.setDelay(delay * i);
       const range = Math.PI / 5;
       bullet.shoot(this.parent.position, rotateVec(v, range * 2 * (Math.random() - 0.5)));
@@ -53,6 +56,7 @@ export class CAttackTsubu extends CAttack {
       for (let i = 0; i < count; i++) {
         const bullet = new ProjectileTsubu(this.app);
         bullet.dencity = dencity;
+        bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
         bullet.setDelay(delay * i);
         const range = Math.PI / 5;
         bullet.shoot(this.parent.position, rotateVec(v, range * 2 * (Math.random() - 0.5)));

@@ -3,11 +3,12 @@ import { CAttack } from "./CAttack";
 import { getProjectileContaienr } from "../../utils/containers";
 import { ProjectileNami } from "../../entities/projectiles/ProjectileNami";
 import { subVec } from "../../utils/geo";
+import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackNami extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
-    this.shootTimer.duration = 120;
+    this.shootTimer.duration = applyExAttackCooldown(120);
   }
 
   shoot() {
@@ -33,11 +34,13 @@ export class CAttackNami extends CAttack {
     } else if (this.level >= 4) {
       dencity = Infinity;
     }
+    dencity = applyExMaxDencity(dencity);
 
     const container = getProjectileContaienr(this.app);
     for (let i = 0; i < count; i++) {
       const projectile = new ProjectileNami(this.app, this.parent);
       projectile.dencity = dencity;
+      projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
       projectile.setDelay(15 * i);
       projectile.shoot(subVec(closestEnemy.position, this.parent.position));
       projectile.spawn(container);
@@ -48,6 +51,7 @@ export class CAttackNami extends CAttack {
         const projectile = new ProjectileNami(this.app, this.parent);
         projectile.dencity = dencity;
         projectile.scaleY = -1;
+        projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
         projectile.setDelay(15 * i);
         projectile.shoot(subVec(closestEnemy.position, this.parent.position));
         projectile.spawn(container);

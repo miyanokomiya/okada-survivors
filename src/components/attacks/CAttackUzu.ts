@@ -2,6 +2,7 @@ import { Application, Container } from "pixi.js";
 import { CAttack } from "./CAttack";
 import { getProjectileContaienr } from "../../utils/containers";
 import { ProjectileUzu } from "../../entities/projectiles/ProjectileUzu";
+import { applyExAttackDuration, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackUzu extends CAttack {
   constructor(app: Application, parent: Container) {
@@ -29,11 +30,13 @@ export class CAttackUzu extends CAttack {
     } else if (this.level >= 4) {
       dencity = Infinity;
     }
+    dencity = applyExMaxDencity(dencity);
 
     const container = getProjectileContaienr(this.app);
     for (let i = 0; i < count; i++) {
       const projectile = new ProjectileUzu(this.app, this.parent);
       projectile.dencity = dencity;
+      projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
       projectile.shoot((2 * Math.PI * i) / count);
       projectile.spawn(container);
     }
@@ -42,6 +45,7 @@ export class CAttackUzu extends CAttack {
       for (let i = 0; i < count; i++) {
         const projectile = new ProjectileUzu(this.app, this.parent);
         projectile.dencity = dencity;
+        projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
         projectile.setDelay(45);
         projectile.shoot((2 * Math.PI * i) / count);
         projectile.spawn(container);
