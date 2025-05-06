@@ -46,7 +46,7 @@ export class CEnemySpawner {
       this.enemyTable.add(EnemyMushi, 0.5);
     }
 
-    this.spawnTimer.duration = Math.max(0.01, this.baseSpawnInterval * Math.pow(0.95, this.level));
+    this.spawnTimer.duration = Math.max(0.01, this.baseSpawnInterval * Math.pow(0.85, this.level));
     this.spawnTimer.start();
   }
 

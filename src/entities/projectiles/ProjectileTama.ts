@@ -22,7 +22,7 @@ export class ProjectileTama extends Projectile {
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 10 }];
     this.damage = 2;
-    this.dencity = 2;
+    this.dencity = 1;
   }
 
   shoot(from: Vec2, direction: Vec2) {

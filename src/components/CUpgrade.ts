@@ -43,7 +43,7 @@ export class CUpgrade {
                 {
                   id: "uzu+",
                   name: "渦+2",
-                  description: "さらなる渦を生成する",
+                  description: "さらなる渦を生成する\n弾強度: 2",
                   weight: 1,
                   children: [
                     {
@@ -51,7 +51,30 @@ export class CUpgrade {
                       name: "渦+3",
                       description: "さらなる渦を生成する",
                       weight: 1,
-                      children: [],
+                      children: [
+                        {
+                          id: "uzu+",
+                          name: "渦+4",
+                          description: "貫通効果を付与する",
+                          weight: 0.7,
+                          children: [
+                            {
+                              id: "uzu+",
+                              name: "渦+5",
+                              description: "新たな渦を生成する",
+                              weight: 0.5,
+                              children: [
+                                {
+                                  id: "uzu+",
+                                  name: "渦++",
+                                  description: "さらなる渦を生成する",
+                                  weight: 0.5,
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
                     },
                   ],
                 },
@@ -65,13 +88,46 @@ export class CUpgrade {
         item: {
           id: "nen",
           name: "熱",
-          description: "継続ダメージを与える熱源をプレイヤーの周囲にランダムで生成する",
+          description: "継続ダメージを与える熱源をプレイヤーの周囲にランダムで生成する\n弾強度: 貫通",
           children: [
             {
               id: "nen+",
               name: "熱+1",
               description: "さらなる熱源を生成する",
               weight: 1,
+              children: [
+                {
+                  id: "nen+",
+                  name: "熱+2",
+                  description: "さらなる熱源を生成する",
+                  weight: 1,
+                  children: [
+                    {
+                      id: "nen+",
+                      name: "熱+3",
+                      description: "さらなる熱源を生成する",
+                      weight: 1,
+                      children: [
+                        {
+                          id: "nen+",
+                          name: "熱+4",
+                          description: "さらなる熱源を生成する",
+                          weight: 1,
+                          children: [
+                            {
+                              id: "nen+",
+                              name: "熱+5",
+                              description: "さらなる熱源を生成する",
+                              weight: 1,
+                              children: [],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
@@ -92,7 +148,7 @@ export class CUpgrade {
                 {
                   id: "nami+",
                   name: "波+2",
-                  description: "さらなる波を生成する",
+                  description: "さらなる波を生成する\n弾強度: 2",
                   weight: 1,
                   children: [
                     {
@@ -105,13 +161,21 @@ export class CUpgrade {
                           id: "nami+",
                           name: "波+4",
                           description: "貫通効果を付与する",
-                          weight: 1,
+                          weight: 0.7,
                           children: [
                             {
                               id: "nami+",
                               name: "波+5",
                               description: "新たな波を生成する",
-                              weight: 1,
+                              weight: 0.5,
+                              children: [
+                                {
+                                  id: "nami+",
+                                  name: "波++",
+                                  description: "さらなる波を生成する",
+                                  weight: 0.5,
+                                },
+                              ],
                             },
                           ],
                         },

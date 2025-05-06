@@ -52,9 +52,9 @@ export class Player extends Entity {
     this.expPick = new CExpPick(this.app, this.container, this.hitboxForExp);
 
     this.attacks.push(new CAttackTama(this.app, this.container));
-    // this.attacks.push(new CAttackNami(this.app, this.container));
     // this.attacks.push(new CAttackUzu(this.app, this.container));
     // this.attacks.push(new CAttackNen(this.app, this.container));
+    // this.attacks.push(new CAttackNami(this.app, this.container));
     this.health.eventDeath.add(() => {
       this.onDeath();
     });

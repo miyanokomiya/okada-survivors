@@ -27,7 +27,7 @@ export class ProjectileUzu extends Projectile {
     this.lifetime.duration = 60 * 3;
     this.lifetime.start();
     this.damage = 2;
-    this.dencity = Infinity;
+    this.dencity = 1;
   }
 
   shoot(radian: number) {
