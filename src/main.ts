@@ -15,18 +15,19 @@ window.addEventListener("keyup", (e) => {
   delete keyState[e.key];
 });
 
-(async () => {
+async function init() {
   initSounds();
   await Assets.load([background, star10]);
 
+  const appElm = document.getElementById("app")!;
   const app = new Application();
-  await app.init({ background: "#1099bb", resizeTo: document.getElementById("app")! });
+  await app.init({ background: "#1099bb", resizeTo: appElm });
   gsap.registerPlugin(PixiPlugin);
   PixiPlugin.registerPIXI(app);
-  const appElm = document.getElementById("app")!;
   appElm.appendChild(app.canvas);
   initGame(app);
-})();
+}
+init();
 
 function initGame(app: Application) {
   new TitleScene(app);

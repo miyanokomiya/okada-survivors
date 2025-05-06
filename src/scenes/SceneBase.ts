@@ -8,6 +8,16 @@ export class SceneBase {
     app.ticker.add(this.onTick);
     window.addEventListener("keydown", this.onKeyDown);
     window.addEventListener("keyup", this.onKeyUp);
+
+    // Resize the app on shcene changes.
+    // Resizing it while the scene is running doesn't work well since each entity assumes fixed app size for layout.
+    if (app.resizeTo) {
+      if (app.resizeTo instanceof HTMLElement) {
+        app.renderer.resize(app.resizeTo.clientWidth, app.resizeTo.clientHeight);
+      } else {
+        app.renderer.resize(app.resizeTo.innerWidth, app.resizeTo.innerHeight);
+      }
+    }
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
