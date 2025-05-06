@@ -4,6 +4,7 @@ import { CHitbox } from "../../components/CHitbox";
 import { CTimer } from "../../components/CTimer";
 import { Enemy } from "../enemies/Enemy";
 import { getEnemyContaienr } from "../../utils/containers";
+import { playSound } from "../../utils/sounds";
 
 export class Projectile extends Entity {
   hitbox: CHitbox;
@@ -50,6 +51,7 @@ export class Projectile extends Entity {
       const enemy = getEntity<Enemy>(enemyContainer);
       if (this.hitbox.check(getEntity<Enemy>(enemyContainer).hurtbox)) {
         enemy.health.takeDamage(this.damage);
+        playSound("hit2");
         this.dencity--;
         if (this.dencity <= 0) {
           this.dispose = true;

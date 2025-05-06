@@ -4,6 +4,7 @@ import { Application, Assets } from "pixi.js";
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import background from "./assets/background.svg";
+import { initSounds } from "./utils/sounds";
 
 const keyState: Record<string, boolean> = {};
 window.addEventListener("keydown", (e) => {
@@ -14,6 +15,7 @@ window.addEventListener("keyup", (e) => {
 });
 
 (async () => {
+  initSounds();
   await Assets.load([background]);
 
   const app = new Application();

@@ -22,3 +22,8 @@
   display: flex;
   justify-content: center;
 }
+
+.credits {
+  width: max-content;
+  margin: 0.5rem auto 0;
+}

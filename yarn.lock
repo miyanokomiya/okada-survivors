@@ -383,6 +383,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/sound@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "@pixi/sound@npm:6.0.1"
+  peerDependencies:
+    pixi.js: ^8.0.0
+  checksum: 03c0aca4cb9484b9d90b100a4e80efc2257c40f0e610aa7a6deeb079f8b3e4f84bfda02ae0032c8e2f9f16a942958f240daa139743819af8c40813928c4edaf0
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -1840,6 +1849,7 @@ __metadata:
   resolution: "okada-survivors@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.25.1"
+    "@pixi/sound": "npm:^6.0.1"
     "@types/node": "npm:^22.15.3"
     eslint: "npm:^9.25.1"
     gsap: "npm:^3.13.0"
