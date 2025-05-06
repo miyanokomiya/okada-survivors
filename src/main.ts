@@ -20,7 +20,7 @@ window.addEventListener("keyup", (e) => {
   await Assets.load([background, star10]);
 
   const app = new Application();
-  await app.init({ background: "#1099bb", width: 800, height: 600 });
+  await app.init({ background: "#1099bb", resizeTo: document.getElementById("app")! });
   gsap.registerPlugin(PixiPlugin);
   PixiPlugin.registerPIXI(app);
   const appElm = document.getElementById("app")!;

@@ -24,6 +24,7 @@ import background from "../assets/background.svg";
 import { EnemyMushi } from "../entities/enemies/EnemyMushi";
 import { EnemyDai } from "../entities/enemies/EnemyDai";
 import { GameOverMenu } from "../entities/widgets/GameOverMenu";
+import { VirtualJoystick } from "../components/VirtualJoystick";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -37,6 +38,7 @@ export class MainScene extends SceneBase {
   upgradeComponent: CUpgrade;
   upgradeMenu: UpgradeMenu;
   clearMenu: GameOverMenu;
+  joystick: VirtualJoystick;
   private timeup = false;
 
   constructor(app: Application) {
@@ -138,6 +140,9 @@ export class MainScene extends SceneBase {
     this.clearMenu.eventRetry.add(() => {
       this.restart();
     });
+
+    this.joystick = new VirtualJoystick(50, app.screen.width, app.screen.height);
+    app.stage.addChild(this.joystick.getContainer());
   }
 
   destroy() {
@@ -152,7 +157,14 @@ export class MainScene extends SceneBase {
       return;
     }
 
-    const movement = getPlayerMovement(this.keyState);
+    const keyboardMovement = getPlayerMovement(this.keyState);
+    const joystickMovement = this.joystick.getMovement();
+
+    const movement = {
+      x: keyboardMovement.x + joystickMovement.x,
+      y: keyboardMovement.y + joystickMovement.y,
+    };
+
     this.player.accelerate(movement);
     this.camera.tick(time.deltaTime);
     this.backgroundSprite.tilePosition.x = this.camera.cameraContainer.position.x;

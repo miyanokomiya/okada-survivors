@@ -17,7 +17,7 @@ export class TitleScene extends SceneBase {
       style: { fontSize: 64, fill: 0x000000, fontWeight: "500" },
     });
     titleText.anchor.set(0.5);
-    titleText.position.set(width / 2, height / 2 - 64);
+    titleText.position.set(width / 2, height / 2 - 90);
     container.addChild(titleText);
 
     const startText = new Text({
@@ -25,16 +25,24 @@ export class TitleScene extends SceneBase {
       style: { fontSize: 32, fill: 0x000000, fontWeight: "400" },
     });
     startText.anchor.set(0.5);
-    startText.position.set(width / 2, height / 2 + 32);
+    startText.position.set(width / 2, height / 2);
     container.addChild(startText);
 
     const guideText = new Text({
-      text: "Move: WASD, Arrow Keys\nSelect: Click",
+      text: "Move: WASD, Arrow Keys, Virtual Joystick\nSelect: Click, Touch",
       style: { fontSize: 20, fill: 0x000000, fontWeight: "400" },
     });
     guideText.anchor.set(0.5);
-    guideText.position.set(width / 2, height / 2 + 120);
+    guideText.position.set(width / 2, height / 2 + 80);
     container.addChild(guideText);
+
+    const creditsText = new Text({
+      text: "Sound Effects: 魔王魂",
+      style: { fontSize: 20, fill: 0x000000, fontWeight: "400" },
+    });
+    creditsText.anchor.set(0.5);
+    creditsText.position.set(width / 2, height / 2 + 140);
+    container.addChild(creditsText);
 
     const overlay = new Graphics().rect(0, 0, width, height).fill({ color: 0xffffff, alpha: 0 });
     container.addChild(overlay);
