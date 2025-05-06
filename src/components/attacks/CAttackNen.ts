@@ -10,6 +10,7 @@ export class CAttackNen extends CAttack {
   }
 
   shoot() {
+    const container = getProjectileContainerBack(this.app);
     for (let i = 0; i < this.level; i++) {
       const projectile = new ProjectileNen(this.app, this.parent);
       const r = 2 * Math.PI * Math.random();
@@ -18,7 +19,7 @@ export class CAttackNen extends CAttack {
         x: this.parent.x + radius * Math.cos(r),
         y: this.parent.y + radius * Math.sin(r),
       });
-      projectile.spawn(getProjectileContainerBack(this.app));
+      projectile.spawn(container);
     }
   }
 }

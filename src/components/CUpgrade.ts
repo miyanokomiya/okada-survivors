@@ -24,7 +24,7 @@ export class CUpgrade {
           id: "attract",
           name: "引き寄せ+",
           description: "より遠くのアイテムを引き寄せる",
-          count: 3,
+          count: 5,
         },
         weight: 0.5,
       },
@@ -69,6 +69,7 @@ export class CUpgrade {
                                   name: "渦++",
                                   description: "さらなる渦を生成する",
                                   weight: 0.5,
+                                  count: Infinity,
                                 },
                               ],
                             },
@@ -112,14 +113,14 @@ export class CUpgrade {
                           id: "nen+",
                           name: "熱+4",
                           description: "さらなる熱源を生成する",
-                          weight: 1,
+                          weight: 0.7,
                           children: [
                             {
                               id: "nen+",
                               name: "熱+5",
                               description: "さらなる熱源を生成する",
-                              weight: 1,
-                              children: [],
+                              weight: 0.5,
+                              count: Infinity,
                             },
                           ],
                         },
@@ -174,8 +175,116 @@ export class CUpgrade {
                                   name: "波++",
                                   description: "さらなる波を生成する",
                                   weight: 0.5,
+                                  count: Infinity,
                                 },
                               ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        weight: 1,
+      },
+      {
+        item: {
+          id: "tsubu",
+          name: "粒",
+          description: "敵に向けて散弾を生成する",
+          children: [
+            {
+              id: "tsubu+",
+              name: "粒+1",
+              description: "さらなる粒を生成する",
+              weight: 1,
+              children: [
+                {
+                  id: "tsubu+",
+                  name: "粒+2",
+                  description: "さらなる粒を生成する\n弾強度: 2",
+                  weight: 1,
+                  children: [
+                    {
+                      id: "tsubu+",
+                      name: "粒+3",
+                      description: "さらなる粒を生成する",
+                      weight: 1,
+                      children: [
+                        {
+                          id: "tsubu+",
+                          name: "粒+4",
+                          description: "貫通効果を付与する",
+                          weight: 0.7,
+                          children: [
+                            {
+                              id: "tsubu+",
+                              name: "粒+5",
+                              description: "より多くの粒を生成する",
+                              weight: 0.5,
+                              children: [
+                                {
+                                  id: "tsubu+",
+                                  name: "粒++",
+                                  description: "さらなる粒を生成する",
+                                  weight: 0.5,
+                                  count: Infinity,
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        weight: 1,
+      },
+      {
+        item: {
+          id: "tama+",
+          name: "弾+1",
+          description: "大きな弾を生成する",
+          weight: 1,
+          children: [
+            {
+              id: "tama+",
+              name: "弾+2",
+              description: "大きな弾を生成する\n弾強度: 2",
+              weight: 1,
+              children: [
+                {
+                  id: "tama+",
+                  name: "弾+3",
+                  description: "大きな弾を生成する",
+                  weight: 1,
+                  children: [
+                    {
+                      id: "tama+",
+                      name: "弾+4",
+                      description: "貫通効果を付与する",
+                      weight: 0.7,
+                      children: [
+                        {
+                          id: "tama+",
+                          name: "弾+5",
+                          description: "弾の移動速度を遅くする",
+                          weight: 0.5,
+                          children: [
+                            {
+                              id: "tama+",
+                              name: "弾++",
+                              description: "大きな弾を生成する",
+                              weight: 0.5,
+                              count: Infinity,
                             },
                           ],
                         },

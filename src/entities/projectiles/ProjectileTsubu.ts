@@ -3,29 +3,26 @@ import { Projectile } from "./Projectile";
 import { CMovement } from "../../components/CMovement";
 import { Vec2 } from "../../utils/geo";
 
-export class ProjectileTama extends Projectile {
-  movement: CMovement = new CMovement(400, 1);
-  protected radius = 10;
-  protected fontSize = 12;
+export class ProjectileTsubu extends Projectile {
+  movement: CMovement = new CMovement(300, 1);
 
-  constructor(app: Application, scale = 1) {
+  constructor(app: Application) {
     super(app);
 
-    const radius = this.radius * scale;
-    const fontSize = this.fontSize * scale;
-
+    const radius = 8
+    const fontSize = 8;
     const graphics = new Graphics().circle(0, 0, radius).fill(0xffffff).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(graphics);
 
     const text = new Text({
-      text: "弾",
+      text: "粒",
       style: { fontSize, fill: 0x000000, stroke: 0xffffff, fontWeight: "400" },
     });
     text.anchor.set(0.5);
     this.container.addChild(text);
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius }];
-    this.damage = 2;
+    this.damage = 1;
     this.dencity = 1;
   }
 

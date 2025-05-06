@@ -14,6 +14,7 @@ import { Upgrade } from "../utils/upgrades.ts";
 import { CAttackNami } from "../components/attacks/CAttackNami.ts";
 import { getDistanceSquared, Vec2 } from "../utils/geo.ts";
 import gsap from "gsap";
+import { CAttackTsubu } from "../components/attacks/CAttackTsubu.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -63,9 +64,6 @@ export class Player extends Entity {
     this.expPick = new CExpPick(this.app, this.container, this.hitboxForExp);
 
     this.attacks.push(new CAttackTama(this.app, this.container));
-    // this.attacks.push(new CAttackUzu(this.app, this.container));
-    // this.attacks.push(new CAttackNen(this.app, this.container));
-    // this.attacks.push(new CAttackNami(this.app, this.container));
     this.health.eventDeath.add(() => {
       this.onDeath();
     });
@@ -132,6 +130,12 @@ export class Player extends Entity {
           { position: { x: 0, y: 0 }, radius: this.hitboxForExp.collisions[0].radius * 1.5 },
         ];
         break;
+      case "tama":
+        this.attacks.push(new CAttackTama(this.app, this.container));
+        break;
+      case "tama+":
+        this.attacks.find((attack) => attack instanceof CAttackTama)!.level += 1;
+        break;
       case "uzu":
         this.attacks.push(new CAttackUzu(this.app, this.container));
         break;
@@ -149,6 +153,12 @@ export class Player extends Entity {
         break;
       case "nami+":
         this.attacks.find((attack) => attack instanceof CAttackNami)!.level += 1;
+        break;
+      case "tsubu":
+        this.attacks.push(new CAttackTsubu(this.app, this.container));
+        break;
+      case "tsubu+":
+        this.attacks.find((attack) => attack instanceof CAttackTsubu)!.level += 1;
         break;
     }
   }
