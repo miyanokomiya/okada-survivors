@@ -252,19 +252,19 @@ export class CUpgrade {
         item: {
           id: "tama+",
           name: "弾+1",
-          description: "大きな弾を生成する",
+          description: "大きな弾を生成する\n弾強度: 2",
           weight: 1,
           children: [
             {
               id: "tama+",
               name: "弾+2",
-              description: "大きな弾を生成する\n弾強度: 2",
+              description: "大きな弾を生成する\n弾強度: 3",
               weight: 1,
               children: [
                 {
                   id: "tama+",
                   name: "弾+3",
-                  description: "大きな弾を生成する",
+                  description: "大きな弾を生成する\n弾強度: 4",
                   weight: 1,
                   children: [
                     {
@@ -282,7 +282,7 @@ export class CUpgrade {
                             {
                               id: "tama+",
                               name: "弾++",
-                              description: "大きな弾を生成する",
+                              description: "さらに大きな弾を生成する",
                               weight: 0.5,
                               count: Infinity,
                             },

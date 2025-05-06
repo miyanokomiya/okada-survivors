@@ -29,14 +29,14 @@ export class CAttackTama extends CAttack {
       scale = base ** 4 * 1.3 ** Math.max(0, this.level - 6);
     }
 
-    if (this.level >= 5) {
+    if (this.level >= 6) {
       speed = speed / 3;
     }
 
     let dencity = 1;
-    if (this.level >= 3) {
-      dencity = 2;
-    } else if (this.level >= 4) {
+    if (this.level < 4) {
+      dencity = this.level;
+    } else {
       dencity = Infinity;
     }
 

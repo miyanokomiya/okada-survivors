@@ -23,7 +23,7 @@ export class PlayerStatus extends Entity {
     const outlineRect = new Graphics().rect(0, 0, this.barWidth, this.barHeight).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(outlineRect);
 
-    this.player.health.eventDamage.add(() => {
+    this.player.health.eventChange.add(() => {
       this.update();
     });
   }

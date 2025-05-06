@@ -21,7 +21,7 @@ export class Enemy extends Entity {
   knockback: CKnockback;
   knockout: CKnockout;
   player: Player;
-  damage = 1;
+  damage = 2;
   healthbar: Healthbar;
   expDrop: CExpDrop = new CExpDrop(this.app, 0.7);
 

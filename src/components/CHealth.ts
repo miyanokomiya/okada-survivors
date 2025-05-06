@@ -5,6 +5,7 @@ export class CHealth {
   currentHealth: number;
   eventDeath: EventTrigger<void> = new EventTrigger();
   eventDamage: EventTrigger<number> = new EventTrigger();
+  eventChange: EventTrigger<void> = new EventTrigger();
 
   constructor(maxHealth: number) {
     this.maxHealth = maxHealth;
@@ -14,6 +15,7 @@ export class CHealth {
   init(maxHealth?: number) {
     if (maxHealth) this.maxHealth = maxHealth;
     this.currentHealth = this.maxHealth;
+    this.eventChange.trigger();
   }
 
   takeDamage(damage: number) {
@@ -21,6 +23,7 @@ export class CHealth {
 
     this.currentHealth = Math.max(0, this.currentHealth - damage);
     this.eventDamage.trigger(damage);
+    this.eventChange.trigger();
     if (!this.isAlive()) {
       this.eventDeath.trigger();
     }
@@ -28,6 +31,7 @@ export class CHealth {
 
   heal(healAmount: number) {
     this.currentHealth = Math.min(this.maxHealth, this.currentHealth + healAmount);
+    this.eventChange.trigger();
   }
 
   isAlive(): boolean {

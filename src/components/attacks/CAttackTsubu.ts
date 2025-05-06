@@ -22,9 +22,9 @@ export class CAttackTsubu extends CAttack {
     } else if (this.level <= 3) {
       count = 6;
     } else if (this.level <= 5) {
-      count = 10;
+      count = 8;
     } else {
-      count = 10 + 2 * Math.max(0, this.level - 6);
+      count = 8 + 2 * Math.max(0, this.level - 6);
     }
 
     let dencity = 1;
@@ -45,6 +45,17 @@ export class CAttackTsubu extends CAttack {
       const range = Math.PI / 5;
       bullet.shoot(this.parent.position, rotateVec(v, range * 2 * (Math.random() - 0.5)));
       bullet.spawn(container);
+    }
+
+    if (this.level >= 6) {
+      for (let i = 0; i < count; i++) {
+        const bullet = new ProjectileTsubu(this.app);
+        bullet.dencity = dencity;
+        bullet.setDelay(6 * i);
+        const range = Math.PI / 5;
+        bullet.shoot(this.parent.position, rotateVec(v, range * 2 * (Math.random() - 0.5)));
+        bullet.spawn(container);
+      }
     }
   }
 }
