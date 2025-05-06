@@ -15,9 +15,10 @@ import { CAttackNami } from "../components/attacks/CAttackNami.ts";
 import { getDistanceSquared, Vec2 } from "../utils/geo.ts";
 import gsap from "gsap";
 import { CAttackTsubu } from "../components/attacks/CAttackTsubu.ts";
+import { applyExPickRange, applyExPlayerSpeed } from "../utils/globalSettings.ts";
 
 export class Player extends Entity {
-  movement: CMovement = new CMovement(100, 1);
+  movement: CMovement = new CMovement(applyExPlayerSpeed(100), 1);
   health: CHealth = new CHealth(100);
   hitbox: CHitbox;
   hurtbox: CHurtbox;
@@ -58,7 +59,7 @@ export class Player extends Entity {
     this.hurtbox = new CHurtbox(this.container);
     this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius * 0.5 }];
     this.hitboxForExp = new CHitbox(this.container);
-    this.hitboxForExp.collisions = [{ position: { x: 0, y: 0 }, radius: radius * 1.5 }];
+    this.hitboxForExp.collisions = [{ position: { x: 0, y: 0 }, radius: applyExPickRange(radius * 1.5) }];
 
     this.knockback = new CKnockback(this.container);
     this.expPick = new CExpPick(this.app, this.container, this.hitboxForExp);

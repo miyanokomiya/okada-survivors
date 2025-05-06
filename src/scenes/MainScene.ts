@@ -25,6 +25,7 @@ import { EnemyMushi } from "../entities/enemies/EnemyMushi";
 import { EnemyDai } from "../entities/enemies/EnemyDai";
 import { GameOverMenu } from "../entities/widgets/GameOverMenu";
 import { VirtualJoystick } from "../components/VirtualJoystick";
+import { AscensionScene } from "./AscensionScene";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -136,9 +137,14 @@ export class MainScene extends SceneBase {
 
     this.clearMenu = new GameOverMenu(app);
     this.clearMenu.spawn(hudContainer);
+    this.clearMenu.displayOver();
 
     this.clearMenu.eventRetry.add(() => {
       this.restart();
+    });
+    this.clearMenu.eventAscension.add(() => {
+      this.destroy();
+      new AscensionScene(app);
     });
 
     this.joystick = new VirtualJoystick(50, app.screen.width, app.screen.height);

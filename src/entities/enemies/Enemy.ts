@@ -12,6 +12,7 @@ import { DamageLabel } from "../widgets/DamageLabel";
 import { getPlayerContaienr, getWidgetContaienr } from "../../utils/containers";
 import { CExpDrop } from "../../components/CExpDrop";
 import { playSound } from "../../utils/sounds";
+import { applyExDamage } from "../../utils/globalSettings";
 
 export class Enemy extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -76,7 +77,7 @@ export class Enemy extends Entity {
 
   attack() {
     if (this.hitbox.check(this.player.hurtbox)) {
-      this.player.health.takeDamage(this.damage);
+      this.player.health.takeDamage(applyExDamage(this.damage));
       this.player.knockback.hit();
       playSound("hit1");
     }

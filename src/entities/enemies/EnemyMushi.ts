@@ -1,5 +1,6 @@
 import { Application, Graphics, Text } from "pixi.js";
 import { Enemy } from "./Enemy";
+import { applyExEnemyHealth } from "../../utils/globalSettings";
 
 export class EnemyMushi extends Enemy {
   constructor(app: Application) {
@@ -7,7 +8,7 @@ export class EnemyMushi extends Enemy {
 
     this.movement.maxSpeed = 100;
     this.movement.acceleration = 0.01;
-    this.health.init(2);
+    this.health.init(applyExEnemyHealth(2));
 
     const radius = 10;
     const graphics = new Graphics().circle(0, 0, radius).fill(0xaaaaaa).stroke({ color: 0x000000, width: 2 });

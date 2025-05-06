@@ -6,6 +6,7 @@ import { getDistanceSquared, getUnitVec, scaleVec, subVec } from "../utils/geo";
 import { CMovement } from "../components/CMovement";
 import { Player } from "./Player";
 import { playSound } from "../utils/sounds";
+import { applyExExp } from "../utils/globalSettings";
 
 export class ExpGem extends Entity {
   hurtbox: CHurtbox;
@@ -47,7 +48,7 @@ export class ExpGem extends Entity {
     if (!this.target) return;
 
     const player = getEntity<Player>(this.target);
-    player.expLevel.addExp(1);
+    player.expLevel.addExp(applyExExp(1));
     playSound("pick1");
   }
 

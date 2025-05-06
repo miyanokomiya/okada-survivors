@@ -1,6 +1,8 @@
 import { Application, Container, Graphics, Text } from "pixi.js";
 import { SceneBase } from "./SceneBase";
 import { MainScene } from "./MainScene";
+import { createTextButton } from "../utils/uis";
+import { AscensionScene } from "./AscensionScene";
 
 export class TitleScene extends SceneBase {
   constructor(app: Application) {
@@ -50,6 +52,15 @@ export class TitleScene extends SceneBase {
     overlay.on("pointerdown", () => {
       this.destroy();
       new MainScene(app);
+    });
+
+    const ascensionButton = createTextButton("Ascensions", 160, 60, 20);
+    ascensionButton.position.set(width / 2 - ascensionButton.width / 2, height / 2 + 180);
+    container.addChild(ascensionButton);
+    ascensionButton.interactive = true;
+    ascensionButton.on("pointerdown", () => {
+      this.destroy();
+      new AscensionScene(app);
     });
   }
 }

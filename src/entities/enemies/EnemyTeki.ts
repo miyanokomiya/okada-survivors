@@ -1,6 +1,7 @@
 import { Application, Container, Graphics, Text } from "pixi.js";
 import { Enemy } from "./Enemy";
 import gsap from "gsap";
+import { applyExEnemyHealth } from "../../utils/globalSettings";
 
 export class EnemyTeki extends Enemy {
   protected radius = 16;
@@ -15,7 +16,7 @@ export class EnemyTeki extends Enemy {
   protected init() {
     this.movement.maxSpeed = 50;
     this.movement.acceleration = 0.1;
-    this.health.init(3);
+    this.health.init(applyExEnemyHealth(3));
 
     const graphicContainer = new Container();
     this.container.addChild(graphicContainer);

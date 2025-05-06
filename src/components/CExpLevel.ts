@@ -17,7 +17,7 @@ export class CExpLevel {
     if (this.exp >= this.nextExp) {
       this.level++;
       this.exp -= this.nextExp;
-      this.nextExp = Math.ceil(this.nextExp * 1.2);
+      this.nextExp = this.nextExp * 1.2;
       this.eventLevelup.trigger(this.level);
       this.checkLevelUp();
     }
