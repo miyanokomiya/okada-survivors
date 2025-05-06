@@ -1,5 +1,6 @@
 import { Application, Text } from "pixi.js";
 import { Entity } from "../Entity";
+import { getEnemyContaienr } from "../../utils/containers";
 
 export class GameTimerLabel extends Entity {
   private timerText: Text;
@@ -20,9 +21,14 @@ export class GameTimerLabel extends Entity {
   }
 
   update(time: number, level: number) {
+    const enemyCount = (getEnemyContaienr(this.app)?.children ?? []).length;
     const totalSecond = Math.floor(time / 60);
     const minute = Math.floor(totalSecond / 60);
     const second = Math.floor(totalSecond % 60);
-    this.timerText.text = `${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}    Lv.${level.toString().padStart(2, "0")}`;
+    this.timerText.text = [
+      `${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`,
+      `Lv.${level.toString().padStart(2, "0")}`,
+      `☆${enemyCount.toString().padStart(4, "0")}`,
+    ].join("    ");
   }
 }

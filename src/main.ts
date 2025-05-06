@@ -1,4 +1,3 @@
-import { MainScene } from "./scenes/MainScene";
 import "./style.css";
 import { Application, Assets } from "pixi.js";
 import { gsap } from "gsap";
@@ -6,6 +5,7 @@ import { PixiPlugin } from "gsap/PixiPlugin";
 import background from "./assets/background.svg";
 import star10 from "./assets/star10.svg";
 import { initSounds } from "./utils/sounds";
+import { TitleScene } from "./scenes/TitleScene";
 
 const keyState: Record<string, boolean> = {};
 window.addEventListener("keydown", (e) => {
@@ -29,5 +29,5 @@ window.addEventListener("keyup", (e) => {
 })();
 
 function initGame(app: Application) {
-  new MainScene(app);
+  new TitleScene(app);
 }

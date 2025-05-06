@@ -3,7 +3,13 @@ import { SceneBase } from "./SceneBase";
 import { Player } from "../entities/Player";
 import { EnemyTeki } from "../entities/enemies/EnemyTeki";
 import { lerpValue, Vec2 } from "../utils/geo";
-import { getBackgroundContainer, getHudContaienr, getPlayerContaienr, initContainers } from "../utils/containers";
+import {
+  getBackgroundContainer,
+  getEnemyContaienr,
+  getHudContaienr,
+  getPlayerContaienr,
+  initContainers,
+} from "../utils/containers";
 import { CEnemySpawner } from "../components/CEnemySpawner";
 import { createWeightedTable } from "../utils/WeightedTable";
 import { CTimer } from "../components/CTimer";
@@ -17,6 +23,7 @@ import { CCamera } from "../components/CCamera";
 import background from "../assets/background.svg";
 import { EnemyMushi } from "../entities/enemies/EnemyMushi";
 import { EnemyDai } from "../entities/enemies/EnemyDai";
+import { GameOverMenu } from "../entities/widgets/GameOverMenu";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -29,6 +36,8 @@ export class MainScene extends SceneBase {
   playerStatus: PlayerStatus;
   upgradeComponent: CUpgrade;
   upgradeMenu: UpgradeMenu;
+  clearMenu: GameOverMenu;
+  private timeup = false;
 
   constructor(app: Application) {
     super(app);
@@ -36,8 +45,7 @@ export class MainScene extends SceneBase {
     this.gameTimer = new CTimer(60 * 60 * 3);
     this.gameTimer.start();
     this.gameTimer.onFinish = () => {
-      console.log("Game Over");
-      this.restart();
+      this.timeup = true;
     };
 
     initTickLayers(app);
@@ -64,36 +72,36 @@ export class MainScene extends SceneBase {
       [
         3,
         createWeightedTable([
-          { item: EnemyTeki, weight: 1 },
-          { item: EnemyMushi, weight: 0.5 },
+          { item: EnemyTeki, weight: 2 },
+          { item: EnemyMushi, weight: 1 },
         ]),
       ],
       [
         6,
         createWeightedTable([
-          { item: EnemyTeki, weight: 1 },
-          { item: EnemyMushi, weight: 0.5 },
-          { item: EnemyDai, weight: 0.5 },
+          { item: EnemyTeki, weight: 4 },
+          { item: EnemyMushi, weight: 2 },
+          { item: EnemyDai, weight: 1 },
         ]),
       ],
       [
         9,
         createWeightedTable([
-          { item: EnemyTeki, weight: 1 },
-          { item: EnemyMushi, weight: 0.5 },
+          { item: EnemyTeki, weight: 2 },
+          { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 1 },
         ]),
       ],
       [
         12,
         createWeightedTable([
-          { item: EnemyTeki, weight: 1 },
-          { item: EnemyMushi, weight: 1 },
-          { item: EnemyDai, weight: 1 },
+          { item: EnemyTeki, weight: 3 },
+          { item: EnemyMushi, weight: 3 },
+          { item: EnemyDai, weight: 2 },
         ]),
       ],
       [
-        12,
+        15,
         createWeightedTable([
           { item: EnemyTeki, weight: 1 },
           { item: EnemyMushi, weight: 1 },
@@ -123,6 +131,13 @@ export class MainScene extends SceneBase {
     this.player.expLevel.eventLevelup.add(() => {
       this.upgradeMenu.display();
     });
+
+    this.clearMenu = new GameOverMenu(app);
+    this.clearMenu.spawn(hudContainer);
+
+    this.clearMenu.eventRetry.add(() => {
+      this.restart();
+    });
   }
 
   destroy() {
@@ -133,8 +148,7 @@ export class MainScene extends SceneBase {
     if (isPausedLayerMain(this.app)) return;
 
     if (!this.player.health.isAlive()) {
-      console.log("Player is dead");
-      this.restart();
+      this.clearMenu.displayOver();
       return;
     }
 
@@ -143,10 +157,20 @@ export class MainScene extends SceneBase {
     this.camera.tick(time.deltaTime);
     this.backgroundSprite.tilePosition.x = this.camera.cameraContainer.position.x;
     this.backgroundSprite.tilePosition.y = this.camera.cameraContainer.position.y;
-    this.enemySpawner.setLevel(Math.floor(lerpValue(1, 20, this.gameTimer.getProgress())));
-    this.enemySpawner.tick(time.deltaTime);
-    this.gameTimer.tick(time.deltaTime);
     this.gameTimerLabel.update(this.gameTimer.currentTime, this.enemySpawner.level);
+
+    if (this.gameTimer.isRunning) {
+      this.gameTimer.tick(time.deltaTime);
+      this.enemySpawner.setLevel(Math.floor(lerpValue(1, 20, this.gameTimer.getProgress())));
+      this.enemySpawner.tick(time.deltaTime);
+    }
+
+    if (this.timeup) {
+      const enemyCount = (getEnemyContaienr(this.app)?.children ?? []).length;
+      if (enemyCount === 0) {
+        this.clearMenu.displayClear();
+      }
+    }
   }
 }
 

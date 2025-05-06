@@ -23,7 +23,7 @@ export class Enemy extends Entity {
   player: Player;
   damage = 1;
   healthbar: Healthbar;
-  expDrop: CExpDrop = new CExpDrop(this.app, 1);
+  expDrop: CExpDrop = new CExpDrop(this.app, 0.7);
 
   constructor(app: Application) {
     super(app);

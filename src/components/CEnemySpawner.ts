@@ -41,7 +41,7 @@ export class CEnemySpawner {
 
     this.level = level;
 
-    this.spawnTimer.duration = Math.max(0.01, this.baseSpawnInterval * Math.pow(0.85, this.level));
+    this.spawnTimer.duration = Math.max(0.01, this.baseSpawnInterval * Math.pow(0.825, this.level));
     this.spawnTimer.start();
   }
 
