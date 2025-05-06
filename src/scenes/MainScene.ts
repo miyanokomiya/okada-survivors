@@ -15,6 +15,8 @@ import { CUpgrade } from "../components/CUpgrade";
 import { initTickLayers, isPausedLayerMain } from "../utils/tickLayers";
 import { CCamera } from "../components/CCamera";
 import background from "../assets/background.svg";
+import { EnemyMushi } from "../entities/enemies/EnemyMushi";
+import { EnemyDai } from "../entities/enemies/EnemyDai";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -57,7 +59,48 @@ export class MainScene extends SceneBase {
     this.camera = new CCamera(app);
     this.camera.setTarget(this.player.container);
 
-    this.enemySpawner = new CEnemySpawner(app, createWeightedTable([{ item: EnemyTeki, weight: 1 }]));
+    this.enemySpawner = new CEnemySpawner(app, [
+      [1, createWeightedTable([{ item: EnemyTeki, weight: 1 }])],
+      [
+        3,
+        createWeightedTable([
+          { item: EnemyTeki, weight: 1 },
+          { item: EnemyMushi, weight: 0.5 },
+        ]),
+      ],
+      [
+        6,
+        createWeightedTable([
+          { item: EnemyTeki, weight: 1 },
+          { item: EnemyMushi, weight: 0.5 },
+          { item: EnemyDai, weight: 0.5 },
+        ]),
+      ],
+      [
+        9,
+        createWeightedTable([
+          { item: EnemyTeki, weight: 1 },
+          { item: EnemyMushi, weight: 0.5 },
+          { item: EnemyDai, weight: 1 },
+        ]),
+      ],
+      [
+        12,
+        createWeightedTable([
+          { item: EnemyTeki, weight: 1 },
+          { item: EnemyMushi, weight: 1 },
+          { item: EnemyDai, weight: 1 },
+        ]),
+      ],
+      [
+        12,
+        createWeightedTable([
+          { item: EnemyTeki, weight: 1 },
+          { item: EnemyMushi, weight: 1 },
+          { item: EnemyDai, weight: 2 },
+        ]),
+      ],
+    ]);
 
     const hudContainer = getHudContaienr(app);
     this.gameTimerLabel = new GameTimerLabel(app);

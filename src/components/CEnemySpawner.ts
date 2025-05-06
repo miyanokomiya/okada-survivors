@@ -6,7 +6,6 @@ import { getEnemyContaienr, getPlayerContaienr } from "../utils/containers";
 import { Player } from "../entities/Player";
 import { getEntity } from "../entities/Entity";
 import { getDistance } from "../utils/geo";
-import { EnemyMushi } from "../entities/enemies/EnemyMushi";
 
 type EnemyConstructor = new (...args: any[]) => Enemy;
 
@@ -18,7 +17,7 @@ export class CEnemySpawner {
 
   constructor(
     public app: Application,
-    public enemyTable: WeightedTable<EnemyConstructor>,
+    public enemyTables: [level: number, WeightedTable<EnemyConstructor>][],
   ) {
     this.spawnTimer = new CTimer(this.baseSpawnInterval);
     this.spawnTimer.loop = true;
@@ -42,16 +41,16 @@ export class CEnemySpawner {
 
     this.level = level;
 
-    if (level === 2) {
-      this.enemyTable.add(EnemyMushi, 0.5);
-    }
-
     this.spawnTimer.duration = Math.max(0.01, this.baseSpawnInterval * Math.pow(0.85, this.level));
     this.spawnTimer.start();
   }
 
   private spawnEnemy() {
-    const Item = this.enemyTable.getRandomItem();
+    const tableIndex = this.enemyTables.findIndex((table) => table[0] > this.level);
+    const table = this.enemyTables[tableIndex - 1] ?? this.enemyTables[0];
+    if (!table) return;
+
+    const Item = table[1].getRandomItem();
     if (!Item) return;
 
     const enemy = new Item(this.app);

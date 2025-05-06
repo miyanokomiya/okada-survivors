@@ -19,8 +19,10 @@ export class CAttackNami extends CAttack {
       count = 2;
     } else if (this.level <= 2) {
       count = 3;
-    } else if (this.level <= 4) {
+    } else if (this.level <= 3) {
       count = 4;
+    } else if (this.level <= 5) {
+      count = 6;
     } else {
       count = 6 + Math.max(0, this.level - 6);
     }

@@ -3,9 +3,16 @@ import { Enemy } from "./Enemy";
 import gsap from "gsap";
 
 export class EnemyTeki extends Enemy {
+  protected radius = 16;
+  protected fontSize = 20;
+  protected faceText = "敵";
+
   constructor(app: Application) {
     super(app);
+    this.init();
+  }
 
+  protected init() {
     this.movement.maxSpeed = 50;
     this.movement.acceleration = 0.1;
     this.health.init(3);
@@ -13,13 +20,13 @@ export class EnemyTeki extends Enemy {
     const graphicContainer = new Container();
     this.container.addChild(graphicContainer);
 
-    const radius = 16;
+    const radius = this.radius;
     const graphics = new Graphics().circle(0, 0, radius).fill(0xaaaaaa).stroke({ color: 0x000000, width: 2 });
     graphicContainer.addChild(graphics);
 
-    const fontSize = 20;
+    const fontSize = this.fontSize;
     const text = new Text({
-      text: "敵",
+      text: this.faceText,
       style: { fontSize, fill: 0x000000, stroke: 0xffffff, fontWeight: "500" },
     });
     text.x = -fontSize / 2;
