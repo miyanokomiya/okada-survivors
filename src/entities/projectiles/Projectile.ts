@@ -8,6 +8,7 @@ import { getEnemyContaienr } from "../../utils/containers";
 export class Projectile extends Entity {
   hitbox: CHitbox;
   lifetime = new CTimer(60 * 5);
+  delay = new CTimer(0);
   dencity = 1; // Specifies how many times the projectile can hit enemies.
   damage = 1;
 
@@ -20,9 +21,21 @@ export class Projectile extends Entity {
     this.lifetime.start();
   }
 
+  setDelay(duration: number) {
+    this.delay.duration = duration;
+    this.delay.start();
+  }
+
   move(_deltaFrame: number) {}
 
   tick(deltaFrame: number) {
+    if (this.delay.isRunning) {
+      this.delay.tick(deltaFrame);
+      this.container.visible = false;
+      return;
+    }
+
+    this.container.visible = true;
     this.move(deltaFrame);
     if (this.lifetime.isRunning) {
       this.lifetime.tick(deltaFrame);

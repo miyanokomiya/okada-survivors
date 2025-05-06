@@ -77,6 +77,54 @@ export class CUpgrade {
         },
         weight: 1,
       },
+      {
+        item: {
+          id: "nami",
+          name: "波",
+          description: "敵に向けて波状に移動する弾を生成する",
+          children: [
+            {
+              id: "nami+",
+              name: "波+1",
+              description: "さらなる波を生成する",
+              weight: 1,
+              children: [
+                {
+                  id: "nami+",
+                  name: "波+2",
+                  description: "さらなる波を生成する",
+                  weight: 1,
+                  children: [
+                    {
+                      id: "nami+",
+                      name: "波+3",
+                      description: "さらなる波を生成する",
+                      weight: 1,
+                      children: [
+                        {
+                          id: "nami+",
+                          name: "波+4",
+                          description: "貫通効果を付与する",
+                          weight: 1,
+                          children: [
+                            {
+                              id: "nami+",
+                              name: "波+5",
+                              description: "新たな波を生成する",
+                              weight: 1,
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        weight: 1,
+      },
     ]);
   }
 

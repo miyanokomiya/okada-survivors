@@ -11,6 +11,7 @@ import { CExpLevel } from "../components/CExpLevel.ts";
 import { CAttackUzu } from "../components/attacks/CAttackUzu.ts";
 import { CAttackNen } from "../components/attacks/CAttackNen.ts";
 import { Upgrade } from "../utils/upgrades.ts";
+import { CAttackNami } from "../components/attacks/CAttackNami.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -51,6 +52,7 @@ export class Player extends Entity {
     this.expPick = new CExpPick(this.app, this.container, this.hitboxForExp);
 
     this.attacks.push(new CAttackTama(this.app, this.container));
+    // this.attacks.push(new CAttackNami(this.app, this.container));
     // this.attacks.push(new CAttackUzu(this.app, this.container));
     // this.attacks.push(new CAttackNen(this.app, this.container));
     this.health.eventDeath.add(() => {
@@ -92,6 +94,12 @@ export class Player extends Entity {
         break;
       case "nen+":
         this.attacks.find((attack) => attack instanceof CAttackNen)!.level += 1;
+        break;
+      case "nami":
+        this.attacks.push(new CAttackNami(this.app, this.container));
+        break;
+      case "nami+":
+        this.attacks.find((attack) => attack instanceof CAttackNami)!.level += 1;
         break;
     }
   }
