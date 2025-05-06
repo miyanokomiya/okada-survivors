@@ -28,7 +28,7 @@ export class GameOverMenu extends Entity {
 
       const text = new Text({
         text: "Game Clear",
-        style: { fontSize: 64, fill: 0x000000, stroke: 0xffffff, fontWeight: "500" },
+        style: { fontSize: 64, fill: 0x000000, fontWeight: "500" },
       });
       text.anchor.set(0.5, 0);
       text.position.set(width / 2, 0);
@@ -36,7 +36,7 @@ export class GameOverMenu extends Entity {
 
       const retryButton = createTextButton("Retry", 160, 60, 20);
       retryButton.pivot.set(80, 0);
-      retryButton.position.set(width / 2, this.clearContainer.y + this.clearContainer.height + 30);
+      retryButton.position.set(width / 2, this.clearContainer.height + 30);
       retryButton.interactive = true;
       retryButton.on("pointerdown", () => {
         this.eventRetry.trigger();
@@ -48,6 +48,11 @@ export class GameOverMenu extends Entity {
       ascensionContainer.position.set(0, retryButton.y + retryButton.height + 30);
       this.clearContainer.addChild(ascensionContainer);
 
+      const versionText = this.createVersionText();
+      versionText.anchor.set(0.5, 0);
+      versionText.position.set(width / 2, this.clearContainer.height + 30);
+      this.clearContainer.addChild(versionText);
+
       this.clearContainer.position.set(0, height / 2 - this.clearContainer.height / 2);
       this.container.addChild(this.clearContainer);
     }
@@ -58,7 +63,7 @@ export class GameOverMenu extends Entity {
 
       const text = new Text({
         text: "Game Over",
-        style: { fontSize: 64, fill: 0x000000, stroke: 0xffffff, fontWeight: "500" },
+        style: { fontSize: 64, fill: 0x000000, fontWeight: "500" },
       });
       text.anchor.set(0.5, 0);
       text.position.set(width / 2, 0);
@@ -66,7 +71,7 @@ export class GameOverMenu extends Entity {
 
       const retryButton = createTextButton("Retry", 160, 60, 20);
       retryButton.pivot.set(80, 0);
-      retryButton.position.set(width / 2, this.overContainer.y + this.overContainer.height + 30);
+      retryButton.position.set(width / 2, this.overContainer.height + 30);
       retryButton.interactive = true;
       retryButton.on("pointerdown", () => {
         this.eventRetry.trigger();
@@ -77,6 +82,11 @@ export class GameOverMenu extends Entity {
       const ascensionContainer = this.createAscensionContainer(width);
       ascensionContainer.position.set(0, retryButton.y + retryButton.height + 30);
       this.overContainer.addChild(ascensionContainer);
+
+      const versionText = this.createVersionText();
+      versionText.anchor.set(0.5, 0);
+      versionText.position.set(width / 2, this.overContainer.height + 30);
+      this.overContainer.addChild(versionText);
 
       this.overContainer.position.set(0, height / 2 - this.overContainer.height / 2);
       this.container.addChild(this.overContainer);
@@ -118,7 +128,7 @@ export class GameOverMenu extends Entity {
 
         const ascensionText = new Text({
           text: `A${ascension.toString().padStart(2, "0")}`,
-          style: { fontSize: 16, fill: 0x000000, stroke: 0xffffff, fontWeight: "400" },
+          style: { fontSize: 16, fill: 0x000000, fontWeight: "400" },
         });
         ascensionText.anchor.set(0.5, 0.5);
         ascensionText.position.set(radius, radius);
@@ -144,5 +154,13 @@ export class GameOverMenu extends Entity {
     ascensionCotainer.addChild(ascensionButton);
 
     return ascensionCotainer;
+  }
+
+  private createVersionText() {
+    const text = new Text({
+      text: `Ver.${__APP_VERSION__}`,
+      style: { fontSize: 18, fill: 0x000000, fontWeight: "400" },
+    });
+    return text;
   }
 }
