@@ -7,7 +7,7 @@ import { subVec } from "../../utils/geo";
 export class CAttackNami extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
-    this.shootTimer.duration = 180;
+    this.shootTimer.duration = 120;
   }
 
   shoot() {
@@ -28,7 +28,7 @@ export class CAttackNami extends CAttack {
     }
 
     let dencity = 1;
-    if (this.level >= 3) {
+    if (this.level === 3) {
       dencity = 2;
     } else if (this.level >= 4) {
       dencity = Infinity;

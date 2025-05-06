@@ -93,42 +93,9 @@ export class CUpgrade {
           children: [
             {
               id: "nen+",
-              name: "熱+1",
+              name: "熱++",
               description: "さらなる熱源を生成する",
-              weight: 1,
-              children: [
-                {
-                  id: "nen+",
-                  name: "熱+2",
-                  description: "さらなる熱源を生成する",
-                  weight: 1,
-                  children: [
-                    {
-                      id: "nen+",
-                      name: "熱+3",
-                      description: "さらなる熱源を生成する",
-                      weight: 1,
-                      children: [
-                        {
-                          id: "nen+",
-                          name: "熱+4",
-                          description: "さらなる熱源を生成する",
-                          weight: 0.7,
-                          children: [
-                            {
-                              id: "nen+",
-                              name: "熱+5",
-                              description: "さらなる熱源を生成する",
-                              weight: 0.5,
-                              count: Infinity,
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
+              weight: 0.5,
             },
           ],
         },

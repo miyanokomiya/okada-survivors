@@ -4,7 +4,7 @@ import { lerpValue, Vec2 } from "../../utils/geo";
 
 export class ProjectileNen extends Projectile {
   private circleGraphics: Graphics;
-  private maxRadius = 60;
+  private maxRadius = 50;
   private minRadius = 10;
 
   constructor(
@@ -26,7 +26,7 @@ export class ProjectileNen extends Projectile {
     this.container.addChild(text);
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 10 }];
-    this.lifetime.duration = 60 * 6;
+    this.lifetime.duration = 60 * 5;
     this.lifetime.start();
     this.dencity = Infinity;
   }

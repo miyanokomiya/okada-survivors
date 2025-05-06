@@ -28,7 +28,7 @@ export class CAttackTsubu extends CAttack {
     }
 
     let dencity = 1;
-    if (this.level >= 3) {
+    if (this.level === 3) {
       dencity = 2;
     } else if (this.level >= 4) {
       dencity = Infinity;
@@ -38,10 +38,12 @@ export class CAttackTsubu extends CAttack {
     const to = closestEnemy.position;
     const v = subVec(to, this.parent.position);
 
+    const delay = 20 / count;
+
     for (let i = 0; i < count; i++) {
       const bullet = new ProjectileTsubu(this.app);
       bullet.dencity = dencity;
-      bullet.setDelay(6 * i);
+      bullet.setDelay(delay * i);
       const range = Math.PI / 5;
       bullet.shoot(this.parent.position, rotateVec(v, range * 2 * (Math.random() - 0.5)));
       bullet.spawn(container);
@@ -51,7 +53,7 @@ export class CAttackTsubu extends CAttack {
       for (let i = 0; i < count; i++) {
         const bullet = new ProjectileTsubu(this.app);
         bullet.dencity = dencity;
-        bullet.setDelay(6 * i);
+        bullet.setDelay(delay * i);
         const range = Math.PI / 5;
         bullet.shoot(this.parent.position, rotateVec(v, range * 2 * (Math.random() - 0.5)));
         bullet.spawn(container);
