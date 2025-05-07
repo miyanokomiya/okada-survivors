@@ -76,3 +76,35 @@ export function getWidgetContaienr(app: Application): Container | undefined {
 export function getHudContaienr(app: Application): Container | undefined {
   return app.stage.children.find((child) => child.label === "hud_container");
 }
+
+export function checkLoop(app: Application, tileCount: number, tileSize: number) {
+  const cameraContainer = getCameraContainer(app);
+  if (!cameraContainer) return;
+
+  // Get the center position of the viewport
+  const cameraX = cameraContainer.position.x;
+  const cameraY = cameraContainer.position.y;
+
+  const halfSize = (tileSize * tileCount) / 2;
+  const diff = { x: app.screen.width / 2, y: app.screen.height / 2 };
+
+  // Loop through all child containers of the camera container
+  cameraContainer.children.forEach((container) => {
+    container.children.forEach((child) => {
+      const relativeX = child.position.x + cameraX;
+      const relativeY = child.position.y + cameraY;
+
+      if (relativeX < -halfSize + diff.x) {
+        child.position.x += tileSize * tileCount;
+      } else if (relativeX >= halfSize + diff.x) {
+        child.position.x -= tileSize * tileCount;
+      }
+
+      if (relativeY < -halfSize + diff.y) {
+        child.position.y += tileSize * tileCount;
+      } else if (relativeY >= halfSize + diff.y) {
+        child.position.y -= tileSize * tileCount;
+      }
+    });
+  });
+}
