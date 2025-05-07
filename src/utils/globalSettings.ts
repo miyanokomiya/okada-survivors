@@ -16,6 +16,7 @@ export const ASCENZTION_ITEMS = [
   { ascension: 15, description: "ハズレ選択肢追加" },
   { ascension: 16, description: "障害物ランダム配置" },
   { ascension: 17, description: "障害物巨大化" },
+  { ascension: 18, description: "障害物非貫通化" },
 ];
 
 const activeAscensions = new Set<number>();
@@ -165,4 +166,9 @@ export function applyExWallSize(val: number): number {
     val *= 2;
   }
   return val;
+}
+
+export function isExWallImpervious(): boolean {
+  const ascension = getActiveAscension();
+  return ascension.has(18);
 }

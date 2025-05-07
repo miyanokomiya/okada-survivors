@@ -1,7 +1,15 @@
 import { CHitbox } from "../components/CHitbox.ts";
 import { Entity, getEntity } from "./Entity";
 import { Application, Graphics } from "pixi.js";
-import { getEnemyContaienr, getItemContaienr, getPlayerContaienr } from "../utils/containers.ts";
+import {
+  getEnemyContaienr,
+  getItemContaienr,
+  getPlayerContaienr,
+  getProjectileContaienr,
+  getProjectileContainerBack,
+} from "../utils/containers.ts";
+import { isExWallImpervious } from "../utils/globalSettings.ts";
+import { Projectile } from "./projectiles/Projectile.ts";
 
 export class Wall extends Entity {
   hitbox: CHitbox;
@@ -72,5 +80,18 @@ export class Wall extends Entity {
 
     const playerContainer = getPlayerContaienr(this.app)!.children.find((child) => child.label === "player")!;
     this.pushOut(getEntity(playerContainer));
+
+    if (isExWallImpervious()) {
+      const projectiles = (getProjectileContaienr(this.app)?.children ?? []).concat(
+        getProjectileContainerBack(this.app)?.children ?? [],
+      );
+      projectiles
+        .map((child) => getEntity<Projectile>(child))
+        .forEach((item) => {
+          if (item.dencity < 12 && this.hitbox.check(item.hitbox)) {
+            item.dispose = true;
+          }
+        });
+    }
   }
 }
