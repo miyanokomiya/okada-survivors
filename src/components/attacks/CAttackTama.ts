@@ -35,7 +35,7 @@ export class CAttackTama extends CAttack {
     }
 
     let dencity = 1;
-    if (this.level < 4) {
+    if (this.level < 5) {
       dencity = this.level;
     } else {
       dencity = Infinity;

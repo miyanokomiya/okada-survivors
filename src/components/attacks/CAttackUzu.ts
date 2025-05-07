@@ -27,7 +27,7 @@ export class CAttackUzu extends CAttack {
     let dencity = 1;
     if (this.level === 3) {
       dencity = 2;
-    } else if (this.level >= 4) {
+    } else if (this.level >= 5) {
       dencity = Infinity;
     }
     dencity = applyExMaxDencity(dencity);
