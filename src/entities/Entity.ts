@@ -2,6 +2,7 @@ import { Application, Container, Ticker } from "pixi.js";
 import { nanoid } from "nanoid";
 import { isPausedLayerMain, LAYER_MAIN } from "../utils/tickLayers";
 import { CHitbox } from "../components/CHitbox";
+import { getCameraContainer } from "../utils/containers";
 
 export class Entity {
   id: string = nanoid();
@@ -69,6 +70,25 @@ export class Entity {
 
   getHitboxForObstacle(): CHitbox | undefined {
     return;
+  }
+
+  isInCamera(bounds: { x: number; y: number; width: number; height: number }): boolean {
+    const cameraContainer = getCameraContainer(this.app);
+    if (!cameraContainer) return false;
+
+    const cameraBounds = {
+      x: -cameraContainer.x,
+      y: -cameraContainer.y,
+      width: this.app.screen.width,
+      height: this.app.screen.height,
+    };
+
+    return !(
+      bounds.x + bounds.width < cameraBounds.x ||
+      bounds.x > cameraBounds.x + cameraBounds.width ||
+      bounds.y + bounds.height < cameraBounds.y ||
+      bounds.y > cameraBounds.y + cameraBounds.height
+    );
   }
 }
 

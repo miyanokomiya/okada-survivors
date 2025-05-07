@@ -1,7 +1,7 @@
 import { CHitbox } from "../components/CHitbox.ts";
 import { Entity, getEntity } from "./Entity";
 import { Application, Graphics } from "pixi.js";
-import { getEnemyContaienr, getPlayerContaienr } from "../utils/containers.ts";
+import { getEnemyContaienr, getItemContaienr, getPlayerContaienr } from "../utils/containers.ts";
 
 export class Wall extends Entity {
   hitbox: CHitbox;
@@ -49,9 +49,25 @@ export class Wall extends Entity {
   }
 
   tick() {
+    const margin = this.radius * 1.5;
+    if (
+      !this.isInCamera({
+        x: this.container.x - margin,
+        y: this.container.y - margin,
+        width: margin * 2,
+        height: margin * 2,
+      })
+    )
+      return;
+
     const enemies = (getEnemyContaienr(this.app)?.children ?? []).map((child) => getEntity(child));
     enemies.forEach((enemy) => {
       this.pushOut(enemy);
+    });
+
+    const items = (getItemContaienr(this.app)?.children ?? []).map((child) => getEntity(child));
+    items.forEach((item) => {
+      this.pushOut(item);
     });
 
     const playerContainer = getPlayerContaienr(this.app)!.children.find((child) => child.label === "player")!;

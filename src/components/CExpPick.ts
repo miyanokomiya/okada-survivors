@@ -15,7 +15,7 @@ export class CExpPick {
     const gems = getItemContaienr(this.app)?.children.filter((child) => child.label === "exp-gem") ?? [];
     for (const gem of gems) {
       const gemEntty = getEntity<ExpGem>(gem);
-      if (!gemEntty.attracting && this.hitbox.check(gemEntty.hurtbox)) {
+      if (!gemEntty.attracting && this.hitbox.check(gemEntty.hitbox)) {
         gemEntty.attract(this.parent);
       }
     }

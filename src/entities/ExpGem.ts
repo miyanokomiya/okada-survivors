@@ -1,6 +1,6 @@
 import { Application, Container, Graphics } from "pixi.js";
 import { Entity, getEntity } from "./Entity";
-import { CHurtbox } from "../components/CHitbox";
+import { CHitbox } from "../components/CHitbox";
 import { gsap } from "gsap";
 import { getDistanceSquared, getUnitVec, scaleVec, subVec } from "../utils/geo";
 import { CMovement } from "../components/CMovement";
@@ -9,7 +9,7 @@ import { playSound } from "../utils/sounds";
 import { applyExExp } from "../utils/globalSettings";
 
 export class ExpGem extends Entity {
-  hurtbox: CHurtbox;
+  hitbox: CHitbox;
   movement: CMovement = new CMovement(300, 0.5);
   target: Container | undefined;
   attracting = false;
@@ -19,8 +19,8 @@ export class ExpGem extends Entity {
 
     this.container.label = "exp-gem";
 
-    this.hurtbox = new CHurtbox(this.container);
-    this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: 6 }];
+    this.hitbox = new CHitbox(this.container);
+    this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: 6 }];
 
     const graphics = new Graphics().circle(0, 0, 6).fill(0x0000ff).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(graphics);
@@ -66,5 +66,9 @@ export class ExpGem extends Entity {
       this.movement.accelerate(v);
       this.movement.move(this.container, deltaFrame);
     }
+  }
+
+  getHitboxForObstacle(): CHitbox | undefined {
+    return this.hitbox;
   }
 }
