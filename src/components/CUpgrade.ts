@@ -2,6 +2,7 @@ import { Application } from "pixi.js";
 import { createWeightedTable, WeightedTable } from "../utils/WeightedTable";
 import { Upgrade } from "../utils/upgrades";
 import { EventTrigger } from "../utils/EventTrigger";
+import { getExLoserOption } from "../utils/globalSettings";
 
 export class CUpgrade {
   table: WeightedTable<Upgrade>;
@@ -9,7 +10,21 @@ export class CUpgrade {
   eventUpgradeSelected: EventTrigger<Upgrade> = new EventTrigger();
 
   constructor(public app: Application) {
+    const loserWeight = getExLoserOption();
     this.table = createWeightedTable([
+      ...(loserWeight === 0
+        ? []
+        : [
+            {
+              item: {
+                id: "loser",
+                name: "ハズレ",
+                description: "何も起こらない",
+                count: Infinity,
+              },
+              weight: loserWeight,
+            },
+          ]),
       {
         item: {
           id: "heal",

@@ -15,11 +15,11 @@ import { CAttackNami } from "../components/attacks/CAttackNami.ts";
 import { getDistanceSquared, Vec2 } from "../utils/geo.ts";
 import gsap from "gsap";
 import { CAttackTsubu } from "../components/attacks/CAttackTsubu.ts";
-import { applyExPickRange, applyExPlayerSpeed } from "../utils/globalSettings.ts";
+import { applyExPickRange, applyExPlayerHealth, applyExPlayerSpeed } from "../utils/globalSettings.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(applyExPlayerSpeed(100), 1);
-  health: CHealth = new CHealth(100);
+  health: CHealth = new CHealth(applyExPlayerHealth(100));
   hitbox: CHitbox;
   hurtbox: CHurtbox;
   hitboxForExp: CHitbox;
