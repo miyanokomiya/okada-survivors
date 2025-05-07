@@ -12,7 +12,12 @@ import { DamageLabel } from "../widgets/DamageLabel";
 import { getPlayerContaienr, getWidgetContaienr } from "../../utils/containers";
 import { CExpDrop } from "../../components/CExpDrop";
 import { playSound } from "../../utils/sounds";
-import { getExEnemyLimitBreak, applyExDamage, applyExKnockback } from "../../utils/globalSettings";
+import {
+  getExEnemyLimitBreak,
+  applyExDamage,
+  applyExKnockback,
+  applyExEnemyAttackCooltime,
+} from "../../utils/globalSettings";
 
 export class Enemy extends Entity {
   movement: CMovement = new CMovement(100, 1);
@@ -26,11 +31,13 @@ export class Enemy extends Entity {
   healthbar: Healthbar;
   expDrop: CExpDrop = new CExpDrop(this.app, 0.7);
   lifetime = 0;
+  pauseMoving = false;
 
   constructor(app: Application) {
     super(app);
     this.container.label = "enemy";
     this.hitbox = new CHitbox(this.container);
+    this.hitbox.cooltimeForSameTarget = applyExEnemyAttackCooltime(30);
     this.hurtbox = new CHurtbox(this.container);
     this.knockback = new CKnockback(this.container, applyExKnockback(10));
     this.knockout = new CKnockout(this.container);
@@ -87,6 +94,8 @@ export class Enemy extends Entity {
   }
 
   moveTo(p: Vec2) {
+    if (this.pauseMoving) return;
+
     const dx = p.x - this.container.x;
     const dy = p.y - this.container.y;
     this.movement.accelerate({ x: dx, y: dy });

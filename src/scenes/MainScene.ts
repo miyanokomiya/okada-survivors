@@ -27,6 +27,7 @@ import { GameOverMenu } from "../entities/widgets/GameOverMenu";
 import { VirtualJoystick } from "../components/VirtualJoystick";
 import { AscensionScene } from "./AscensionScene";
 import { applyExMaxLevel, applyExWeakPoolRate } from "../utils/globalSettings";
+import { EnemyTobi } from "../entities/enemies/EnemyTobi";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -92,9 +93,10 @@ export class MainScene extends SceneBase {
       [
         9,
         createWeightedTable([
-          { item: EnemyTeki, weight: applyExWeakPoolRate(2) },
+          { item: EnemyTeki, weight: applyExWeakPoolRate(3) },
           { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 1 },
+          { item: EnemyTobi, weight: 1 },
         ]),
       ],
       [
@@ -103,6 +105,7 @@ export class MainScene extends SceneBase {
           { item: EnemyTeki, weight: applyExWeakPoolRate(3) },
           { item: EnemyMushi, weight: 3 },
           { item: EnemyDai, weight: 2 },
+          { item: EnemyTobi, weight: 2 },
         ]),
       ],
       [
@@ -111,6 +114,7 @@ export class MainScene extends SceneBase {
           { item: EnemyTeki, weight: applyExWeakPoolRate(1) },
           { item: EnemyMushi, weight: 1 },
           { item: EnemyDai, weight: 2 },
+          { item: EnemyTobi, weight: 2 },
         ]),
       ],
     ]);
