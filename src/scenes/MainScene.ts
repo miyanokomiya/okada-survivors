@@ -28,7 +28,7 @@ import { EnemyDai } from "../entities/enemies/EnemyDai";
 import { GameOverMenu } from "../entities/widgets/GameOverMenu";
 import { VirtualJoystick } from "../components/VirtualJoystick";
 import { AscensionScene } from "./AscensionScene";
-import { applyExMaxLevel, applyExWeakPoolRate } from "../utils/globalSettings";
+import { applyExMaxLevel, applyExWallSize, applyExWeakPoolRate, isExRandomWall } from "../utils/globalSettings";
 import { EnemyTobi } from "../entities/enemies/EnemyTobi";
 import { Wall } from "../entities/Wall";
 
@@ -68,7 +68,9 @@ export class MainScene extends SceneBase {
     initContainers(app);
 
     const worldScale = 2;
-    this.loopTileCount = Math.ceil((Math.max(800, app.screen.width, app.screen.height) / this.loopTileSize) * worldScale);
+    this.loopTileCount = Math.ceil(
+      (Math.max(800, app.screen.width, app.screen.height) / this.loopTileSize) * worldScale,
+    );
     this.wallLineCount = Math.round(this.loopTileSize / this.wallSpacing) * this.loopTileCount;
 
     this.backgroundSprite = new TilingSprite({
@@ -176,10 +178,17 @@ export class MainScene extends SceneBase {
     const fieldContainer = getFieldContainer(this.app);
     const wallLineCount = this.wallLineCount;
     const wallSpacing = this.wallSpacing;
+    const randomWall = isExRandomWall();
     [...Array(this.wallLineCount ** 2)].forEach((_, i) => {
-      const wall = new Wall(this.app, this.wallSize);
+      const wall = new Wall(this.app, applyExWallSize(this.wallSize));
       wall.container.x = (i % wallLineCount) * wallSpacing;
       wall.container.y = Math.floor(i / wallLineCount) * wallSpacing;
+      if (randomWall) {
+        const r = Math.random() * 2 * Math.PI;
+        const radius = Math.random() * wallSpacing * 0.3;
+        wall.container.x += Math.cos(r) * radius;
+        wall.container.y += Math.sin(r) * radius;
+      }
       wall.spawn(fieldContainer);
     });
   }

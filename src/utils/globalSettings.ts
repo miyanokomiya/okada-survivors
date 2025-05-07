@@ -14,6 +14,8 @@ export const ASCENZTION_ITEMS = [
   { ascension: 13, description: "貫通上限 12" },
   { ascension: 14, description: "長寿敵加速" },
   { ascension: 15, description: "ハズレ選択肢追加" },
+  { ascension: 16, description: "障害物ランダム配置" },
+  { ascension: 17, description: "障害物巨大化" },
 ];
 
 const activeAscensions = new Set<number>();
@@ -150,4 +152,17 @@ export function getExLoserOption(): number {
     rate = 0.5;
   }
   return rate;
+}
+
+export function isExRandomWall(): boolean {
+  const ascension = getActiveAscension();
+  return ascension.has(16);
+}
+
+export function applyExWallSize(val: number): number {
+  const ascension = getActiveAscension();
+  if (ascension.has(17)) {
+    val *= 2;
+  }
+  return val;
 }
