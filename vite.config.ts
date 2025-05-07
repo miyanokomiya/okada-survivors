@@ -6,6 +6,6 @@ export default defineConfig({
   },
   base: process.env.BASE_PATH || "/",
   define: {
-    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+    "process.env.__APP_VERSION__": JSON.stringify(process.env.TAG_NAME || "development"),
   },
 });

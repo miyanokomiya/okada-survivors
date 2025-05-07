@@ -158,7 +158,7 @@ export class GameOverMenu extends Entity {
 
   private createVersionText() {
     const text = new Text({
-      text: `Ver.${__APP_VERSION__}`,
+      text: process.env.__APP_VERSION__,
       style: { fontSize: 18, fill: 0x000000, fontWeight: "400" },
     });
     return text;

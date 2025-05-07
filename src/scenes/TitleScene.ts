@@ -47,7 +47,7 @@ export class TitleScene extends SceneBase {
     container.addChild(guideText);
 
     const versionText = new Text({
-      text: `Ver.${__APP_VERSION__}`,
+      text: process.env.__APP_VERSION__,
       style: { fontSize: 18, fill: 0x000000, fontWeight: "400" },
     });
     versionText.anchor.set(0.5, 0);
