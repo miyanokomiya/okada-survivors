@@ -45,7 +45,9 @@ export class CHitbox extends CHitboxBase {
         const distanceSquared = dx * dx + dy * dy;
         const radiusSum = collision.radius + targetCollision.radius;
         if (distanceSquared < radiusSum * radiusSum) {
-          this.cooltimeMap.set(target, this.cooltimeForSameTarget);
+          if (this.cooltimeForSameTarget > 0) {
+            this.cooltimeMap.set(target, this.cooltimeForSameTarget);
+          }
           return true;
         }
       }

@@ -6,6 +6,8 @@ export function initContainers(app: Application) {
 
   const backgroundContainer = new Container();
   backgroundContainer.label = "background_container";
+  const fieldContainer = new Container();
+  fieldContainer.label = "field_container";
   const projectileContainerBack = new Container();
   projectileContainerBack.label = "projectile_container_back";
   const playerContainer = new Container();
@@ -21,6 +23,7 @@ export function initContainers(app: Application) {
 
   app.stage.addChild(backgroundContainer);
 
+  cameraContainer.addChild(fieldContainer);
   cameraContainer.addChild(projectileContainerBack);
   cameraContainer.addChild(playerContainer);
   cameraContainer.addChild(itemContainer);
@@ -36,6 +39,10 @@ export function initContainers(app: Application) {
 
 export function getBackgroundContainer(app: Application): Container | undefined {
   return app.stage.children.find((child) => child.label === "background_container");
+}
+
+export function getFieldContainer(app: Application): Container | undefined {
+  return getCameraContainer(app)?.children.find((child) => child.label === "field_container");
 }
 
 export function getCameraContainer(app: Application): Container | undefined {

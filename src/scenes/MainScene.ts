@@ -6,6 +6,7 @@ import { lerpValue, Vec2 } from "../utils/geo";
 import {
   getBackgroundContainer,
   getEnemyContaienr,
+  getFieldContainer,
   getHudContaienr,
   getPlayerContaienr,
   initContainers,
@@ -28,6 +29,7 @@ import { VirtualJoystick } from "../components/VirtualJoystick";
 import { AscensionScene } from "./AscensionScene";
 import { applyExMaxLevel, applyExWeakPoolRate } from "../utils/globalSettings";
 import { EnemyTobi } from "../entities/enemies/EnemyTobi";
+import { Wall } from "../entities/Wall";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -43,6 +45,12 @@ export class MainScene extends SceneBase {
   clearMenu: GameOverMenu;
   joystick: VirtualJoystick;
   maxLevel = applyExMaxLevel(20);
+
+  private wallSpacing = 400;
+  private wallLineCount = 4;
+  private wallSize = 30;
+  private walls: Wall[] = [];
+
   private timeup = false;
 
   constructor(app: Application) {
@@ -154,6 +162,20 @@ export class MainScene extends SceneBase {
 
     this.joystick = new VirtualJoystick(50, app.screen.width, app.screen.height);
     app.stage.addChild(this.joystick.getContainer());
+
+    this.initWalls();
+  }
+
+  initWalls() {
+    const fieldContainer = getFieldContainer(this.app);
+    const screenSize = Math.max(this.app.screen.width, this.app.screen.height);
+    this.wallLineCount = Math.ceil((2 * screenSize) / this.wallSpacing);
+    [...Array(this.wallLineCount ** 2)].forEach(() => {
+      const wall = new Wall(this.app, this.wallSize);
+      wall.spawn(fieldContainer);
+      this.walls.push(wall);
+    });
+    this.replaceWalls();
   }
 
   destroy() {
@@ -181,6 +203,7 @@ export class MainScene extends SceneBase {
     this.backgroundSprite.tilePosition.x = this.camera.cameraContainer.position.x;
     this.backgroundSprite.tilePosition.y = this.camera.cameraContainer.position.y;
     this.gameTimerLabel.update(this.gameTimer.currentTime, this.enemySpawner.level);
+    this.replaceWalls();
 
     if (this.gameTimer.isRunning) {
       this.gameTimer.tick(time.deltaTime);
@@ -194,6 +217,19 @@ export class MainScene extends SceneBase {
         this.clearMenu.displayClear();
       }
     }
+  }
+
+  replaceWalls() {
+    const wallSpacing = this.wallSpacing;
+    const wallLineCount = this.wallLineCount;
+    const cameraP = this.camera.cameraContainer.position;
+    const x = -wallSpacing - cameraP.x + (cameraP.x % wallSpacing);
+    const y = -wallSpacing - cameraP.y + (cameraP.y % wallSpacing);
+
+    this.walls.forEach((wall, i) => {
+      wall.container.x = x + (i % wallLineCount) * wallSpacing;
+      wall.container.y = y + Math.floor(i / wallLineCount) * wallSpacing;
+    });
   }
 }
 

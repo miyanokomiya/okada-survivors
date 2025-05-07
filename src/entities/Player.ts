@@ -101,6 +101,10 @@ export class Player extends Entity {
     this.attacks.forEach((attack) => attack.tick(deltaFrame));
   }
 
+  getHitboxForObstacle(): CHitbox | undefined {
+    return this.hitbox;
+  }
+
   accelerate(direction: Vec2) {
     if (direction.x !== 0) {
       this.facing = direction.x > 0 ? 1 : -1;

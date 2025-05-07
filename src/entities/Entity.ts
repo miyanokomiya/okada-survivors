@@ -1,6 +1,7 @@
 import { Application, Container, Ticker } from "pixi.js";
 import { nanoid } from "nanoid";
 import { isPausedLayerMain, LAYER_MAIN } from "../utils/tickLayers";
+import { CHitbox } from "../components/CHitbox";
 
 export class Entity {
   id: string = nanoid();
@@ -65,6 +66,10 @@ export class Entity {
   };
 
   tick(_deltaFrame: number) {}
+
+  getHitboxForObstacle(): CHitbox | undefined {
+    return;
+  }
 }
 
 const ENTITY_SYMBOL = Symbol("entity");

@@ -85,6 +85,10 @@ export class Enemy extends Entity {
     this.movement.scale = getExEnemyLimitBreak(this.lifetime);
   }
 
+  getHitboxForObstacle(): CHitbox | undefined {
+    return this.hitbox;
+  }
+
   attack() {
     if (this.hitbox.check(this.player.hurtbox)) {
       this.player.health.takeDamage(applyExDamage(this.damage));

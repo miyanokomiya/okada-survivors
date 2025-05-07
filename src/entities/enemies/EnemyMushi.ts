@@ -1,6 +1,7 @@
 import { Application, Graphics, Text } from "pixi.js";
 import { Enemy } from "./Enemy";
 import { applyExEnemyHealth } from "../../utils/globalSettings";
+import { CHitbox } from "../../components/CHitbox";
 
 export class EnemyMushi extends Enemy {
   constructor(app: Application) {
@@ -24,5 +25,9 @@ export class EnemyMushi extends Enemy {
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius }];
     this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius }];
+  }
+
+  getHitboxForObstacle(): CHitbox | undefined {
+    return undefined;
   }
 }
