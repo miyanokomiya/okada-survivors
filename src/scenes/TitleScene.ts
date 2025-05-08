@@ -3,6 +3,7 @@ import { SceneBase } from "./SceneBase";
 import { MainScene } from "./MainScene";
 import { createTextButton } from "../utils/uis";
 import { AscensionScene } from "./AscensionScene";
+import { getSubmitInput } from "../utils/inputs";
 
 export class TitleScene extends SceneBase {
   constructor(app: Application) {
@@ -22,7 +23,7 @@ export class TitleScene extends SceneBase {
     container.addChild(titleText);
 
     const startText = new Text({
-      text: "Click to Start",
+      text: "Press to Start",
       style: { fontSize: 32, fill: 0x000000, fontWeight: "400" },
     });
     startText.anchor.set(0.5, 0);
@@ -39,7 +40,7 @@ export class TitleScene extends SceneBase {
     });
 
     const guideText = new Text({
-      text: "Move: WASD, Arrow Keys, Virtual Joystick\nSelect: Click, Touch",
+      text: "Move: ← ↑ →, WASD, Virtual Joystick\nSelect: Pointer, Space",
       style: { fontSize: 18, fill: 0x000000, fontWeight: "400" },
     });
     guideText.anchor.set(0.5, 0);
@@ -66,11 +67,21 @@ export class TitleScene extends SceneBase {
     app.stage.addChild(overlay);
     overlay.interactive = true;
     overlay.on("pointerdown", () => {
-      this.destroy();
-      new MainScene(app);
+      this.moveToMainScene();
     });
 
     container.position.set(0, height / 2 - container.height / 2);
     app.stage.addChild(container);
+  }
+
+  moveToMainScene() {
+    this.destroy();
+    new MainScene(this.app);
+  }
+
+  tick() {
+    if (getSubmitInput(this.keyPressState)) {
+      this.moveToMainScene();
+    }
   }
 }

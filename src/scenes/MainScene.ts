@@ -31,6 +31,7 @@ import { AscensionScene } from "./AscensionScene";
 import { applyExMaxLevel, applyExWallSize, applyExWeakPoolRate } from "../utils/globalSettings";
 import { EnemyTobi } from "../entities/enemies/EnemyTobi";
 import { Wall } from "../entities/Wall";
+import { getDirectionalMovement } from "../utils/inputs";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -159,14 +160,14 @@ export class MainScene extends SceneBase {
     this.upgradeComponent.eventUpgradeSelected.add((upgrade) => {
       this.player.upgrade(upgrade);
     });
-    this.upgradeMenu = new UpgradeMenu(app, this.upgradeComponent);
+    this.upgradeMenu = new UpgradeMenu(app, this, this.upgradeComponent);
     this.upgradeMenu.spawn(hudContainer);
 
     this.player.expLevel.eventLevelup.add(() => {
       this.upgradeMenu.display();
     });
 
-    this.clearMenu = new GameOverMenu(app, this.player);
+    this.clearMenu = new GameOverMenu(app, this, this.player);
     this.clearMenu.spawn(hudContainer);
 
     this.clearMenu.eventRetry.add(() => {
@@ -214,7 +215,7 @@ export class MainScene extends SceneBase {
       return;
     }
 
-    const keyboardMovement = getPlayerMovement(this.keyState);
+    const keyboardMovement = getDirectionalMovement(this.keyState);
     const joystickMovement = this.joystick.getMovement();
 
     const movement = {
@@ -243,21 +244,4 @@ export class MainScene extends SceneBase {
       }
     }
   }
-}
-
-function getPlayerMovement(keyState: Record<string, boolean>): Vec2 {
-  const movement = { x: 0, y: 0 };
-  if (keyState["ArrowUp"] || keyState["w"]) {
-    movement.y -= 1;
-  }
-  if (keyState["ArrowDown"] || keyState["s"]) {
-    movement.y += 1;
-  }
-  if (keyState["ArrowLeft"] || keyState["a"]) {
-    movement.x -= 1;
-  }
-  if (keyState["ArrowRight"] || keyState["d"]) {
-    movement.x += 1;
-  }
-  return movement;
 }

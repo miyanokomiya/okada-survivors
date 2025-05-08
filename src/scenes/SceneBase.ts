@@ -3,6 +3,7 @@ import { Application, Container, Ticker } from "pixi.js";
 
 export class SceneBase {
   keyState: Record<string, boolean> = {};
+  keyPressState: Record<string, number> = {};
 
   constructor(public app: Application) {
     app.ticker.add(this.onTick);
@@ -21,6 +22,11 @@ export class SceneBase {
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
+    if (!this.keyState[e.key]) {
+      this.keyPressState[e.key] = 2;
+    } else {
+      delete this.keyPressState[e.key];
+    }
     this.keyState[e.key] = true;
   };
 
@@ -44,6 +50,12 @@ export class SceneBase {
 
   private onTick = (time: Ticker) => {
     this.tick(time);
+    for (const key in this.keyPressState) {
+      this.keyPressState[key]--;
+      if (this.keyPressState[key] <= 0) {
+        delete this.keyPressState[key];
+      }
+    }
   };
 
   tick(_time: Ticker) {}

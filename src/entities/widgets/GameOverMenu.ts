@@ -5,6 +5,8 @@ import { EventTrigger } from "../../utils/EventTrigger";
 import { createTextButton } from "../../utils/uis";
 import { getActiveAscension } from "../../utils/globalSettings";
 import { Player } from "../Player";
+import { getSubmitInput } from "../../utils/inputs";
+import { SceneBase } from "../../scenes/SceneBase";
 
 export class GameOverMenu extends Entity {
   eventRetry: EventTrigger<void> = new EventTrigger();
@@ -13,6 +15,7 @@ export class GameOverMenu extends Entity {
 
   constructor(
     app: Application,
+    public scene: SceneBase,
     public player: Player,
   ) {
     super(app);
@@ -58,7 +61,7 @@ export class GameOverMenu extends Entity {
     text.position.set(width / 2, 0);
     this.innerContainer.addChild(text);
 
-    const retryButton = createTextButton("Retry", 160, 60, 20);
+    const retryButton = createTextButton("Retry (Space)", 160, 60, 20);
     retryButton.pivot.set(80, 0);
     retryButton.position.set(width / 2, this.innerContainer.height + 20);
     retryButton.interactive = true;
@@ -97,7 +100,7 @@ export class GameOverMenu extends Entity {
     text.position.set(width / 2, 0);
     this.innerContainer.addChild(text);
 
-    const retryButton = createTextButton("Retry", 160, 60, 20);
+    const retryButton = createTextButton("Retry (Space)", 160, 60, 20);
     retryButton.pivot.set(80, 0);
     retryButton.position.set(width / 2, this.innerContainer.height + 20);
     retryButton.interactive = true;
@@ -213,5 +216,14 @@ export class GameOverMenu extends Entity {
     upgrades.position.set(width / 2 - upgrades.width / 2, 0);
     container.addChild(upgrades);
     return container;
+  }
+
+  tick() {
+    if (!this.container.visible) return;
+
+    if (getSubmitInput(this.scene.keyPressState)) {
+      this.eventRetry.trigger();
+      this.hide();
+    }
   }
 }

@@ -4,12 +4,20 @@ import { CUpgrade } from "../../components/CUpgrade";
 import { Upgrade } from "../../utils/upgrades";
 import gsap from "gsap";
 import { LAYER_OVERLAY, pauseLayerMain, resumeLayerMain } from "../../utils/tickLayers";
+import { SceneBase } from "../../scenes/SceneBase";
+import { getDirectionalMovement, getSubmitInput } from "../../utils/inputs";
 
 export class UpgradeMenu extends Entity {
   private optionContaienr: Container;
+  private selectedGraphics: Graphics;
+  private textLabel: Text;
+  private selected = -1;
+  private chosen = false;
+  private upgrades: Upgrade[] | undefined;
 
   constructor(
     app: Application,
+    public scene: SceneBase,
     public upgradeComponent: CUpgrade,
   ) {
     super(app);
@@ -23,10 +31,26 @@ export class UpgradeMenu extends Entity {
 
     this.optionContaienr = new Container();
     this.container.addChild(this.optionContaienr);
+
+    this.textLabel = new Text({
+      text: "← ↑ → Space",
+      style: { fontSize: 18, fill: 0x000000 },
+    });
+    this.textLabel.anchor.set(0.5, 0);
+    this.textLabel.x = app.screen.width / 2;
+    this.container.addChild(this.textLabel);
+
+    this.selectedGraphics = new Graphics();
+    this.selectedGraphics.visible = false;
+    this.container.addChild(this.selectedGraphics);
   }
 
   display() {
+    this.selected = -1;
+    this.chosen = false;
+    this.selectedGraphics.visible = false;
     const upgrades = this.upgradeComponent.getOptions();
+    this.upgrades = upgrades;
     if (upgrades.length === 0) return;
 
     pauseLayerMain(this.app);
@@ -45,6 +69,8 @@ export class UpgradeMenu extends Entity {
     });
     this.optionContaienr.x = this.app.screen.width / 2 - this.optionContaienr.width / 2;
     this.optionContaienr.y = this.app.screen.height / 2 - this.optionContaienr.height / 2;
+
+    this.textLabel.y = this.optionContaienr.y + this.optionContaienr.height + 20;
   }
 
   hide() {
@@ -53,6 +79,7 @@ export class UpgradeMenu extends Entity {
   }
 
   private chooseUpgrade(upgrade: Upgrade, button: Container) {
+    this.chosen = true;
     button.position.x += button.width / 2;
     button.position.y += button.height / 2;
     button.pivot.set(button.width / 2, button.height / 2);
@@ -141,5 +168,46 @@ export class UpgradeMenu extends Entity {
     });
 
     return wrapper;
+  }
+
+  tick() {
+    if (!this.container.visible) return;
+    if (this.chosen) return;
+
+    const options = this.optionContaienr.children;
+    const v = getDirectionalMovement(this.scene.keyPressState);
+
+    if (this.selected < 0) {
+      if (v.x < 0) {
+        this.selected = 0;
+      } else if (v.x > 0) {
+        this.selected = options.length - 1;
+      } else if (options.length === 3 && v.y < 0) {
+        this.selected = 1;
+      }
+    } else {
+      this.selected = Math.max(0, Math.min(options.length - 1, this.selected + Math.sign(v.x)));
+    }
+
+    if (this.selected >= 0 && options[this.selected]) {
+      this.selectedGraphics.clear();
+      this.selectedGraphics.visible = true;
+      this.selectedGraphics
+        .roundRect(0, 0, options[this.selected].width, options[this.selected].height, 5)
+        .stroke({ color: 0xeeee00, width: 4 });
+      this.selectedGraphics.x = options[this.selected].x + this.optionContaienr.x - 1;
+      this.selectedGraphics.y = options[this.selected].y + this.optionContaienr.y - 1;
+    } else {
+      this.selectedGraphics.visible = false;
+    }
+
+    if (getSubmitInput(this.scene.keyPressState) && this.selected >= 0) {
+      if (this.selected >= 0 && this.upgrades?.[this.selected]) {
+        this.chosen = true;
+        this.chooseUpgrade(this.upgrades[this.selected], options[this.selected]);
+        this.selected = -1;
+        this.selectedGraphics.visible = false;
+      }
+    }
   }
 }

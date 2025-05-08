@@ -7,14 +7,6 @@ import star10 from "./assets/star10.svg";
 import { initSounds } from "./utils/sounds";
 import { TitleScene } from "./scenes/TitleScene";
 
-const keyState: Record<string, boolean> = {};
-window.addEventListener("keydown", (e) => {
-  keyState[e.key] = true;
-});
-window.addEventListener("keyup", (e) => {
-  delete keyState[e.key];
-});
-
 async function init() {
   initSounds();
   await Assets.load([background, star10]);
