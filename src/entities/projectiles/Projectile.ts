@@ -12,6 +12,7 @@ export class Projectile extends Entity {
   delay = new CTimer(0);
   dencity = 1; // Specifies how many times the projectile can hit enemies.
   damage = 1;
+  ignoreWall = false;
 
   constructor(app: Application) {
     super(app);

@@ -88,7 +88,7 @@ export class Wall extends Entity {
       projectiles
         .map((child) => getEntity<Projectile>(child))
         .forEach((item) => {
-          if (item.dencity < 12 && this.hitbox.check(item.hitbox)) {
+          if (!item.ignoreWall && item.dencity < 12 && this.hitbox.check(item.hitbox)) {
             item.dispose = true;
           }
         });

@@ -6,6 +6,7 @@ export class ProjectileNen extends Projectile {
   private circleGraphics: Graphics;
   private maxRadius = 50;
   private minRadius = 10;
+  ignoreWall = true;
 
   constructor(
     app: Application,
