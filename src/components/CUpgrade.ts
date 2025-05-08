@@ -39,7 +39,15 @@ export class CUpgrade {
           id: "attract",
           name: "引き寄せ+",
           description: "より遠くのアイテムを引き寄せる",
-          count: 5,
+          count: 3,
+          children: [
+            {
+              id: "gravity_bullet",
+              name: "引力付与",
+              description: "攻撃がアイテムを引き寄せる",
+              weight: 0.5,
+            },
+          ],
         },
         weight: 0.5,
       },
@@ -304,11 +312,11 @@ export class CUpgrade {
     const nextCount = (upgrade.count ?? 1) - 1;
     if (nextCount > 0) {
       this.table.add({ ...upgrade, count: nextCount }, upgrade.weight ?? 1);
+    } else {
+      upgrade.children?.forEach((child) => {
+        this.table.add(child, child.weight ?? 1);
+      });
     }
-
-    upgrade.children?.forEach((child) => {
-      this.table.add(child, child.weight ?? 1);
-    });
 
     this.eventUpgradeSelected.trigger(upgrade);
   }

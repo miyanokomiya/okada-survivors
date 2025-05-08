@@ -3,8 +3,10 @@ import { Entity, getEntity } from "../Entity";
 import { CHitbox } from "../../components/CHitbox";
 import { CTimer } from "../../components/CTimer";
 import { Enemy } from "../enemies/Enemy";
-import { getEnemyContaienr } from "../../utils/containers";
+import { getEnemyContaienr, getPlayerContaienr } from "../../utils/containers";
 import { playSound } from "../../utils/sounds";
+import { Player } from "../Player";
+import { CExpPick } from "../../components/CExpPick";
 
 export class Projectile extends Entity {
   hitbox: CHitbox;
@@ -13,6 +15,7 @@ export class Projectile extends Entity {
   dencity = 1; // Specifies how many times the projectile can hit enemies.
   damage = 1;
   ignoreWall = false;
+  expPick: CExpPick | undefined;
 
   constructor(app: Application) {
     super(app);
@@ -21,6 +24,11 @@ export class Projectile extends Entity {
       this.dispose = true;
     };
     this.lifetime.start();
+
+    const player = getEntity<Player>(getPlayerContaienr(this.app)!.children.find((child) => child.label === "player")!);
+    if (player.gravityBullet) {
+      this.expPick = new CExpPick(this.app, player.container, this.hitbox);
+    }
   }
 
   setDelay(duration: number) {
@@ -49,6 +57,7 @@ export class Projectile extends Entity {
     }
     this.hitbox.tick(deltaFrame);
     this.checkHitbox();
+    this.expPick?.tick(deltaFrame);
   }
 
   checkHitbox() {

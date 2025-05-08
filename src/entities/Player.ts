@@ -30,6 +30,7 @@ export class Player extends Entity {
   attacks: CAttack[] = [];
   eventStatusChange = new EventTrigger<void>();
   upgrades: Upgrade[] = [];
+  gravityBullet = false;
 
   private radius = 18;
   private walkAnimRight;
@@ -102,7 +103,9 @@ export class Player extends Entity {
     this.hitbox.tick(deltaFrame);
     this.knockback.tick(deltaFrame);
     this.expPick.tick(deltaFrame);
-    this.attacks.forEach((attack) => attack.tick(deltaFrame));
+    this.attacks.forEach((attack) => {
+      attack.tick(deltaFrame);
+    });
   }
 
   getHitboxForObstacle(): CHitbox | undefined {
@@ -138,6 +141,9 @@ export class Player extends Entity {
         this.hitboxForExp.collisions = [
           { position: { x: 0, y: 0 }, radius: this.hitboxForExp.collisions[0].radius * 1.5 },
         ];
+        break;
+      case "gravity_bullet":
+        this.gravityBullet = true;
         break;
       case "tama":
         this.attacks.push(new CAttackTama(this.app, this.container));

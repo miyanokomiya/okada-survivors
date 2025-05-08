@@ -59,5 +59,8 @@ export class PlayerStatus extends Entity {
     if (attracts.length > 0) {
       this.statusText.text += `\n引き寄せ+${attracts.length}`;
     }
+    if (this.player.gravityBullet) {
+      this.statusText.text += "\n引力付与";
+    }
   }
 }
