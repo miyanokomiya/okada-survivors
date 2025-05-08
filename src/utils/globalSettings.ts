@@ -17,7 +17,7 @@ export const ASCENZTION_ITEMS = [
   { ascension: 16, description: "障害物ランダム配置" },
   { ascension: 17, description: "障害物巨大化" },
   { ascension: 18, description: "障害物非貫通化" },
-  { ascension: 19, description: "開幕通常ドロップ" },
+  { ascension: 19, description: "ドロップ自然消滅" },
   { ascension: 20, description: "敵重なり防止" },
 ];
 
@@ -175,9 +175,9 @@ export function isExWallImpervious(): boolean {
   return ascension.has(18);
 }
 
-export function getExLowOpeningBonus(): number {
+export function getExDropLifetime(): number {
   const ascension = getActiveAscension();
-  return ascension.has(19) ? 0 : 1;
+  return ascension.has(19) ? 60 * 20 : -1;
 }
 
 export function isExEnemyNonoverlap(): boolean {

@@ -6,13 +6,15 @@ import { getDistanceSquared, getUnitVec, scaleVec, subVec } from "../utils/geo";
 import { CMovement } from "../components/CMovement";
 import { Player } from "./Player";
 import { playSound } from "../utils/sounds";
-import { applyExExp } from "../utils/globalSettings";
+import { applyExExp, getExDropLifetime } from "../utils/globalSettings";
+import { CTimer } from "../components/CTimer";
 
 export class ExpGem extends Entity {
   hitbox: CHitbox;
   movement: CMovement = new CMovement(300, 0.5);
   target: Container | undefined;
   attracting = false;
+  lifetime: CTimer | undefined;
 
   constructor(app: Application) {
     super(app);
@@ -24,6 +26,12 @@ export class ExpGem extends Entity {
 
     const graphics = new Graphics().circle(0, 0, 6).fill(0x0000ff).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(graphics);
+
+    const dropLifetime = getExDropLifetime();
+    if (dropLifetime > 0) {
+      this.lifetime = new CTimer(dropLifetime);
+      this.lifetime.start();
+    }
   }
 
   attract(target: Container) {
@@ -53,18 +61,26 @@ export class ExpGem extends Entity {
   }
 
   tick(deltaFrame: number): void {
-    if (!this.target || !this.attracting) return;
-
-    const v = {
-      x: this.target.x - this.container.x,
-      y: this.target.y - this.container.y,
-    };
-    if (getDistanceSquared(v) < 16) {
-      this.pick();
-      return;
-    } else {
-      this.movement.accelerate(v);
-      this.movement.move(this.container, deltaFrame);
+    if (this.target && this.attracting) {
+      this.container.alpha = 1;
+      const v = {
+        x: this.target.x - this.container.x,
+        y: this.target.y - this.container.y,
+      };
+      if (getDistanceSquared(v) < 16) {
+        this.pick();
+        return;
+      } else {
+        this.movement.accelerate(v);
+        this.movement.move(this.container, deltaFrame);
+      }
+    } else if (this.lifetime) {
+      this.lifetime.tick(deltaFrame);
+      if (this.lifetime.isRunning) {
+        this.container.alpha = 1 - this.lifetime.getProgress();
+      } else {
+        this.dispose = true;
+      }
     }
   }
 

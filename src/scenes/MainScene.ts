@@ -67,7 +67,7 @@ export class MainScene extends SceneBase {
     initTickLayers(app);
     initContainers(app);
 
-    const worldScale = 2;
+    const worldScale = 3;
     this.loopTileCount = Math.ceil(
       (Math.max(800, app.screen.width, app.screen.height) / this.loopTileSize) * worldScale,
     );
