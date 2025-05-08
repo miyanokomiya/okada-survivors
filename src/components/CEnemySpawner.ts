@@ -47,7 +47,7 @@ export class CEnemySpawner {
 
   private spawnEnemy() {
     const tableIndex = this.enemyTables.findIndex((table) => table[0] > this.level);
-    const table = this.enemyTables[tableIndex - 1] ?? this.enemyTables[0];
+    const table = this.enemyTables[tableIndex - 1] ?? this.enemyTables[this.enemyTables.length - 1];
     if (!table) return;
 
     const Item = table[1].getRandomItem();

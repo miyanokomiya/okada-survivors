@@ -103,11 +103,20 @@ export class MainScene extends SceneBase {
         createWeightedTable([
           { item: EnemyTeki, weight: applyExWeakPoolRate(4) },
           { item: EnemyMushi, weight: 2 },
-          { item: EnemyDai, weight: 1 },
+          { item: EnemyTobi, weight: 1 },
         ]),
       ],
       [
-        9,
+        10,
+        createWeightedTable([
+          { item: EnemyTeki, weight: applyExWeakPoolRate(4) },
+          { item: EnemyMushi, weight: 2 },
+          { item: EnemyDai, weight: 1 },
+          { item: EnemyTobi, weight: 1 },
+        ]),
+      ],
+      [
+        13,
         createWeightedTable([
           { item: EnemyTeki, weight: applyExWeakPoolRate(3) },
           { item: EnemyMushi, weight: 2 },
@@ -116,16 +125,16 @@ export class MainScene extends SceneBase {
         ]),
       ],
       [
-        12,
+        16,
         createWeightedTable([
           { item: EnemyTeki, weight: applyExWeakPoolRate(3) },
-          { item: EnemyMushi, weight: 3 },
+          { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 2 },
           { item: EnemyTobi, weight: 2 },
         ]),
       ],
       [
-        15,
+        19,
         createWeightedTable([
           { item: EnemyTeki, weight: applyExWeakPoolRate(1) },
           { item: EnemyMushi, weight: 1 },
