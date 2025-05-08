@@ -25,6 +25,7 @@ export class EnemyMushi extends Enemy {
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius }];
     this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius: radius }];
+    this.pushoutHitbox.collisions = [{ position: { x: 0, y: 0 }, radius }];
   }
 
   getHitboxForObstacle(): CHitbox | undefined {

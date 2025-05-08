@@ -39,6 +39,7 @@ export class EnemyTobi extends Enemy {
 
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius }];
     this.hurtbox.collisions = [{ position: { x: 0, y: 0 }, radius }];
+    this.pushoutHitbox.collisions = [{ position: { x: 0, y: 0 }, radius }];
 
     graphicContainer.angle = 15;
     this.anims.push(

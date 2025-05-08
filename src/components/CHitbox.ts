@@ -28,7 +28,14 @@ export class CHitbox extends CHitboxBase {
   cooltimeMap: Map<CHurtbox, number> = new Map();
   cooltimeForSameTarget = 30;
 
-  check(target: CHurtbox): boolean {
+  shouldCheck(target: CHitbox) {
+    if (this.disabled || target.disabled) return false;
+    if (this.cooltimeMap.has(target)) return false;
+    if (target.cooltimeMap.has(this)) return false;
+    return true;
+  }
+
+  check(target: CHurtbox, noCooltime = false): boolean {
     if (this.disabled || target.disabled) return false;
     if (this.cooltimeMap.has(target)) return false;
 
@@ -45,7 +52,7 @@ export class CHitbox extends CHitboxBase {
         const distanceSquared = dx * dx + dy * dy;
         const radiusSum = collision.radius + targetCollision.radius;
         if (distanceSquared < radiusSum * radiusSum) {
-          if (this.cooltimeForSameTarget > 0) {
+          if (!noCooltime && this.cooltimeForSameTarget > 0) {
             this.cooltimeMap.set(target, this.cooltimeForSameTarget);
           }
           return true;
