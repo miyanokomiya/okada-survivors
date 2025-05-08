@@ -2,7 +2,7 @@ import { Application } from "pixi.js";
 import { createWeightedTable, WeightedTable } from "../utils/WeightedTable";
 import { Upgrade } from "../utils/upgrades";
 import { EventTrigger } from "../utils/EventTrigger";
-import { getExLoserOption } from "../utils/globalSettings";
+import { applyExHeal, getExLoserOption } from "../utils/globalSettings";
 
 export class CUpgrade {
   table: WeightedTable<Upgrade>;
@@ -29,7 +29,7 @@ export class CUpgrade {
         item: {
           id: "heal",
           name: "回復",
-          description: "体力を最大まで回復する",
+          description: `体力を${Math.round(applyExHeal(100))}%回復する`,
           count: Infinity,
         },
         weight: 0.5,

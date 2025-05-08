@@ -28,7 +28,7 @@ import { EnemyDai } from "../entities/enemies/EnemyDai";
 import { GameOverMenu } from "../entities/widgets/GameOverMenu";
 import { VirtualJoystick } from "../components/VirtualJoystick";
 import { AscensionScene } from "./AscensionScene";
-import { applyExMaxLevel, applyExWallSize, applyExWeakPoolRate, isExRandomWall } from "../utils/globalSettings";
+import { applyExMaxLevel, applyExWallSize, applyExWeakPoolRate } from "../utils/globalSettings";
 import { EnemyTobi } from "../entities/enemies/EnemyTobi";
 import { Wall } from "../entities/Wall";
 
@@ -178,7 +178,7 @@ export class MainScene extends SceneBase {
     const fieldContainer = getFieldContainer(this.app);
     const wallLineCount = this.wallLineCount;
     const wallSpacing = this.wallSpacing;
-    const randomWall = isExRandomWall();
+    const randomWall = true;
     [...Array(this.wallLineCount ** 2)].forEach((_, i) => {
       const wall = new Wall(this.app, applyExWallSize(this.wallSize));
       wall.container.x = (i % wallLineCount) * wallSpacing;

@@ -15,7 +15,7 @@ import { CAttackNami } from "../components/attacks/CAttackNami.ts";
 import { getDistanceSquared, Vec2 } from "../utils/geo.ts";
 import gsap from "gsap";
 import { CAttackTsubu } from "../components/attacks/CAttackTsubu.ts";
-import { applyExPickRange, applyExPlayerHealth, applyExPlayerSpeed } from "../utils/globalSettings.ts";
+import { applyExHeal, applyExPickRange, applyExPlayerHealth, applyExPlayerSpeed } from "../utils/globalSettings.ts";
 import { EventTrigger } from "../utils/EventTrigger.ts";
 
 export class Player extends Entity {
@@ -132,7 +132,7 @@ export class Player extends Entity {
   upgrade(upgrade: Upgrade) {
     switch (upgrade.id) {
       case "heal":
-        this.health.heal(this.health.maxHealth);
+        this.health.heal(applyExHeal(this.health.maxHealth));
         break;
       case "attract":
         this.hitboxForExp.collisions = [
