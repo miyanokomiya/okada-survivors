@@ -4,14 +4,17 @@ import { LAYER_OVERLAY, pauseLayerMain, resumeLayerMain } from "../../utils/tick
 import { EventTrigger } from "../../utils/EventTrigger";
 import { createTextButton } from "../../utils/uis";
 import { getActiveAscension } from "../../utils/globalSettings";
+import { Player } from "../Player";
 
 export class GameOverMenu extends Entity {
   eventRetry: EventTrigger<void> = new EventTrigger();
   eventAscension: EventTrigger<void> = new EventTrigger();
-  private clearContainer: Container;
-  private overContainer: Container;
+  private innerContainer: Container;
 
-  constructor(app: Application) {
+  constructor(
+    app: Application,
+    public player: Player,
+  ) {
     super(app);
     this.tickLayer = LAYER_OVERLAY;
 
@@ -20,91 +23,105 @@ export class GameOverMenu extends Entity {
 
     const overlay = new Graphics().rect(0, 0, width, height).fill({ color: 0x888888, alpha: 0.5 });
     this.container.addChild(overlay);
+    this.innerContainer = new Container();
+    this.container.addChild(this.innerContainer);
     this.hide();
-
-    {
-      this.clearContainer = new Container();
-      this.clearContainer.visible = false;
-
-      const text = new Text({
-        text: "Game Clear",
-        style: { fontSize: 64, fill: 0x000000, fontWeight: "500" },
-      });
-      text.anchor.set(0.5, 0);
-      text.position.set(width / 2, 0);
-      this.clearContainer.addChild(text);
-
-      const retryButton = createTextButton("Retry", 160, 60, 20);
-      retryButton.pivot.set(80, 0);
-      retryButton.position.set(width / 2, this.clearContainer.height + 30);
-      retryButton.interactive = true;
-      retryButton.on("pointerdown", () => {
-        this.eventRetry.trigger();
-        this.hide();
-      });
-      this.clearContainer.addChild(retryButton);
-
-      const ascensionContainer = this.createAscensionContainer(width);
-      ascensionContainer.position.set(0, retryButton.y + retryButton.height + 30);
-      this.clearContainer.addChild(ascensionContainer);
-
-      const versionText = this.createVersionText();
-      versionText.anchor.set(0.5, 0);
-      versionText.position.set(width / 2, this.clearContainer.height + 30);
-      this.clearContainer.addChild(versionText);
-
-      this.clearContainer.position.set(0, height / 2 - this.clearContainer.height / 2);
-      this.container.addChild(this.clearContainer);
-    }
-
-    {
-      this.overContainer = new Container();
-      this.overContainer.visible = false;
-
-      const text = new Text({
-        text: "Game Over",
-        style: { fontSize: 64, fill: 0x000000, fontWeight: "500" },
-      });
-      text.anchor.set(0.5, 0);
-      text.position.set(width / 2, 0);
-      this.overContainer.addChild(text);
-
-      const retryButton = createTextButton("Retry", 160, 60, 20);
-      retryButton.pivot.set(80, 0);
-      retryButton.position.set(width / 2, this.overContainer.height + 30);
-      retryButton.interactive = true;
-      retryButton.on("pointerdown", () => {
-        this.eventRetry.trigger();
-        this.hide();
-      });
-      this.overContainer.addChild(retryButton);
-
-      const ascensionContainer = this.createAscensionContainer(width);
-      ascensionContainer.position.set(0, retryButton.y + retryButton.height + 30);
-      this.overContainer.addChild(ascensionContainer);
-
-      const versionText = this.createVersionText();
-      versionText.anchor.set(0.5, 0);
-      versionText.position.set(width / 2, this.overContainer.height + 30);
-      this.overContainer.addChild(versionText);
-
-      this.overContainer.position.set(0, height / 2 - this.overContainer.height / 2);
-      this.container.addChild(this.overContainer);
-    }
   }
 
   displayClear() {
     pauseLayerMain(this.app);
+    this.innerContainer.destroy();
+    this.innerContainer = new Container();
+    this.container.addChild(this.innerContainer);
+    this.initClear();
     this.container.visible = true;
-    this.clearContainer.visible = true;
-    this.overContainer.visible = false;
   }
 
   displayOver() {
     pauseLayerMain(this.app);
+    this.innerContainer.destroy();
+    this.innerContainer = new Container();
+    this.container.addChild(this.innerContainer);
+    this.initOver();
     this.container.visible = true;
-    this.clearContainer.visible = false;
-    this.overContainer.visible = true;
+  }
+
+  initClear() {
+    const width = this.app.screen.width;
+    const height = this.app.screen.height;
+
+    const text = new Text({
+      text: "Game Clear",
+      style: { fontSize: 64, fill: 0x000000, fontWeight: "500" },
+    });
+    text.anchor.set(0.5, 0);
+    text.position.set(width / 2, 0);
+    this.innerContainer.addChild(text);
+
+    const retryButton = createTextButton("Retry", 160, 60, 20);
+    retryButton.pivot.set(80, 0);
+    retryButton.position.set(width / 2, this.innerContainer.height + 20);
+    retryButton.interactive = true;
+    retryButton.on("pointerdown", () => {
+      this.eventRetry.trigger();
+      this.hide();
+    });
+    this.innerContainer.addChild(retryButton);
+
+    const upgradeContainer = this.createUpgradeInfo(width);
+    upgradeContainer.position.set(0, retryButton.y + retryButton.height + 20);
+    this.innerContainer.addChild(upgradeContainer);
+
+    const ascensionContainer = this.createAscensionContainer(width);
+    ascensionContainer.position.set(0, upgradeContainer.y + upgradeContainer.height + 20);
+    this.innerContainer.addChild(ascensionContainer);
+
+    const versionText = this.createVersionText();
+    versionText.anchor.set(0.5, 0);
+    versionText.position.set(width / 2, this.innerContainer.height + 20);
+    this.innerContainer.addChild(versionText);
+
+    this.innerContainer.position.set(0, height / 2 - this.innerContainer.height / 2);
+    this.container.addChild(this.innerContainer);
+  }
+
+  initOver() {
+    const width = this.app.screen.width;
+    const height = this.app.screen.height;
+
+    const text = new Text({
+      text: "Game Over",
+      style: { fontSize: 64, fill: 0x000000, fontWeight: "500" },
+    });
+    text.anchor.set(0.5, 0);
+    text.position.set(width / 2, 0);
+    this.innerContainer.addChild(text);
+
+    const retryButton = createTextButton("Retry", 160, 60, 20);
+    retryButton.pivot.set(80, 0);
+    retryButton.position.set(width / 2, this.innerContainer.height + 20);
+    retryButton.interactive = true;
+    retryButton.on("pointerdown", () => {
+      this.eventRetry.trigger();
+      this.hide();
+    });
+    this.innerContainer.addChild(retryButton);
+
+    const upgradeContainer = this.createUpgradeInfo(width);
+    upgradeContainer.position.set(0, retryButton.y + retryButton.height + 20);
+    this.innerContainer.addChild(upgradeContainer);
+
+    const ascensionContainer = this.createAscensionContainer(width);
+    ascensionContainer.position.set(0, upgradeContainer.y + upgradeContainer.height + 20);
+    this.innerContainer.addChild(ascensionContainer);
+
+    const versionText = this.createVersionText();
+    versionText.anchor.set(0.5, 0);
+    versionText.position.set(width / 2, this.innerContainer.height + 20);
+    this.innerContainer.addChild(versionText);
+
+    this.innerContainer.position.set(0, height / 2 - this.innerContainer.height / 2);
+    this.container.addChild(this.innerContainer);
   }
 
   hide() {
@@ -114,10 +131,11 @@ export class GameOverMenu extends Entity {
 
   private createAscensionContainer(width: number) {
     const ascensionCotainer = new Container();
-    const ascensionsCotainer = new Container();
-    Array.from(getActiveAscension())
-      .sort((a, b) => a - b)
-      .forEach((ascension, index) => {
+    const ascensions = Array.from(getActiveAscension()).sort((a, b) => a - b);
+
+    if (ascensions.length > 0) {
+      const ascensionsCotainer = new Container();
+      ascensions.forEach((ascension, index) => {
         const ascensionCotainer = new Container();
         const radius = 20;
         const circle = new Graphics()
@@ -140,12 +158,13 @@ export class GameOverMenu extends Entity {
         );
         ascensionsCotainer.addChild(ascensionCotainer);
       });
-    ascensionsCotainer.position.set(width / 2 - ascensionsCotainer.width / 2, 0);
-    ascensionCotainer.addChild(ascensionsCotainer);
+      ascensionsCotainer.position.set(width / 2 - ascensionsCotainer.width / 2, 0);
+      ascensionCotainer.addChild(ascensionsCotainer);
+    }
 
     const ascensionButton = createTextButton("Ascensions", 160, 60, 20);
     ascensionButton.pivot.set(80, 0);
-    ascensionButton.position.set(width / 2, ascensionsCotainer.height + 30);
+    ascensionButton.position.set(width / 2, ascensionCotainer.height + 20);
     ascensionButton.interactive = true;
     ascensionButton.on("pointerdown", () => {
       this.eventAscension.trigger();
@@ -162,5 +181,37 @@ export class GameOverMenu extends Entity {
       style: { fontSize: 18, fill: 0x000000, fontWeight: "400" },
     });
     return text;
+  }
+
+  private createUpgradeInfo(width: number): Container {
+    const container = new Container();
+    const upgrades = new Container();
+    const margin = 6;
+    const lineCount = 10;
+    let x = 0;
+    this.player.upgrades.forEach((upgrade, index) => {
+      const con = new Container();
+      const back = new Graphics();
+      const text = new Text({
+        text: `${upgrade.name}`,
+        style: { fontSize: 14, fill: 0x000000, fontWeight: "400" },
+      });
+      text.position.set(4 + back.x, 2 + back.y);
+      back.roundRect(0, 0, text.width + 8, 18, 5).fill({ color: 0xffffff });
+      con.addChild(back);
+      con.addChild(text);
+      con.position.x = x;
+      con.position.y = Math.floor(index / lineCount) * (back.height + margin);
+      upgrades.addChild(con);
+
+      if (index % lineCount === lineCount - 1) {
+        x = 0;
+      } else {
+        x = con.x + con.width + margin;
+      }
+    });
+    upgrades.position.set(width / 2 - upgrades.width / 2, 0);
+    container.addChild(upgrades);
+    return container;
   }
 }

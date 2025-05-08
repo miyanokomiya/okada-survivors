@@ -27,6 +27,7 @@ export class Player extends Entity {
   expPick: CExpPick;
   expLevel = new CExpLevel();
   attacks: CAttack[] = [];
+  upgrades: Upgrade[] = [];
   private radius = 18;
   private walkAnimRight;
   private walkAnimLeft;
@@ -166,5 +167,7 @@ export class Player extends Entity {
         this.attacks.find((attack) => attack instanceof CAttackTsubu)!.level += 1;
         break;
     }
+
+    this.upgrades.push(upgrade);
   }
 }
