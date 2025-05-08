@@ -17,6 +17,7 @@ import {
   applyExDamage,
   applyExKnockback,
   applyExEnemyAttackCooltime,
+  isExEnemyNonoverlap,
 } from "../../utils/globalSettings";
 
 export class Enemy extends Entity {
@@ -33,6 +34,7 @@ export class Enemy extends Entity {
   expDrop: CExpDrop = new CExpDrop(this.app, 0.7);
   lifetime = 0;
   pauseMoving = false;
+  private nonOverlap = isExEnemyNonoverlap();
 
   constructor(app: Application) {
     super(app);
@@ -89,7 +91,7 @@ export class Enemy extends Entity {
     this.lifetime += deltaFrame;
     this.movement.scale = getExEnemyLimitBreak(this.lifetime);
 
-    if (this.shouldCollideObstacle()) {
+    if (this.nonOverlap && this.shouldCollideObstacle()) {
       const enemies = (getEnemyContaienr(this.app)?.children ?? []).map((child) => getEntity<Enemy>(child));
       enemies.forEach((enemy) => {
         if (enemy === this) return;
