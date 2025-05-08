@@ -2,7 +2,7 @@ import { Application, Texture, Ticker, TilingSprite } from "pixi.js";
 import { SceneBase } from "./SceneBase";
 import { Player } from "../entities/Player";
 import { EnemyTeki } from "../entities/enemies/EnemyTeki";
-import { lerpValue, Vec2 } from "../utils/geo";
+import { lerpValue } from "../utils/geo";
 import {
   checkLoop,
   getBackgroundContainer,
