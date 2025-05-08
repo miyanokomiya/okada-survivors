@@ -37,15 +37,30 @@ export class CUpgrade {
       {
         item: {
           id: "attract",
-          name: "引き寄せ+",
+          name: "引き寄せ+1",
           description: "より遠くのアイテムを引き寄せる",
-          count: 3,
           children: [
             {
-              id: "gravity_bullet",
-              name: "引力付与",
-              description: "攻撃がアイテムを引き寄せる",
+              id: "attract",
+              name: "引き寄せ+2",
+              description: "より遠くのアイテムを引き寄せる",
               weight: 0.5,
+              children: [
+                {
+                  id: "attract",
+                  name: "引き寄せ+3",
+                  description: "より遠くのアイテムを引き寄せる",
+                  weight: 0.5,
+                  children: [
+                    {
+                      id: "gravity_bullet",
+                      name: "引力付与",
+                      description: "攻撃がアイテムを引き寄せる",
+                      weight: 0.5,
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
@@ -119,6 +134,14 @@ export class CUpgrade {
               name: "熱++",
               description: "さらなる熱源を生成する",
               weight: 0.5,
+              children: [
+                {
+                  id: "nen+",
+                  name: "熱++",
+                  description: "さらなる熱源を生成する",
+                  weight: 0.5,
+                },
+              ],
             },
           ],
         },
