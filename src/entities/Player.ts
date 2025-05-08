@@ -16,6 +16,7 @@ import { getDistanceSquared, Vec2 } from "../utils/geo.ts";
 import gsap from "gsap";
 import { CAttackTsubu } from "../components/attacks/CAttackTsubu.ts";
 import { applyExPickRange, applyExPlayerHealth, applyExPlayerSpeed } from "../utils/globalSettings.ts";
+import { EventTrigger } from "../utils/EventTrigger.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(applyExPlayerSpeed(100), 1);
@@ -27,7 +28,9 @@ export class Player extends Entity {
   expPick: CExpPick;
   expLevel = new CExpLevel();
   attacks: CAttack[] = [];
+  eventStatusChange = new EventTrigger<void>();
   upgrades: Upgrade[] = [];
+
   private radius = 18;
   private walkAnimRight;
   private walkAnimLeft;
@@ -169,5 +172,6 @@ export class Player extends Entity {
     }
 
     this.upgrades.push(upgrade);
+    this.eventStatusChange.trigger();
   }
 }

@@ -7,6 +7,7 @@ import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from 
 export class CAttackNen extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
+    this.name = "熱";
     this.shootTimer.duration = applyExAttackCooldown(60 * 6);
   }
 

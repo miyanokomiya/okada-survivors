@@ -7,6 +7,7 @@ import { applyExAttackDuration, applyExMaxDencity } from "../../utils/globalSett
 export class CAttackUzu extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
+    this.name = "渦";
     this.shootTimer.duration = 240;
   }
 

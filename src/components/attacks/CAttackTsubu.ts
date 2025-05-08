@@ -8,6 +8,7 @@ import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from 
 export class CAttackTsubu extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
+    this.name = "粒";
     this.shootTimer.duration = applyExAttackCooldown(120);
   }
 

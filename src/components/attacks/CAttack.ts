@@ -6,6 +6,7 @@ import { getDistanceSquared, pickMinItem } from "../../utils/geo";
 export class CAttack {
   shootTimer = new CTimer(60);
   level = 1;
+  name = "Attack";
 
   constructor(
     public app: Application,
