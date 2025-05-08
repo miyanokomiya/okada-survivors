@@ -6,6 +6,7 @@ import { getEnemyContaienr, getPlayerContaienr } from "../utils/containers";
 import { Player } from "../entities/Player";
 import { getEntity } from "../entities/Entity";
 import { getDistance } from "../utils/geo";
+import { getExLowOpeningBonus } from "../utils/globalSettings";
 
 type EnemyConstructor = new (...args: any[]) => Enemy;
 
@@ -58,6 +59,10 @@ export class CEnemySpawner {
     const angle = Math.random() * Math.PI * 2;
     enemy.container.x = this.player.container.x + Math.cos(angle) * distance;
     enemy.container.y = this.player.container.y + Math.sin(angle) * distance;
+    // Opening bonus
+    if (this.level <= 2) {
+      enemy.expDrop.rate += (1 - enemy.expDrop.rate) * getExLowOpeningBonus();
+    }
     enemy.spawn(getEnemyContaienr(this.app));
   }
 }
