@@ -186,7 +186,11 @@ export class UpgradeMenu extends Entity {
         this.selected = 1;
       }
     } else {
-      this.selected = Math.max(0, Math.min(options.length - 1, this.selected + Math.sign(v.x)));
+      if (options.length === 3 && v.y < 0) {
+        this.selected = 1;
+      } else {
+        this.selected = Math.max(0, Math.min(options.length - 1, this.selected + Math.sign(v.x)));
+      }
     }
 
     if (this.selected >= 0 && options[this.selected]) {
