@@ -65,7 +65,7 @@ export class EnemyRei extends Enemy {
     this.pauseAttack = true;
     this.movement.friction = 0;
     this.movingState = 2;
-    this.movingTimer.duration = 60;
+    this.movingTimer.duration = 75;
     this.movingTimer.start();
 
     const playerVelocity = this.player.movement.velocity;
