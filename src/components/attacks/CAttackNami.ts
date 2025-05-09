@@ -2,14 +2,14 @@ import { Application, Container } from "pixi.js";
 import { CAttack } from "./CAttack";
 import { getProjectileContaienr } from "../../utils/containers";
 import { ProjectileNami } from "../../entities/projectiles/ProjectileNami";
-import { subVec } from "../../utils/geo";
+import { rotateVec, subVec } from "../../utils/geo";
 import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackNami extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
     this.name = "波";
-    this.shootTimer.duration = applyExAttackCooldown(100);
+    this.shootTimer.duration = applyExAttackCooldown(150);
   }
 
   shoot() {
@@ -30,20 +30,23 @@ export class CAttackNami extends CAttack {
     }
 
     let dencity = 1;
-    if (this.level === 3) {
+    if (this.level === 2) {
       dencity = 2;
+    } else if (this.level === 3) {
+      dencity = 3;
     } else if (this.level >= 5) {
       dencity = Infinity;
     }
     dencity = applyExMaxDencity(dencity);
 
+    const v = subVec(closestEnemy.position, this.parent.position);
     const container = getProjectileContaienr(this.app);
     for (let i = 0; i < count; i++) {
       const projectile = new ProjectileNami(this.app, this.parent);
       projectile.dencity = dencity;
       projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
       projectile.setDelay(15 * i);
-      projectile.shoot(subVec(closestEnemy.position, this.parent.position));
+      projectile.shoot(rotateVec(v, -(Math.PI / 12) * i));
       projectile.spawn(container);
     }
 
@@ -54,7 +57,7 @@ export class CAttackNami extends CAttack {
         projectile.scaleY = -1;
         projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
         projectile.setDelay(15 * i);
-        projectile.shoot(subVec(closestEnemy.position, this.parent.position));
+        projectile.shoot(rotateVec(v, (Math.PI / 12) * i));
         projectile.spawn(container);
       }
     }

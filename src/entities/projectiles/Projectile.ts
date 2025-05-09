@@ -68,11 +68,16 @@ export class Projectile extends Entity {
         enemy.health.takeDamage(this.damage);
         playSound("hit2");
         this.dencity--;
+        this.onHitEnemy(enemy);
         if (this.dencity <= 0) {
           this.dispose = true;
           break;
         }
       }
     }
+  }
+
+  protected onHitEnemy(_enemy: Enemy) {
+    // Override this method in subclasses to handle hit events
   }
 }

@@ -156,19 +156,19 @@ export class CUpgrade {
             {
               id: "nami+",
               name: "波+1",
-              description: "さらなる波を生成する",
+              description: "波数: +1\n弾強度: +1",
               weight: 1,
               children: [
                 {
                   id: "nami+",
                   name: "波+2",
-                  description: "さらなる波を生成する\n弾強度: 2",
+                  description: "波数: +1\n弾強度: +1",
                   weight: 1,
                   children: [
                     {
                       id: "nami+",
                       name: "波+3",
-                      description: "さらなる波を生成する",
+                      description: "波数: +2",
                       weight: 1,
                       children: [
                         {
@@ -186,7 +186,7 @@ export class CUpgrade {
                                 {
                                   id: "nami+",
                                   name: "波++",
-                                  description: "さらなる波を生成する",
+                                  description: "波数: +1",
                                   weight: 0.5,
                                   count: Infinity,
                                 },

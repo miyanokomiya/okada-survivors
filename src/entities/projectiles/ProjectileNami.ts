@@ -1,6 +1,8 @@
 import { Application, Container, Graphics, Text } from "pixi.js";
 import { Projectile } from "./Projectile";
-import { getRadian, rotateVec, Vec2 } from "../../utils/geo";
+import { getRadian, rotateVec, subVec, Vec2 } from "../../utils/geo";
+import { Enemy } from "../enemies/Enemy";
+import { getProjectileContaienr } from "../../utils/containers";
 
 export class ProjectileNami extends Projectile {
   private radian = 0;
@@ -8,6 +10,7 @@ export class ProjectileNami extends Projectile {
   private height = 40;
   private count = 2;
   private origin: Vec2 = { x: 0, y: 0 };
+  private bounceCount = 2 * 1;
   scaleY = 1;
 
   constructor(
@@ -49,5 +52,29 @@ export class ProjectileNami extends Projectile {
     const rotated = rotateVec(v, this.radian);
     this.container.position.x = this.origin.x + rotated.x;
     this.container.position.y = this.origin.y + rotated.y;
+  }
+
+  protected onHitEnemy(enemy: Enemy) {
+    if (this.bounceCount <= 1) return;
+
+    this.bounceCount = Math.round(this.bounceCount / 2);
+    const child = new ProjectileNami(this.app, this.container);
+
+    if (this.dencity % 2 === 0) {
+      this.dencity = this.dencity / 2;
+      child.dencity = Math.max(1, this.dencity);
+    } else {
+      this.dencity = (this.dencity + 1) / 2
+      child.dencity = Math.max(1, this.dencity - 1);
+    }
+
+    child.scaleY = this.scaleY;
+    child.bounceCount = this.bounceCount;
+    child.setDuration(this.lifetime.duration);
+    child.hitbox.cooltimeMap.set(enemy.hurtbox, child.hitbox.cooltimeForSameTarget);
+    child.shoot(subVec(this.container.position, enemy.container.position));
+
+    const container = getProjectileContaienr(this.app);
+    child.spawn(container);
   }
 }
