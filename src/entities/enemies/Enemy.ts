@@ -34,6 +34,7 @@ export class Enemy extends Entity {
   expDrop: CExpDrop = new CExpDrop(this.app, 0.7);
   lifetime = 0;
   pauseMoving = false;
+  pauseAttack = false;
   private nonOverlap = isExEnemyNonoverlap();
 
   constructor(app: Application) {
@@ -107,7 +108,7 @@ export class Enemy extends Entity {
   shouldCollideObstacle(): boolean {
     if (!this.getHitboxForObstacle()) return false;
 
-    const radius = this.pushoutHitbox.collisions[0].radius * 2;
+    const radius = this.pushoutHitbox.collisions[0].radius + 100;
     const size = radius * 2;
     return this.isInCamera({
       x: this.container.x - radius,
@@ -118,7 +119,7 @@ export class Enemy extends Entity {
   }
 
   attack() {
-    if (this.hitbox.check(this.player.hurtbox)) {
+    if (!this.pauseAttack && this.hitbox.check(this.player.hurtbox)) {
       this.player.health.takeDamage(applyExDamage(this.damage));
       this.player.knockback.hit();
       playSound("hit1");

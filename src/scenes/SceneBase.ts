@@ -49,13 +49,13 @@ export class SceneBase {
   }
 
   private onTick = (time: Ticker) => {
-    this.tick(time);
     for (const key in this.keyPressState) {
       this.keyPressState[key]--;
       if (this.keyPressState[key] <= 0) {
         delete this.keyPressState[key];
       }
     }
+    this.tick(time);
   };
 
   tick(_time: Ticker) {}

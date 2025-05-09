@@ -20,3 +20,7 @@ export function getDirectionalMovement(keyState: Record<string, any>): Vec2 {
 export function getSubmitInput(keyState: Record<string, any>): boolean {
   return keyState["Enter"] || keyState[" "];
 }
+
+export function getPauseInput(keyState: Record<string, any>): boolean {
+  return keyState["q"] || keyState["Escape"];
+}

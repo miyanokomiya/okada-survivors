@@ -31,7 +31,10 @@ import { AscensionScene } from "./AscensionScene";
 import { applyExMaxLevel, applyExWallSize, applyExWeakPoolRate } from "../utils/globalSettings";
 import { EnemyTobi } from "../entities/enemies/EnemyTobi";
 import { Wall } from "../entities/Wall";
-import { getDirectionalMovement } from "../utils/inputs";
+import { getDirectionalMovement, getPauseInput } from "../utils/inputs";
+import { EnemyRei } from "../entities/enemies/EnemyRei";
+import { PauseMenu } from "../entities/widgets/PauseMenu";
+import { PauseButton } from "../entities/widgets/PauseButton";
 
 export class MainScene extends SceneBase {
   camera: CCamera;
@@ -44,6 +47,7 @@ export class MainScene extends SceneBase {
   playerStatus: PlayerStatus;
   upgradeComponent: CUpgrade;
   upgradeMenu: UpgradeMenu;
+  pauseMenu: PauseMenu;
   clearMenu: GameOverMenu;
   joystick: VirtualJoystick;
   maxLevel = applyExMaxLevel(20);
@@ -105,6 +109,7 @@ export class MainScene extends SceneBase {
           { item: EnemyTeki, weight: applyExWeakPoolRate(4) },
           { item: EnemyMushi, weight: 2 },
           { item: EnemyTobi, weight: 1 },
+          { item: EnemyRei, weight: 0.5 },
         ]),
       ],
       [
@@ -114,6 +119,7 @@ export class MainScene extends SceneBase {
           { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 1 },
           { item: EnemyTobi, weight: 1 },
+          { item: EnemyRei, weight: 0.5 },
         ]),
       ],
       [
@@ -123,6 +129,7 @@ export class MainScene extends SceneBase {
           { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 1 },
           { item: EnemyTobi, weight: 1 },
+          { item: EnemyRei, weight: 2 },
         ]),
       ],
       [
@@ -132,6 +139,7 @@ export class MainScene extends SceneBase {
           { item: EnemyMushi, weight: 2 },
           { item: EnemyDai, weight: 2 },
           { item: EnemyTobi, weight: 2 },
+          { item: EnemyRei, weight: 3 },
         ]),
       ],
       [
@@ -141,6 +149,7 @@ export class MainScene extends SceneBase {
           { item: EnemyMushi, weight: 1 },
           { item: EnemyDai, weight: 2 },
           { item: EnemyTobi, weight: 2 },
+          { item: EnemyRei, weight: 3 },
         ]),
       ],
     ]);
@@ -167,6 +176,9 @@ export class MainScene extends SceneBase {
       this.upgradeMenu.display();
     });
 
+    this.pauseMenu = new PauseMenu(app, this);
+    this.pauseMenu.spawn(hudContainer);
+
     this.clearMenu = new GameOverMenu(app, this, this.player);
     this.clearMenu.spawn(hudContainer);
 
@@ -180,6 +192,12 @@ export class MainScene extends SceneBase {
 
     this.joystick = new VirtualJoystick(50, app.screen.width, app.screen.height);
     app.stage.addChild(this.joystick.getContainer());
+
+    const pauseButton = new PauseButton(app);
+    pauseButton.spawn(hudContainer);
+    pauseButton.eventPause.add(() => {
+      this.pauseMenu.toggle();
+    });
 
     this.initWalls();
   }
@@ -208,6 +226,10 @@ export class MainScene extends SceneBase {
   }
 
   tick(time: Ticker) {
+    if (getPauseInput(this.keyPressState)) {
+      this.pauseMenu.toggle();
+    }
+
     if (isPausedLayerMain(this.app)) return;
 
     if (!this.player.health.isAlive()) {
