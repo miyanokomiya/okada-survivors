@@ -184,3 +184,7 @@ export function isExEnemyNonoverlap(): boolean {
   const ascension = getActiveAscension();
   return ascension.has(20);
 }
+
+export let globalSettings = {
+  tarboRate: 1,
+};

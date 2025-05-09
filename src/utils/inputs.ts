@@ -24,3 +24,7 @@ export function getSubmitInput(keyState: Record<string, any>): boolean {
 export function getPauseInput(keyState: Record<string, any>): boolean {
   return keyState["q"] || keyState["Escape"];
 }
+
+export function getTurboInput(keyState: Record<string, any>): boolean {
+  return keyState["o"];
+}

@@ -28,10 +28,10 @@ import { EnemyDai } from "../entities/enemies/EnemyDai";
 import { GameOverMenu } from "../entities/widgets/GameOverMenu";
 import { VirtualJoystick } from "../components/VirtualJoystick";
 import { AscensionScene } from "./AscensionScene";
-import { applyExMaxLevel, applyExWallSize, applyExWeakPoolRate } from "../utils/globalSettings";
+import { applyExMaxLevel, applyExWallSize, applyExWeakPoolRate, globalSettings } from "../utils/globalSettings";
 import { EnemyTobi } from "../entities/enemies/EnemyTobi";
 import { Wall } from "../entities/Wall";
-import { getDirectionalMovement, getPauseInput } from "../utils/inputs";
+import { getDirectionalMovement, getPauseInput, getTurboInput } from "../utils/inputs";
 import { EnemyRei } from "../entities/enemies/EnemyRei";
 import { PauseMenu } from "../entities/widgets/PauseMenu";
 import { PauseButton } from "../entities/widgets/PauseButton";
@@ -62,6 +62,7 @@ export class MainScene extends SceneBase {
 
   constructor(app: Application) {
     super(app);
+    this.app.ticker.speed = globalSettings.tarboRate;
 
     this.gameTimer = new CTimer(60 * 60 * 3);
     this.gameTimer.start();
@@ -222,10 +223,16 @@ export class MainScene extends SceneBase {
   }
 
   destroy() {
+    this.app.ticker.speed = 1;
     super.destroy();
   }
 
   tick(time: Ticker) {
+    if (getTurboInput(this.keyPressState)) {
+      globalSettings.tarboRate = globalSettings.tarboRate !== 1 ? 1 : 2;
+      this.app.ticker.speed = globalSettings.tarboRate;
+    }
+
     if (getPauseInput(this.keyPressState)) {
       this.pauseMenu.toggle();
     }
