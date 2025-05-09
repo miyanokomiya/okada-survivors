@@ -24,6 +24,7 @@ export class ProjectileTsubu extends Projectile {
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius }];
     this.damage = 1;
     this.dencity = 1;
+    this.lifetime.duration = 60 * 3;
   }
 
   shoot(from: Vec2, direction: Vec2) {

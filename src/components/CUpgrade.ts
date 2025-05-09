@@ -75,19 +75,19 @@ export class CUpgrade {
             {
               id: "uzu+",
               name: "渦+1",
-              description: "さらなる渦を生成する",
+              description: "渦数: +1",
               weight: 1,
               children: [
                 {
                   id: "uzu+",
                   name: "渦+2",
-                  description: "さらなる渦を生成する\n弾強度: 2",
+                  description: "渦数: +1\n弾強度: 2",
                   weight: 1,
                   children: [
                     {
                       id: "uzu+",
                       name: "渦+3",
-                      description: "さらなる渦を生成する",
+                      description: "渦数: +2",
                       weight: 1,
                       children: [
                         {
@@ -105,7 +105,7 @@ export class CUpgrade {
                                 {
                                   id: "uzu+",
                                   name: "渦++",
-                                  description: "さらなる渦を生成する",
+                                  description: "渦数: +1",
                                   weight: 0.5,
                                   count: Infinity,
                                 },
@@ -132,13 +132,13 @@ export class CUpgrade {
             {
               id: "nen+",
               name: "熱++",
-              description: "さらなる熱源を生成する",
+              description: "熱源数: +1",
               weight: 0.5,
               children: [
                 {
                   id: "nen+",
                   name: "熱++",
-                  description: "さらなる熱源を生成する",
+                  description: "熱源数: +1",
                   weight: 0.5,
                 },
               ],
@@ -151,7 +151,7 @@ export class CUpgrade {
         item: {
           id: "nami",
           name: "波",
-          description: "敵に向けて波状に移動する弾を生成する",
+          description: "敵に向けて波状に移動する弾を生成する\n初回ヒット時に新たな波を跳ね返す",
           children: [
             {
               id: "nami+",
@@ -213,19 +213,19 @@ export class CUpgrade {
             {
               id: "tsubu+",
               name: "粒+1",
-              description: "さらなる粒を生成する",
+              description: "粒数: +2\n弾強度: +1",
               weight: 1,
               children: [
                 {
                   id: "tsubu+",
                   name: "粒+2",
-                  description: "さらなる粒を生成する\n弾強度: 2",
+                  description: "粒数: +2\n弾強度: +1",
                   weight: 1,
                   children: [
                     {
                       id: "tsubu+",
                       name: "粒+3",
-                      description: "さらなる粒を生成する",
+                      description: "粒数: +4",
                       weight: 1,
                       children: [
                         {
@@ -243,7 +243,7 @@ export class CUpgrade {
                                 {
                                   id: "tsubu+",
                                   name: "粒++",
-                                  description: "さらなる粒を生成する",
+                                  description: "粒数: +2",
                                   weight: 0.5,
                                   count: Infinity,
                                 },
@@ -271,13 +271,13 @@ export class CUpgrade {
             {
               id: "tama+",
               name: "弾+2",
-              description: "大きな弾を生成する\n弾強度: 3",
+              description: "弾サイズ増加\n弾強度: 3",
               weight: 1,
               children: [
                 {
                   id: "tama+",
                   name: "弾+3",
-                  description: "大きな弾を生成する\n弾強度: 4",
+                  description: "弾サイズ増加\n弾強度: 4",
                   weight: 1,
                   children: [
                     {
@@ -295,7 +295,7 @@ export class CUpgrade {
                             {
                               id: "tama+",
                               name: "弾++",
-                              description: "さらに大きな弾を生成する",
+                              description: "弾サイズ増加",
                               weight: 0.5,
                               count: Infinity,
                             },
