@@ -375,6 +375,7 @@ export class CUpgrade {
 
     this.eventUpgradeSelected.trigger(upgrade);
     this.checkUpgradeShio();
+    this.checkUpgradeMaku();
   }
 
   removeOption(upgrade: Upgrade) {
@@ -402,7 +403,7 @@ export class CUpgrade {
             id: "shio+",
             name: "潮+1",
             description: "渦数倍増",
-            weight: 0.5,
+            weight: 0.7,
             children: [
               {
                 id: "shio+",
@@ -415,7 +416,45 @@ export class CUpgrade {
           },
         ],
       },
-      0.5,
+      0.7,
+    );
+  }
+
+  checkUpgradeMaku() {
+    if (!this.player.isMakuAvailable()) return;
+    const items = this.table.getAll();
+    if (items.some((item) => item.id.startsWith("maku"))) return;
+
+    items.forEach((item) => {
+      if (item.id.startsWith("tama") || item.id.startsWith("tsubu")) {
+        this.removeOption(item);
+      }
+    });
+
+    this.table.add(
+      {
+        id: "maku",
+        name: "幕",
+        description: "敵に向けて粒の弾幕を発射する\n弾強度: 貫通\n消費: 弾、粒",
+        children: [
+          {
+            id: "maku+",
+            name: "幕+1",
+            description: "幕数倍増",
+            weight: 0.7,
+            children: [
+              {
+                id: "maku+",
+                name: "幕++",
+                description: "幕数: +1",
+                weight: 0.5,
+                count: Infinity,
+              },
+            ],
+          },
+        ],
+      },
+      0.7,
     );
   }
 }

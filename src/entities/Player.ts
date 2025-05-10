@@ -18,6 +18,7 @@ import { CAttackTsubu } from "../components/attacks/CAttackTsubu.ts";
 import { applyExHeal, applyExPickRange, applyExPlayerHealth, applyExPlayerSpeed } from "../utils/globalSettings.ts";
 import { EventTrigger } from "../utils/EventTrigger.ts";
 import { CAttackShio } from "../components/attacks/CAttackShio.ts";
+import { CAttackMaku } from "../components/attacks/CAttackMaku.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(applyExPlayerSpeed(100), 1);
@@ -184,6 +185,15 @@ export class Player extends Entity {
       case "shio+":
         this.attacks.find((attack) => attack instanceof CAttackShio)!.level += 1;
         break;
+      case "maku":
+        this.attacks.push(new CAttackMaku(this.app, this.container));
+        this.attacks = this.attacks.filter(
+          (attack) => !(attack instanceof CAttackTama) && !(attack instanceof CAttackTsubu),
+        );
+        break;
+      case "maku+":
+        this.attacks.find((attack) => attack instanceof CAttackMaku)!.level += 1;
+        break;
     }
 
     this.upgrades.push(upgrade);
@@ -194,6 +204,13 @@ export class Player extends Entity {
     return (
       this.attacks.some((attack) => attack instanceof CAttackUzu && attack.level >= 4) &&
       this.attacks.some((attack) => attack instanceof CAttackNami && attack.level >= 4)
+    );
+  }
+
+  isMakuAvailable() {
+    return (
+      this.attacks.some((attack) => attack instanceof CAttackTama && attack.level >= 4) &&
+      this.attacks.some((attack) => attack instanceof CAttackTsubu && attack.level >= 4)
     );
   }
 }

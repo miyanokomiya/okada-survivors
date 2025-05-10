@@ -9,7 +9,6 @@ export class CAttackShio extends CAttack {
     super(app, parent);
     this.name = "潮";
     this.shootTimer.duration = 240;
-    this.level = 1;
   }
 
   shoot() {

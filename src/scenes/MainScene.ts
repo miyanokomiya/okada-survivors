@@ -201,7 +201,6 @@ export class MainScene extends SceneBase {
     });
 
     this.initWalls();
-    this.upgradeMenu.display(true);
   }
 
   initWalls() {
@@ -243,6 +242,10 @@ export class MainScene extends SceneBase {
     if (!this.player.health.isAlive()) {
       this.clearMenu.displayOver();
       return;
+    }
+
+    if (this.player.attacks.length === 0) {
+      this.upgradeMenu.display(true);
     }
 
     const keyboardMovement = getDirectionalMovement(this.keyState);
