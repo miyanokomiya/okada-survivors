@@ -29,6 +29,7 @@ export class ProjectileMaku extends Projectile {
     this.hitbox.collisions = [{ position: { x: 0, y: 0 }, radius }];
     this.damage = 1;
     this.dencity = 1;
+    this.ignoreWall = true;
   }
 
   shoot(from: Vec2, offset: Vec2, direction: Vec2) {

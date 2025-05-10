@@ -3,7 +3,7 @@ import { CAttack } from "./CAttack";
 import { getProjectileContaienr } from "../../utils/containers";
 import { ProjectileNami } from "../../entities/projectiles/ProjectileNami";
 import { rotateVec, subVec } from "../../utils/geo";
-import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
+import { applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackNami extends CAttack {
   constructor(app: Application, parent: Container) {
@@ -42,7 +42,7 @@ export class CAttackNami extends CAttack {
     for (let i = 0; i < count; i++) {
       const projectile = new ProjectileNami(this.app, this.parent);
       projectile.dencity = dencity;
-      projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+      projectile.setDuration(projectile.lifetime.duration);
       projectile.setDelay(15 * i);
       projectile.shoot(rotateVec(v, -(Math.PI / 12) * i));
       projectile.spawn(container);
@@ -53,7 +53,7 @@ export class CAttackNami extends CAttack {
         const projectile = new ProjectileNami(this.app, this.parent);
         projectile.dencity = dencity;
         projectile.scaleY = -1;
-        projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+        projectile.setDuration(projectile.lifetime.duration);
         projectile.setDelay(15 * i);
         projectile.shoot(rotateVec(v, (Math.PI / 12) * i));
         projectile.spawn(container);

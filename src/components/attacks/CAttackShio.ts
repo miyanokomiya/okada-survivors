@@ -1,7 +1,7 @@
 import { Application, Container } from "pixi.js";
 import { CAttack } from "./CAttack";
 import { getProjectileContaienr } from "../../utils/containers";
-import { applyExAttackDuration, applyExMaxDencity } from "../../utils/globalSettings";
+import { applyExMaxDencity } from "../../utils/globalSettings";
 import { ProjectileShio } from "../../entities/projectiles/ProjectileShio";
 
 export class CAttackShio extends CAttack {
@@ -21,7 +21,7 @@ export class CAttackShio extends CAttack {
     for (let i = 0; i < count; i++) {
       const projectile = new ProjectileShio(this.app, this.parent);
       projectile.dencity = dencity;
-      projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+      projectile.setDuration(projectile.lifetime.duration);
       projectile.shoot((2 * Math.PI * i) / count);
       projectile.spawn(container);
     }
@@ -30,7 +30,7 @@ export class CAttackShio extends CAttack {
       for (let i = 0; i < count; i++) {
         const projectile = new ProjectileShio(this.app, this.parent);
         projectile.dencity = dencity;
-        projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+        projectile.setDuration(projectile.lifetime.duration);
         projectile.shoot((2 * Math.PI * i) / count);
         projectile.setDelay(this.shootTimer.duration / 2);
         projectile.spawn(container);

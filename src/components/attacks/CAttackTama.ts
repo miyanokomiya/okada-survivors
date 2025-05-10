@@ -3,7 +3,7 @@ import { ProjectileTama } from "../../entities/projectiles/ProjectileTama";
 import { CAttack } from "./CAttack";
 import { addVec, getRadian, rotateVec, subVec } from "../../utils/geo";
 import { getProjectileContainerBack } from "../../utils/containers";
-import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
+import { applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackTama extends CAttack {
   constructor(app: Application, parent: Container) {
@@ -44,7 +44,7 @@ export class CAttackTama extends CAttack {
     for (let i = 0; i < count; i++) {
       const projectile = new ProjectileTama(this.app);
       projectile.dencity = dencity;
-      projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+      projectile.setDuration(projectile.lifetime.duration);
       projectile.shoot(
         addVec(this.parent.position, rotateVec({ x: positionRadius, y: 0 }, vr + ((2 * Math.PI) / count) * i)),
         v,
@@ -58,7 +58,7 @@ export class CAttackTama extends CAttack {
       for (let i = 0; i < count; i++) {
         const projectile = new ProjectileTama(this.app);
         projectile.dencity = dencity;
-        projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+        projectile.setDuration(projectile.lifetime.duration);
         projectile.shoot(
           addVec(
             this.parent.position,

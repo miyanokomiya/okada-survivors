@@ -2,7 +2,7 @@ import { Application, Container } from "pixi.js";
 import { CAttack } from "./CAttack";
 import { addVec, getUnitVec, rotateVec, scaleVec, subVec } from "../../utils/geo";
 import { getProjectileContaienr } from "../../utils/containers";
-import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
+import { applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 import { ProjectileMaku } from "../../entities/projectiles/ProjectileMaku";
 
 export class CAttackMaku extends CAttack {
@@ -34,7 +34,7 @@ export class CAttackMaku extends CAttack {
     for (let i = 0; i < count; i++) {
       const bullet = new ProjectileMaku(this.app);
       bullet.dencity = dencity;
-      bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
+      bullet.setDuration(bullet.lifetime.duration);
       const positionV = rotateVec(scaleVec(v, positionRadius), unitR * (i - Math.floor(count / 2)));
       bullet.shoot(origin, positionV, v);
       bullet.spawn(container);
@@ -44,7 +44,7 @@ export class CAttackMaku extends CAttack {
       for (let i = 0; i < count; i++) {
         const bullet = new ProjectileMaku(this.app);
         bullet.dencity = dencity;
-        bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
+        bullet.setDuration(bullet.lifetime.duration);
         const positionV = rotateVec(scaleVec(v, positionRadius + radius * 2), unitR * (i - Math.floor(count / 2)));
         bullet.shoot(origin, positionV, v);
         bullet.spawn(container);

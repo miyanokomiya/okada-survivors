@@ -446,7 +446,7 @@ export class CUpgrade {
               {
                 id: "maku+",
                 name: "幕++",
-                description: "幕数: +1",
+                description: "幕数: +2",
                 weight: 0.5,
                 count: Infinity,
               },

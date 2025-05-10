@@ -3,7 +3,7 @@ import { CAttack } from "./CAttack";
 import { rotateVec, subVec } from "../../utils/geo";
 import { getProjectileContaienr } from "../../utils/containers";
 import { ProjectileTsubu } from "../../entities/projectiles/ProjectileTsubu";
-import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
+import { applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackTsubu extends CAttack {
   constructor(app: Application, parent: Container) {
@@ -47,7 +47,7 @@ export class CAttackTsubu extends CAttack {
     for (let i = 0; i < count; i++) {
       const bullet = new ProjectileTsubu(this.app);
       bullet.dencity = dencity;
-      bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
+      bullet.setDuration(bullet.lifetime.duration);
       bullet.setDelay(delay * i);
       bullet.shoot(this.parent.position, rotateVec(v, (-unitR * count) / 2 + unitR * i));
       bullet.spawn(container);
@@ -56,7 +56,7 @@ export class CAttackTsubu extends CAttack {
       for (let i = 0; i < count; i++) {
         const bullet = new ProjectileTsubu(this.app);
         bullet.dencity = dencity;
-        bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
+        bullet.setDuration(bullet.lifetime.duration);
         bullet.setDelay(delay * i);
         bullet.shoot(this.parent.position, rotateVec(v, (unitR * count) / 2 - unitR * i));
         bullet.spawn(container);

@@ -1,6 +1,6 @@
 import { Application, Container, Graphics, Text } from "pixi.js";
 import { Enemy } from "./Enemy";
-import { applyExEnemyHealth } from "../../utils/globalSettings";
+import { applyExEliteEnemyHealth, applyExEnemyHealth } from "../../utils/globalSettings";
 import { CHitbox } from "../../components/CHitbox";
 import { CTimer } from "../../components/CTimer";
 import { getDistanceSquared, getRadian } from "../../utils/geo";
@@ -22,7 +22,7 @@ export class EnemyRei extends Enemy {
   protected init() {
     this.movement.maxSpeed = 50;
     this.movement.acceleration = 0.1;
-    this.health.init(applyExEnemyHealth(5));
+    this.health.init(applyExEliteEnemyHealth(applyExEnemyHealth(5)));
 
     const graphicContainer = new Container();
     this.container.addChild(graphicContainer);

@@ -1,7 +1,7 @@
 import { Application, Container, Graphics, Text } from "pixi.js";
 import { Enemy } from "./Enemy";
 import gsap from "gsap";
-import { applyExEnemyHealth } from "../../utils/globalSettings";
+import { applyExEliteEnemyHealth, applyExEnemyHealth } from "../../utils/globalSettings";
 import { Vec2 } from "../../utils/geo";
 
 export class EnemyTobi extends Enemy {
@@ -19,7 +19,7 @@ export class EnemyTobi extends Enemy {
     this.movement.maxSpeed = 120;
     this.movement.acceleration = 0.1;
     this.movement.friction = 200;
-    this.health.init(applyExEnemyHealth(5));
+    this.health.init(applyExEliteEnemyHealth(applyExEnemyHealth(5)));
 
     const graphicContainer = new Container();
     this.container.addChild(graphicContainer);

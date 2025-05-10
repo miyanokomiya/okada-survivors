@@ -7,7 +7,7 @@ export const ASCENZTION_ITEMS = [
   { ascension: 6, description: "Lv上限 +3" },
   { ascension: 7, description: "最大体力 x0.85" },
   { ascension: 8, description: "移動速度 x0.95" },
-  { ascension: 9, description: "攻撃持続 x0.95" },
+  { ascension: 9, description: "強敵体力 +1" },
   { ascension: 10, description: "攻撃速度 x0.95" },
   { ascension: 11, description: "強敵出現率 x1.2" },
   { ascension: 12, description: "敵ノックバック x0.5" },
@@ -99,10 +99,10 @@ export function applyExPlayerSpeed(val: number): number {
   return val;
 }
 
-export function applyExAttackDuration(val: number): number {
+export function applyExEliteEnemyHealth(val: number): number {
   const ascension = getActiveAscension();
   if (ascension.has(9)) {
-    val *= 0.95;
+    val += 1;
   }
   return val;
 }

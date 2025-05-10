@@ -2,7 +2,7 @@ import { Application, Container } from "pixi.js";
 import { CAttack } from "./CAttack";
 import { getProjectileContainerBack } from "../../utils/containers";
 import { ProjectileNen } from "../../entities/projectiles/ProjectileNen";
-import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
+import { applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
 export class CAttackNen extends CAttack {
   constructor(app: Application, parent: Container) {
@@ -16,7 +16,7 @@ export class CAttackNen extends CAttack {
     for (let i = 0; i < this.level; i++) {
       const projectile = new ProjectileNen(this.app, this.parent);
       projectile.dencity = applyExMaxDencity(projectile.dencity);
-      projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+      projectile.setDuration(projectile.lifetime.duration);
       const r = 2 * Math.PI * Math.random();
       const radius = 50 * (1 + Math.random());
       projectile.shoot({

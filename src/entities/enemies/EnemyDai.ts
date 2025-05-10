@@ -1,6 +1,6 @@
 import { Application } from "pixi.js";
 import { EnemyTeki } from "./EnemyTeki";
-import { applyExEnemyHealth } from "../../utils/globalSettings";
+import { applyExEliteEnemyHealth, applyExEnemyHealth } from "../../utils/globalSettings";
 
 export class EnemyDai extends EnemyTeki {
   constructor(app: Application) {
@@ -16,6 +16,6 @@ export class EnemyDai extends EnemyTeki {
 
     this.movement.maxSpeed = 50;
     this.movement.acceleration = 0.1;
-    this.health.init(applyExEnemyHealth(6));
+    this.health.init(applyExEliteEnemyHealth(applyExEnemyHealth(6)));
   }
 }
