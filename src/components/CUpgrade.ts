@@ -3,13 +3,17 @@ import { createWeightedTable, WeightedTable } from "../utils/WeightedTable";
 import { Upgrade } from "../utils/upgrades";
 import { EventTrigger } from "../utils/EventTrigger";
 import { applyExHeal, getExLoserOption } from "../utils/globalSettings";
+import { Player } from "../entities/Player";
 
 export class CUpgrade {
   table: WeightedTable<Upgrade>;
   upgraded: Set<Upgrade> = new Set();
   eventUpgradeSelected: EventTrigger<Upgrade> = new EventTrigger();
 
-  constructor(public app: Application) {
+  constructor(
+    public app: Application,
+    public player: Player,
+  ) {
     const loserWeight = getExLoserOption();
     this.table = createWeightedTable([
       ...(loserWeight === 0
@@ -370,9 +374,48 @@ export class CUpgrade {
     }
 
     this.eventUpgradeSelected.trigger(upgrade);
+    this.checkUpgradeShio();
   }
 
   removeOption(upgrade: Upgrade) {
     this.table.remove(upgrade);
+  }
+
+  checkUpgradeShio() {
+    if (!this.player.isShioAvailable()) return;
+    const items = this.table.getAll();
+    if (items.some((item) => item.id.startsWith("shio"))) return;
+
+    items.forEach((item) => {
+      if (item.id.startsWith("uzu") || item.id.startsWith("nami")) {
+        this.removeOption(item);
+      }
+    });
+
+    this.table.add(
+      {
+        id: "shio",
+        name: "潮",
+        description: "プレイヤーの周囲に波打つ渦を生成する\n弾強度: 貫通\n消費: 渦、波",
+        children: [
+          {
+            id: "shio+",
+            name: "潮+1",
+            description: "渦数倍増",
+            weight: 0.5,
+            children: [
+              {
+                id: "shio+",
+                name: "潮++",
+                description: "渦数: +1",
+                weight: 0.5,
+                count: Infinity,
+              },
+            ],
+          },
+        ],
+      },
+      0.5,
+    );
   }
 }

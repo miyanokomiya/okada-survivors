@@ -166,7 +166,7 @@ export class MainScene extends SceneBase {
     this.playerStatus = new PlayerStatus(app, this.player);
     this.playerStatus.spawn(hudContainer);
 
-    this.upgradeComponent = new CUpgrade(app);
+    this.upgradeComponent = new CUpgrade(app, this.player);
     this.upgradeComponent.eventUpgradeSelected.add((upgrade) => {
       this.player.upgrade(upgrade);
     });

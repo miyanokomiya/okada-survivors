@@ -17,6 +17,7 @@ import gsap from "gsap";
 import { CAttackTsubu } from "../components/attacks/CAttackTsubu.ts";
 import { applyExHeal, applyExPickRange, applyExPlayerHealth, applyExPlayerSpeed } from "../utils/globalSettings.ts";
 import { EventTrigger } from "../utils/EventTrigger.ts";
+import { CAttackShio } from "../components/attacks/CAttackShio.ts";
 
 export class Player extends Entity {
   movement: CMovement = new CMovement(applyExPlayerSpeed(100), 1);
@@ -174,9 +175,25 @@ export class Player extends Entity {
       case "tsubu+":
         this.attacks.find((attack) => attack instanceof CAttackTsubu)!.level += 1;
         break;
+      case "shio":
+        this.attacks.push(new CAttackShio(this.app, this.container));
+        this.attacks = this.attacks.filter(
+          (attack) => !(attack instanceof CAttackUzu) && !(attack instanceof CAttackNami),
+        );
+        break;
+      case "shio+":
+        this.attacks.find((attack) => attack instanceof CAttackShio)!.level += 1;
+        break;
     }
 
     this.upgrades.push(upgrade);
     this.eventStatusChange.trigger();
+  }
+
+  isShioAvailable() {
+    return (
+      this.attacks.some((attack) => attack instanceof CAttackUzu && attack.level >= 4) &&
+      this.attacks.some((attack) => attack instanceof CAttackNami && attack.level >= 4)
+    );
   }
 }

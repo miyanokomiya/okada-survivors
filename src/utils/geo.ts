@@ -84,6 +84,9 @@ export function easeIn(t: number) {
 export function easeOut(t: number) {
   return t * (3 - 2 * t);
 }
+export function easeOutQuad(t: number) {
+  return t * (2 - t);
+}
 export function easeInOut(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
