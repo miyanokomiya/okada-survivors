@@ -28,7 +28,7 @@ export class CAttackMaku extends CAttack {
     const radius = 10;
     const positionRadius = radius / Math.sin(Math.PI / (count * 1.6));
     const unitR = Math.PI / count;
-    const drawback = scaleVec(v, -positionRadius - radius);
+    const drawback = scaleVec(v, -radius);
     const origin = addVec(this.parent.position, drawback);
 
     for (let i = 0; i < count; i++) {
@@ -36,7 +36,7 @@ export class CAttackMaku extends CAttack {
       bullet.dencity = dencity;
       bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
       const positionV = rotateVec(scaleVec(v, positionRadius), unitR * (i - Math.floor(count / 2)));
-      bullet.shoot(addVec(origin, positionV), v);
+      bullet.shoot(origin, positionV, v);
       bullet.spawn(container);
     }
 
@@ -46,7 +46,7 @@ export class CAttackMaku extends CAttack {
         bullet.dencity = dencity;
         bullet.setDuration(applyExAttackDuration(bullet.lifetime.duration));
         const positionV = rotateVec(scaleVec(v, positionRadius + radius * 2), unitR * (i - Math.floor(count / 2)));
-        bullet.shoot(addVec(origin, positionV), v);
+        bullet.shoot(origin, positionV, v);
         bullet.spawn(container);
       }
     }

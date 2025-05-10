@@ -1,12 +1,14 @@
 import { Application, Graphics, Text } from "pixi.js";
 import { Projectile } from "./Projectile";
 import { CMovement } from "../../components/CMovement";
-import { Vec2 } from "../../utils/geo";
+import { scaleVec, Vec2 } from "../../utils/geo";
 
 export class ProjectileMaku extends Projectile {
   movement: CMovement = new CMovement(200, 1);
   radius = 10;
   protected fontSize = 8;
+  private positionOffsetPerFrame: Vec2 = { x: 0, y: 0 };
+  private offsetDuration = 20;
 
   constructor(app: Application, scale = 1) {
     super(app);
@@ -29,13 +31,23 @@ export class ProjectileMaku extends Projectile {
     this.dencity = 1;
   }
 
-  shoot(from: Vec2, direction: Vec2) {
+  shoot(from: Vec2, offset: Vec2, direction: Vec2) {
     this.container.position.x = from.x;
     this.container.position.y = from.y;
     this.movement.accelerate(direction);
+
+    const v = scaleVec(offset, 1 / this.offsetDuration);
+    this.positionOffsetPerFrame.x = v.x;
+    this.positionOffsetPerFrame.y = v.y;
   }
 
   move(deltaFrame: number): void {
+    const frame = this.lifetime.duration - this.lifetime.currentTime;
+    if (frame <= this.offsetDuration) {
+      this.container.x += this.positionOffsetPerFrame.x * deltaFrame;
+      this.container.y += this.positionOffsetPerFrame.y * deltaFrame;
+    }
+
     this.movement.move(this.container, deltaFrame);
   }
 }
