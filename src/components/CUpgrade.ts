@@ -99,7 +99,7 @@ export class CUpgrade {
                             {
                               id: "uzu+",
                               name: "渦+5",
-                              description: "新たな渦を生成する",
+                              description: "渦数倍増",
                               weight: 0.5,
                               children: [
                                 {
@@ -156,7 +156,7 @@ export class CUpgrade {
             {
               id: "nami+",
               name: "波+1",
-              description: "波数: +1\n弾強度: +1",
+              description: "波数: +1",
               weight: 1,
               children: [
                 {
@@ -180,7 +180,7 @@ export class CUpgrade {
                             {
                               id: "nami+",
                               name: "波+5",
-                              description: "新たな波を生成する",
+                              description: "波数倍増",
                               weight: 0.5,
                               children: [
                                 {
@@ -213,7 +213,7 @@ export class CUpgrade {
             {
               id: "tsubu+",
               name: "粒+1",
-              description: "粒数: +2\n弾強度: +1",
+              description: "粒数: +2",
               weight: 1,
               children: [
                 {
@@ -237,7 +237,7 @@ export class CUpgrade {
                             {
                               id: "tsubu+",
                               name: "粒+5",
-                              description: "より多くの粒を生成する",
+                              description: "粒数倍増",
                               weight: 0.5,
                               children: [
                                 {
@@ -262,22 +262,23 @@ export class CUpgrade {
         weight: 1,
       },
       {
+        weight: 1,
         item: {
           id: "tama+",
           name: "弾+1",
-          description: "大きな弾を生成する\n弾強度: 2",
+          description: "弾数: +1",
           weight: 1,
           children: [
             {
               id: "tama+",
               name: "弾+2",
-              description: "弾サイズ増加\n弾強度: 3",
+              description: "弾数: +1\n弾強度: +1",
               weight: 1,
               children: [
                 {
                   id: "tama+",
                   name: "弾+3",
-                  description: "弾サイズ増加\n弾強度: 4",
+                  description: "弾数: +2",
                   weight: 1,
                   children: [
                     {
@@ -289,7 +290,7 @@ export class CUpgrade {
                         {
                           id: "tama+",
                           name: "弾+5",
-                          description: "弾の移動速度を遅くする",
+                          description: "弾数倍増",
                           weight: 0.5,
                           children: [
                             {
@@ -309,7 +310,6 @@ export class CUpgrade {
             },
           ],
         },
-        weight: 1,
       },
     ]);
   }

@@ -5,7 +5,7 @@ import { Vec2 } from "../../utils/geo";
 
 export class ProjectileTama extends Projectile {
   movement: CMovement = new CMovement(400, 1);
-  protected radius = 10;
+  radius = 14;
   protected fontSize = 12;
 
   constructor(app: Application, scale = 1) {

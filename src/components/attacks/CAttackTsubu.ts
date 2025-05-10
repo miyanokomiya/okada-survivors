@@ -30,10 +30,8 @@ export class CAttackTsubu extends CAttack {
     }
 
     let dencity = 1;
-    if (this.level === 2) {
+    if (this.level === 3) {
       dencity = 2;
-    } else if (this.level === 3) {
-      dencity = 3;
     } else if (this.level >= 5) {
       dencity = Infinity;
     }

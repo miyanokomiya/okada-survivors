@@ -1,7 +1,7 @@
 import { Application, Container } from "pixi.js";
 import { ProjectileTama } from "../../entities/projectiles/ProjectileTama";
 import { CAttack } from "./CAttack";
-import { subVec } from "../../utils/geo";
+import { addVec, getRadian, rotateVec, subVec } from "../../utils/geo";
 import { getProjectileContainerBack } from "../../utils/containers";
 import { applyExAttackDuration, applyExAttackCooldown, applyExMaxDencity } from "../../utils/globalSettings";
 
@@ -16,41 +16,58 @@ export class CAttackTama extends CAttack {
     const closestEnemy = this.getClosestEnemy();
     if (!closestEnemy) return;
 
-    let scale = 1;
-    let speed = 400;
-    const base = 1.4;
+    let count = 1;
     if (this.level <= 1) {
-      scale = base;
+      count = 1;
     } else if (this.level <= 2) {
-      scale = base ** 2;
+      count = 2;
     } else if (this.level <= 3) {
-      scale = base ** 3;
+      count = 3;
     } else if (this.level <= 5) {
-      scale = base ** 4;
+      count = 5;
     } else {
-      scale = base ** 4 * 1.3 ** Math.max(0, this.level - 6);
-    }
-
-    if (this.level >= 6) {
-      speed = speed / 3;
+      count = 5 + Math.max(0, this.level - 6);
     }
 
     let dencity = 1;
-    if (this.level < 5) {
-      dencity = this.level;
-    } else {
+    if (this.level === 3) {
+      dencity = 2;
+    } else if (this.level >= 5) {
       dencity = Infinity;
     }
     dencity = applyExMaxDencity(dencity);
 
+    const v = subVec(closestEnemy.position, this.parent.position);
+    const vr = getRadian(v);
+    const positionRadius = count === 1 ? 0 : 14 / Math.sin(Math.PI / count);
     const container = getProjectileContainerBack(this.app);
-    const projectile = new ProjectileTama(this.app, scale);
-    projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
-    projectile.dencity = dencity;
-    projectile.movement.maxSpeed = speed;
-    const to = closestEnemy.position;
-    const v = subVec(to, this.parent.position);
-    projectile.shoot(this.parent.position, v);
-    projectile.spawn(container);
+    for (let i = 0; i < count; i++) {
+      const projectile = new ProjectileTama(this.app);
+      projectile.dencity = dencity;
+      projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+      projectile.shoot(
+        addVec(this.parent.position, rotateVec({ x: positionRadius, y: 0 }, vr + ((2 * Math.PI) / count) * i)),
+        v,
+      );
+      projectile.spawn(container);
+    }
+
+    if (this.level >= 6) {
+      const positionRadiusOuter = positionRadius + 14 * (count % 2 === 0 ? 2 : 1.5);
+      const vrOuter = vr + Math.PI;
+      for (let i = 0; i < count; i++) {
+        const projectile = new ProjectileTama(this.app);
+        projectile.dencity = dencity;
+        projectile.setDuration(applyExAttackDuration(projectile.lifetime.duration));
+        projectile.shoot(
+          addVec(
+            this.parent.position,
+            rotateVec({ x: positionRadiusOuter, y: 0 }, vrOuter + ((2 * Math.PI) / count) * i),
+          ),
+          v,
+        );
+        projectile.spawn(container);
+      }
+    }
   }
 }
