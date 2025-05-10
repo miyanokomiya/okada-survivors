@@ -70,7 +70,8 @@ export class CUpgrade {
         item: {
           id: "uzu",
           name: "渦",
-          description: "プレイヤーの周囲を渦状に移動する弾を生成する",
+          description: "プレイヤーの周囲を渦状に移動する弾を発射する",
+          initial: true,
           children: [
             {
               id: "uzu+",
@@ -128,6 +129,7 @@ export class CUpgrade {
           id: "nen",
           name: "熱",
           description: "継続ダメージを与える熱源をプレイヤーの周囲にランダムで生成する\n弾強度: 貫通",
+          initial: true,
           children: [
             {
               id: "nen+",
@@ -151,7 +153,8 @@ export class CUpgrade {
         item: {
           id: "nami",
           name: "波",
-          description: "敵に向けて波状に移動する弾を生成する\n初回ヒット時に新たな波を跳ね返す",
+          description: "敵に向けて波状に移動する弾を発射する\n初回ヒット時に新たな波を跳ね返す",
+          initial: true,
           children: [
             {
               id: "nami+",
@@ -208,7 +211,8 @@ export class CUpgrade {
         item: {
           id: "tsubu",
           name: "粒",
-          description: "敵に向けて散弾を生成する",
+          initial: true,
+          description: "敵に向けて粒を連射する",
           children: [
             {
               id: "tsubu+",
@@ -264,41 +268,49 @@ export class CUpgrade {
       {
         weight: 1,
         item: {
-          id: "tama+",
-          name: "弾+1",
-          description: "弾数: +1",
-          weight: 1,
+          id: "tama",
+          name: "弾",
+          description: "敵に向けて弾を発射する",
+          initial: true,
           children: [
             {
               id: "tama+",
-              name: "弾+2",
-              description: "弾数: +1\n弾強度: +1",
+              name: "弾+1",
+              description: "弾数: +1",
               weight: 1,
               children: [
                 {
                   id: "tama+",
-                  name: "弾+3",
-                  description: "弾数: +2",
+                  name: "弾+2",
+                  description: "弾数: +1\n弾強度: +1",
                   weight: 1,
                   children: [
                     {
                       id: "tama+",
-                      name: "弾+4",
-                      description: "貫通効果を付与する",
-                      weight: 0.7,
+                      name: "弾+3",
+                      description: "弾数: +2",
+                      weight: 1,
                       children: [
                         {
                           id: "tama+",
-                          name: "弾+5",
-                          description: "弾数倍増",
-                          weight: 0.5,
+                          name: "弾+4",
+                          description: "貫通効果を付与する",
+                          weight: 0.7,
                           children: [
                             {
                               id: "tama+",
-                              name: "弾++",
-                              description: "弾サイズ増加",
+                              name: "弾+5",
+                              description: "弾数倍増",
                               weight: 0.5,
-                              count: Infinity,
+                              children: [
+                                {
+                                  id: "tama+",
+                                  name: "弾++",
+                                  description: "弾数: +1",
+                                  weight: 0.5,
+                                  count: Infinity,
+                                },
+                              ],
                             },
                           ],
                         },
@@ -323,6 +335,22 @@ export class CUpgrade {
     while (ret.size < 3) {
       const item = this.table.getRandomItem();
       if (!item) break;
+      ret.add(item);
+    }
+    return Array.from(ret);
+  }
+
+  getInitialOptions(): Upgrade[] {
+    const initialItems = this.table.getAll().filter((item) => item.initial);
+    if (initialItems.length <= 3) {
+      return initialItems;
+    }
+
+    const ret: Set<Upgrade> = new Set();
+    while (ret.size < 3) {
+      const item = this.table.getRandomItem();
+      if (!item) break;
+      if (!item.initial) continue;
       ret.add(item);
     }
     return Array.from(ret);

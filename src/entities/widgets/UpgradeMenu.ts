@@ -45,11 +45,11 @@ export class UpgradeMenu extends Entity {
     this.container.addChild(this.selectedGraphics);
   }
 
-  display() {
+  display(initial = false) {
     this.selected = -1;
     this.chosen = false;
     this.selectedGraphics.visible = false;
-    const upgrades = this.upgradeComponent.getOptions();
+    const upgrades = initial ? this.upgradeComponent.getInitialOptions() : this.upgradeComponent.getOptions();
     this.upgrades = upgrades;
     if (upgrades.length === 0) return;
 
@@ -80,6 +80,9 @@ export class UpgradeMenu extends Entity {
 
   private chooseUpgrade(upgrade: Upgrade, button: Container) {
     this.chosen = true;
+    this.selected = -1;
+    this.selectedGraphics.visible = false;
+    button.zIndex = 1;
     button.position.x += button.width / 2;
     button.position.y += button.height / 2;
     button.pivot.set(button.width / 2, button.height / 2);
@@ -207,10 +210,7 @@ export class UpgradeMenu extends Entity {
 
     if (getSubmitInput(this.scene.keyPressState) && this.selected >= 0) {
       if (this.selected >= 0 && this.upgrades?.[this.selected]) {
-        this.chosen = true;
         this.chooseUpgrade(this.upgrades[this.selected], options[this.selected]);
-        this.selected = -1;
-        this.selectedGraphics.visible = false;
       }
     }
   }

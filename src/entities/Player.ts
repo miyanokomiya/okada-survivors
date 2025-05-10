@@ -69,7 +69,6 @@ export class Player extends Entity {
     this.knockback = new CKnockback(this.container);
     this.expPick = new CExpPick(this.app, this.container, this.hitboxForExp);
 
-    this.attacks.push(new CAttackTama(this.app, this.container));
     this.health.eventDeath.add(() => {
       this.onDeath();
     });

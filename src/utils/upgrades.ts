@@ -5,4 +5,5 @@ export type Upgrade = {
   children?: Upgrade[];
   weight?: number;
   count?: number;
+  initial?: boolean;
 };

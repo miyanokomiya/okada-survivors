@@ -201,6 +201,7 @@ export class MainScene extends SceneBase {
     });
 
     this.initWalls();
+    this.upgradeMenu.display(true);
   }
 
   initWalls() {
