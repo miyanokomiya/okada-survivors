@@ -9,7 +9,7 @@ export class CAttackNami extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
     this.name = "波";
-    this.shootTimer.duration = applyExAttackCooldown(150);
+    this.shootTimer.duration = applyExAttackCooldown(160);
   }
 
   shoot() {

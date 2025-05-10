@@ -9,7 +9,7 @@ export class CAttackTama extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
     this.name = "弾";
-    this.shootTimer.duration = applyExAttackCooldown(90);
+    this.shootTimer.duration = applyExAttackCooldown(100);
   }
 
   shoot() {
