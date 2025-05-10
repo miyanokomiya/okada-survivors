@@ -26,5 +26,5 @@ export function getPauseInput(keyState: Record<string, any>): boolean {
 }
 
 export function getTurboInput(keyState: Record<string, any>): boolean {
-  return keyState["o"];
+  return keyState["t"];
 }

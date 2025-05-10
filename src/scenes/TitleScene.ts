@@ -40,7 +40,7 @@ export class TitleScene extends SceneBase {
     });
 
     const guideText = new Text({
-      text: "Move: ← ↑ →, WASD, Virtual Joystick\nSelect: Pointer, Space",
+      text: "Move: ← ↑ →, WASD, Virtual Joystick\nSelect: Pointer, Space\nTurbo: T",
       style: { fontSize: 18, fill: 0x000000, fontWeight: "400" },
     });
     guideText.anchor.set(0.5, 0);
