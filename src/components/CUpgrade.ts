@@ -29,7 +29,7 @@ export class CUpgrade {
         item: {
           id: "heal",
           name: "回復",
-          description: `体力を${Math.round(applyExHeal(100))}%回復する`,
+          description: `体力を${Math.round(applyExHeal(80))}%回復する`,
           count: Infinity,
         },
         weight: 0.5,

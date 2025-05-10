@@ -134,7 +134,7 @@ export class Player extends Entity {
   upgrade(upgrade: Upgrade) {
     switch (upgrade.id) {
       case "heal":
-        this.health.heal(applyExHeal(this.health.maxHealth));
+        this.health.heal(applyExHeal(Math.ceil(this.health.maxHealth * 0.8)));
         break;
       case "attract":
         this.hitboxForExp.collisions = [
