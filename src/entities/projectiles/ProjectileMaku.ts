@@ -5,7 +5,7 @@ import { scaleVec, Vec2 } from "../../utils/geo";
 
 export class ProjectileMaku extends Projectile {
   movement: CMovement = new CMovement(200, 1);
-  radius = 10;
+  radius = 11;
   protected fontSize = 8;
   private positionOffsetPerFrame: Vec2 = { x: 0, y: 0 };
   private offsetDuration = 20;

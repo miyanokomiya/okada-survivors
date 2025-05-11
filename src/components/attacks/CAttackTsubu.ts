@@ -9,7 +9,7 @@ export class CAttackTsubu extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
     this.name = "粒";
-    this.shootTimer.duration = applyExAttackCooldown(130);
+    this.shootTimer.duration = applyExAttackCooldown(115);
   }
 
   shoot() {
@@ -41,7 +41,7 @@ export class CAttackTsubu extends CAttack {
     const to = closestEnemy.position;
     const v = subVec(to, this.parent.position);
 
-    const unitR = Math.PI / 20;
+    const unitR = Math.PI / 30;
     const delay = 20 / count;
 
     for (let i = 0; i < count; i++) {

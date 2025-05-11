@@ -9,7 +9,7 @@ export class ProjectileTsubu extends Projectile {
   constructor(app: Application) {
     super(app);
 
-    const radius = 8
+    const radius = 9
     const fontSize = 8;
     const graphics = new Graphics().circle(0, 0, radius).fill(0xffffff).stroke({ color: 0x000000, width: 2 });
     this.container.addChild(graphics);

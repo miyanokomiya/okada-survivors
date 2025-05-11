@@ -9,7 +9,7 @@ export class CAttackMaku extends CAttack {
   constructor(app: Application, parent: Container) {
     super(app, parent);
     this.name = "幕";
-    this.shootTimer.duration = applyExAttackCooldown(130);
+    this.shootTimer.duration = applyExAttackCooldown(115);
   }
 
   shoot() {
